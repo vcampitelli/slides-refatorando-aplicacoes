@@ -1,4 +1,4 @@
-/*!999999\- enable the sandbox mode */ 
+/*!999999\- enable the sandbox mode */
 -- MariaDB dump 10.19-11.4.2-MariaDB, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: app
@@ -55,9 +55,11 @@ CREATE TABLE `products` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `id_category` mediumint(8) unsigned NOT NULL,
   `name` varchar(100) NOT NULL,
+  `sku` char(10) NOT NULL,
   `price` decimal(6,2) NOT NULL,
   `active` tinyint(1) unsigned NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
+  UNIQUE KEY (`sku`),
   KEY `products_ibfk_1` (`id_category`),
   CONSTRAINT `products_ibfk_1` FOREIGN KEY (`id_category`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
@@ -70,11 +72,11 @@ CREATE TABLE `products` (
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 INSERT INTO `products` VALUES
-(1,1,'Patinete infantil',200.00,1),
-(2,1,'Trator a bateria',1949.00,1),
-(3,2,'Geladeira',1799.00,1),
-(4,2,'Fritadeira elétrica',269.00,1),
-(5,3,'Desinfetante',8.99,1);
+(1,1,'Patinete infantil','0000000001',200.00,1),
+(2,1,'Trator a bateria','0000000002',1949.00,1),
+(3,2,'Geladeira','0000000003',1799.00,1),
+(4,2,'Fritadeira elétrica','0000000004',269.00,1),
+(5,3,'Desinfetante','0000000005',8.99,1);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

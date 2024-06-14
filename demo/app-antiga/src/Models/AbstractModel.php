@@ -49,7 +49,7 @@ abstract class AbstractModel implements \JsonSerializable
      */
     public static function findAll(): array
     {
-        $baseModel = self::getInstance();
+        $baseModel = static::getInstance();
         $database = $baseModel->getDatabase();
 
         $data = [];
@@ -62,7 +62,7 @@ abstract class AbstractModel implements \JsonSerializable
 
     public static function find($id): ?AbstractModel
     {
-        $baseModel = self::getInstance();
+        $baseModel = static::getInstance();
         $database = $baseModel->getDatabase();
 
         $model = null;
@@ -75,10 +75,19 @@ abstract class AbstractModel implements \JsonSerializable
     public function save(): void
     {
         $database = $this->getDatabase();
-        $database->insert($this->getTableName(), $this->jsonSerialize());
-        $id = (int) $database->id();
-        if ($id < 1) {
-            throw new \Exception('Erro ao salvar item');
+
+        $id = $this->getId();
+        if ($id === null) {
+            $database->insert($this->getTableName(), $this->jsonSerialize());
+            $id = (int) $database->id();
+            if ($id < 1) {
+                throw new \Exception('Erro ao inserir item');
+            }
+        } else {
+            $result = $database->update($this->getTableName(), $this->jsonSerialize(), ['id' => $id]);
+            if ($result === null) {
+                throw new \Exception('Erro ao atualizar item');
+            }
         }
         $this->setId($id);
     }

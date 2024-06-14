@@ -2,12 +2,19 @@
     "name": "vcampitelli/app-antiga",
     "description": "Uma aplicação legada e feia",
     "keywords": [
-        "microframework",
-        "rest",
-        "router",
-        "psr7"
+        "api",
+        "refactoring",
+        "refatoracao",
+        "qualidade",
+        "solid",
+        "object calisthenics",
+        "clean code",
+        "codigo limpo",
+        "clean architecture",
+        "arquitetura limpa"
     ],
-    "homepage": "http://github.com/slimphp/Slim-Skeleton",
+    "homepage": "https://github.com/vcampitelli/slides-refatorando-aplicacoes",
+    "type": "project",
     "license": "MIT",
     "authors": [
         {
@@ -23,7 +30,8 @@
         "monolog/monolog": "^2.8",
         "php-di/php-di": "^6.4",
         "slim/psr7": "^1.5",
-        "slim/slim": "^4.10"
+        "slim/slim": "^4.10",
+        "symfony/console": "^7.1"
     },
     "config": {
         "process-timeout": 0,

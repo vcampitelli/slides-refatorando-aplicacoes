@@ -9,7 +9,9 @@ class Product extends AbstractModel
     private int $id;
     private int $idCategory;
     private string $name;
+    private string $sku;
     private float $price;
+    private bool $active;
 
     public function getId(): ?int
     {
@@ -60,11 +62,32 @@ class Product extends AbstractModel
     {
         $this->active = (bool) $active;
     }
-    private bool $active;
+
+    public function getSku(): string
+    {
+        return $this->sku;
+    }
+
+    public function setSku(string $sku): void
+    {
+        $this->sku = $sku;
+    }
 
     protected function getTableName(): string
     {
         return 'products';
+    }
+
+    public static function findBySku(string $sku): ?Product
+    {
+        $baseModel = static::getInstance();
+        $database = $baseModel->getDatabase();
+
+        $model = null;
+        $database->select('products', '*', ['sku' => $sku], function ($row) use ($baseModel, &$model) {
+            $model = $baseModel->model($row);
+        });
+        return $model;
     }
 
     public function jsonSerialize(): array
@@ -73,6 +96,7 @@ class Product extends AbstractModel
             'id' => $this->getId(),
             'id_category' => $this->getIdCategory(),
             'name' => $this->getName(),
+            'sku' => $this->getSku(),
             'price' => $this->getPrice(),
         ];
     }
