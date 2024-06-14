@@ -1,0 +1,29 @@
+services:
+  app:
+    build:
+      context: .
+    working_dir: /app
+    command: php -S 0.0.0.0:8080 -t public
+    environment:
+      docker: "true"
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+      - logs:/app/logs
+
+  db:
+    image: mariadb:11
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+    volumes:
+      - db:/var/lib/mysql
+      - ./var/db.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  db:
+    driver: local
+  logs:
+    driver: local
