@@ -1,0 +1,56 @@
+{
+    "name": "vcampitelli/app-nova",
+    "description": "Uma aplicação refatorada e de fácil manutenção",
+    "keywords": [
+        "api",
+        "refactoring",
+        "refatoracao",
+        "qualidade",
+        "solid",
+        "object calisthenics",
+        "clean code",
+        "codigo limpo",
+        "clean architecture",
+        "arquitetura limpa"
+    ],
+    "homepage": "https://github.com/vcampitelli/slides-refatorando-aplicacoes",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vinícius Campitelli",
+            "email": "1877191+vcampitelli@users.noreply.github.com",
+            "homepage": "https://www.viniciuscampitelli.com/"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "ext-json": "*",
+        "catfan/medoo": "^2.1",
+        "monolog/monolog": "^2.8",
+        "php-di/php-di": "^6.4",
+        "slim/psr7": "^1.5",
+        "slim/slim": "^4.10",
+        "symfony/console": "^7.1"
+    },
+    "require-dev": {
+        "phpmd/phpmd": "^2.15",
+        "phpstan/phpstan": "^1.11",
+        "squizlabs/php_codesniffer": "^3.10"
+    },
+    "config": {
+        "process-timeout": 0,
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "scripts": {
+        "start": "php -S localhost:8080 -t public",
+        "phpcs": "phpcs",
+        "phpmd": "phpmd app/,bin/,src/ ansi phpmd.xml",
+        "phpstan": "phpstan"
+    }
+}

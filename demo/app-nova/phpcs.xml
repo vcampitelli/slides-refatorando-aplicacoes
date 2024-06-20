@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ruleset name="PHPCS Standard">
+    <description>Padrão de codificação do meu sistema</description>
+
+    <!-- display progress -->
+    <arg value="p"/>
+    <!-- use colors in output -->
+    <arg name="colors"/>
+
+    <!-- inherit rules from: -->
+    <rule ref="PSR12"/>
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+
+    <!-- Paths to check -->
+    <file>app</file>
+    <file>bin</file>
+    <file>src</file>
+    <file>tests</file>
+</ruleset>

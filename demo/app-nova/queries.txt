@@ -1,0 +1,13 @@
+curl localhost:8080/products
+curl localhost:8080/products/1
+curl localhost:8080/products/10
+curl -X POST localhost:8080/products
+curl -X POST -d 'id_category=erro' localhost:8080/products
+curl -X POST -d 'id_category=1' localhost:8080/products
+curl -X POST -d 'id_category=1&name=A' localhost:8080/products
+curl -X POST -d 'id_category=1&name=Meu+nome+de+produto+muito+grande' localhost:8080/products
+curl -X POST -d 'id_category=1&name=Meu+produto' localhost:8080/products
+curl -X POST -d 'id_category=1&name=Meu+produto&price=0' localhost:8080/products
+curl -X POST -d 'id_category=1&name=Meu+produto&price=10' localhost:8080/products
+curl -X POST -d 'id_category=1&name=Meu+produto&price=10&sku=TESTE' localhost:8080/products
+curl -X POST -d 'id_category=1&name=Meu+produto&price=10&sku=TESTE00000' localhost:8080/products
