@@ -38,6 +38,6 @@ readonly class CreateProductController extends AbstractController
         );
         $this->productRepository->save($product);
 
-        return $this->json($response, $product);
+        return $this->response($response, $product);
     }
 }

@@ -2,25 +2,27 @@
 
 declare(strict_types=1);
 
+use App\Application\Settings\SettingsInterface;
 use App\Persistence\DatabaseAdapterInterface;
-use App\Persistence\MedooDatabaseAdapter;
+use App\Persistence\Pdo\PdoWrapper;
+use App\Persistence\PdoDatabaseAdapter;
 use DI\ContainerBuilder;
-use Medoo\Medoo;
 
 use function DI\autowire;
 
 return function (ContainerBuilder $containerBuilder) {
-    // Here we map our UserRepository interface to its in memory implementation
     $containerBuilder->addDefinitions([
-        Medoo::class => function () {
-            return new Medoo([
-                'type' => $_ENV['DATABASE_TYPE'],
-                'host' => $_ENV['DATABASE_HOST'],
-                'database' => $_ENV['DATABASE_DATABASE'],
-                'username' => $_ENV['DATABASE_USERNAME'],
-                'password' => $_ENV['DATABASE_PASSWORD'],
-            ]);
+        PdoWrapper::class => function (SettingsInterface $settings) {
+            $config = $settings->get('database');
+            return new PdoWrapper(
+                $config['dsn'],
+                $config['username'],
+                $config['password'],
+                [
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                ]
+            );
         },
-        DatabaseAdapterInterface::class => autowire(MedooDatabaseAdapter::class),
+        DatabaseAdapterInterface::class => autowire(PdoDatabaseAdapter::class),
     ]);
 };

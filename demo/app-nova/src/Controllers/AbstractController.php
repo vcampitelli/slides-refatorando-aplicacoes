@@ -13,9 +13,12 @@ use const JSON_PRETTY_PRINT;
 readonly abstract class AbstractController
 {
     /**
+     * @param Response $response
      * @param object|array|null $data
+     * @param int $statusCode
+     * @return Response
      */
-    protected function json(Response $response, object|array $data = null, int $statusCode = 200): Response
+    protected function response(Response $response, object|array $data = null, int $statusCode = 200): Response
     {
         $payload = new ActionPayload($statusCode, $data);
 

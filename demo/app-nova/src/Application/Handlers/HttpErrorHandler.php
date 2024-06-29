@@ -58,6 +58,13 @@ class HttpErrorHandler extends SlimErrorHandler
             $error->setDescription($exception->getMessage());
         }
 
+        if ($previous = $exception->getPrevious()) {
+            $error->setDescription(
+                "{$error->getDescription()}: {$previous->getMessage()}"
+            );
+        }
+        $error->setTrace($exception->getTrace());
+
         $payload = new ActionPayload($statusCode, null, $error);
         $encodedPayload = json_encode($payload, JSON_PRETTY_PRINT);
 

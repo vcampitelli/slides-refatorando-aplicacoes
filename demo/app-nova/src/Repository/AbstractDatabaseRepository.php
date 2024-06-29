@@ -5,40 +5,63 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Collection\CollectionInterface;
-use App\Collection\ProductCollection;
 use App\Models\ModelInterface;
-use App\Models\Product;
 use App\Persistence\DatabaseAdapterInterface;
 use stdClass;
 
+/**
+ * @template TCollection of CollectionInterface
+ * @template TModel of ModelInterface
+ */
 abstract class AbstractDatabaseRepository
 {
-    public function __construct(protected readonly DatabaseAdapterInterface $databaseAdapter)
+    public function __construct(public readonly DatabaseAdapterInterface $databaseAdapter)
     {
     }
 
+    /**
+     * @return TCollection
+     */
     protected function doFindAll(): CollectionInterface
     {
-        return $this->databaseAdapter->findAll(
-            $this->getTableName(),
-            $this->collection(),
-        );
+        $collection = $this->collection();
+        foreach ($this->databaseAdapter->findAll($this->getTableName()) as $row) {
+            $collection->add($this->unserialize($row));
+        }
+        return $collection;
     }
 
+    /**
+     * @param int $id
+     * @return TModel|null
+     */
     protected function doFindById(int $id): ?ModelInterface
     {
-        return $this->doFindBy(['id' => $id]);
+        return $this->doFindBy(['id = ?' => $id]);
     }
 
+    /**
+     * @param array $where
+     * @return TModel|null
+     */
     protected function doFindBy(array $where): ?ModelInterface
     {
         $row = $this->databaseAdapter->findOneBy(
             $this->getTableName(),
             $where
         );
-        return ($row === null) ? null : $this->unserialize($row);
+
+        if ($row === null) {
+            return null;
+        }
+
+        return $this->unserialize($row);
     }
 
+    /**
+     * @param TModel $model
+     * @return TModel
+     */
     protected function doSave(ModelInterface $model): ModelInterface
     {
         $id = $model->getId();
@@ -53,18 +76,29 @@ abstract class AbstractDatabaseRepository
         $this->databaseAdapter->update(
             $this->getTableName(),
             $this->serialize($model),
-            ['id' => $id]
+            ['id = ?' => $id]
         );
         return $model;
     }
 
 
+    /**
+     * @return TCollection
+     */
     abstract protected function collection(): CollectionInterface;
 
     abstract protected function getTableName(): string;
 
+    /**
+     * @param TModel $model
+     * @return stdClass
+     * @throws \InvalidArgumentException If the model is not the one for this repository
+     */
     abstract protected function serialize(ModelInterface $model): stdClass;
 
+    /**
+     * @param stdClass $row
+     * @return TModel
+     */
     abstract protected function unserialize(stdClass $row): ModelInterface;
-
 }

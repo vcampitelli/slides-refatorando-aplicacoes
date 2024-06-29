@@ -2,23 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Commands;
+namespace App\Console\Commands;
 
 use App\Models\Product;
-use Exception;
-use RuntimeException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-
-use function fclose;
-use function fgetcsv;
-use function fopen;
-use function pathinfo;
-use function realpath;
 
 // the name of the command is what users type after "php bin/console"
 #[AsCommand(
@@ -41,17 +33,17 @@ class ImportProductsCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         $io->title('Importador de produtos');
-        $file = realpath($input->getArgument('file'));
+        $file = \realpath($input->getArgument('file'));
         if ($file === false) {
-            throw new Exception("Arquivo inexistente: {$input->getArgument('file')}");
+            throw new \Exception("Arquivo inexistente: {$input->getArgument('file')}");
         }
         $io->text("Lendo arquivo {$file}...");
 
-        $extension = pathinfo($file, PATHINFO_EXTENSION);
+        $extension = \pathinfo($file, PATHINFO_EXTENSION);
         $result = match ($extension) {
             'csv' => $this->importCsv($io, $file),
             'xlsx' => $this->importXlsx($io, $file),
-            default => throw new RuntimeException('Extensão inválida'),
+            default => throw new \RuntimeException('Extensão inválida'),
         };
 
         $io->newLine(2);
@@ -69,16 +61,16 @@ class ImportProductsCommand extends Command
 
     protected function importCsv(SymfonyStyle $io, string $file): array
     {
-        $handler = fopen($file, 'r');
+        $handler = \fopen($file, 'r');
         if ($handler === false) {
-            throw new RuntimeException('Erro ao abrir arquivo');
+            throw new \RuntimeException('Erro ao abrir arquivo');
         }
 
         $progress = $io->createProgressBar();
 
         $total = 0;
         $success = 0;
-        while (($row = fgetcsv($handler, 1000, ";")) !== false) {
+        while (($row = \fgetcsv($handler, 1000, ";")) !== false) {
             $progress->advance();
             $total++;
 
@@ -135,7 +127,7 @@ class ImportProductsCommand extends Command
             $produto->setActive((bool) $row[4]);
             try {
                 $produto->save();
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $io->error("Linha {$total}: {$e->getMessage()}");
                 continue;
             }
@@ -144,7 +136,7 @@ class ImportProductsCommand extends Command
         }
 
         $progress->finish();
-        fclose($handler);
+        \fclose($handler);
 
         return [
             'error' => $total - $success,

@@ -6,10 +6,14 @@ namespace App\Repository;
 
 use App\Collection\CollectionInterface;
 use App\Collection\ProductCollection;
+use App\Models\ModelInterface;
 use App\Models\Product;
 use App\Persistence\DatabaseAdapterInterface;
 use stdClass;
 
+/**
+ * @extends AbstractDatabaseRepository<ProductCollection, Product>
+ */
 class DatabaseProductRepository extends AbstractDatabaseRepository implements ProductRepositoryInterface
 {
     public function findAll(): ProductCollection
@@ -24,11 +28,12 @@ class DatabaseProductRepository extends AbstractDatabaseRepository implements Pr
 
     public function findBySku(string $sku): ?Product
     {
-        return $this->doFindBy(['sku' => $sku]);
+        return $this->doFindBy(['sku = ?' => $sku]);
     }
 
-    public function save(Product $product): void
+    public function save(Product $product): Product
     {
+        return $this->doSave($product);
     }
 
     protected function getTableName(): string
@@ -36,8 +41,11 @@ class DatabaseProductRepository extends AbstractDatabaseRepository implements Pr
         return 'products';
     }
 
-    protected function serialize(Product $model): stdClass
+    protected function serialize(ModelInterface $model): stdClass
     {
+        if (!$model instanceof Product) {
+            throw new \InvalidArgumentException();
+        }
         $object = new stdClass();
         $object->id = (isset($model->id)) ? $model->id : null;
         $object->idCategory = (isset($model->idCategory)) ? $model->idCategory : null;
@@ -52,7 +60,7 @@ class DatabaseProductRepository extends AbstractDatabaseRepository implements Pr
     {
         return new Product(
             id: (isset($row->id)) ? (int) $row->id : null,
-            idCategory: (isset($row->idCategory)) ? (int) $row->idCategory : null,
+            idCategory: (int) $row->id_category,
             name: $row->name,
             sku: $row->sku,
             price: (float) $row->price,

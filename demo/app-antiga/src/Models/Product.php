@@ -6,12 +6,12 @@ namespace App\Models;
 
 class Product extends AbstractModel
 {
-    private int $id;
-    private int $idCategory;
-    private string $name;
-    private string $sku;
-    private float $price;
-    private bool $active;
+    private ?int $id = null;
+    private ?int $idCategory = null;
+    private string $name = '';
+    private string $sku = '';
+    private float $price = 0.0;
+    private bool $active = true;
 
     public function getId(): ?int
     {

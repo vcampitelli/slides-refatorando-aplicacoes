@@ -83,7 +83,7 @@ readonly class BulkCreateProductController extends AbstractController
             }
         }
 
-        return $this->json($response, [
+        return $this->response($response, [
             'success' => $count,
             'errors' => array_filter($errors),
         ]);

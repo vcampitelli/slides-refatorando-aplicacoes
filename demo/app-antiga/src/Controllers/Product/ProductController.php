@@ -6,7 +6,7 @@ namespace App\Controllers\Product;
 
 use App\Controllers\AbstractController;
 use App\Models\Product;
-use Psr\Http\Message\RequestInterface as Request;
+use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
 class ProductController extends AbstractController
@@ -22,7 +22,7 @@ class ProductController extends AbstractController
     {
         $products = Product::findAll();
 
-        return $this->json($response, $products);
+        return $this->response($response, $products);
     }
 
     /**
@@ -37,7 +37,7 @@ class ProductController extends AbstractController
     {
         $product = Product::find($args['id']);
 
-        return $this->json($response, $product, ($product === null) ? 404 : 200);
+        return $this->response($response, $product, ($product === null) ? 404 : 200);
     }
 
     /**
@@ -93,7 +93,7 @@ class ProductController extends AbstractController
         $product->setActive(true);
         $product->save();
 
-        return $this->json($response, $product);
+        return $this->response($response, $product);
     }
 
     /**
@@ -163,7 +163,7 @@ class ProductController extends AbstractController
             }
         }
 
-        return $this->json($response, [
+        return $this->response($response, [
             'success' => $count,
             'errors' => array_filter($errors),
         ]);

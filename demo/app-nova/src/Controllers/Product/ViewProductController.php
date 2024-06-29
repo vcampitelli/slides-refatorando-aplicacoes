@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace App\Controllers\Product;
 
 use App\Controllers\AbstractController;
-use App\Models\Product;
-use App\Repository\ProductRepositoryInterface;
+use App\UseCases\ViewProductUseCase;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
 readonly class ViewProductController extends AbstractController
 {
-    public function __construct(private ProductRepositoryInterface $productRepository)
+    public function __construct(private ViewProductUseCase $useCase)
     {
     }
 
@@ -26,8 +25,12 @@ readonly class ViewProductController extends AbstractController
      */
     public function __invoke(Request $request, Response $response, array $args): Response
     {
-        $product = $this->productRepository->findById((int) $args['id']);
+        $output = $this->useCase->handle((int) $args['id']);
 
-        return $this->json($response, $product, ($product === null) ? 404 : 200);
+        return $this->response(
+            $response,
+            $output->product,
+            ($output->product === null) ? 404 : 200
+        );
     }
 }

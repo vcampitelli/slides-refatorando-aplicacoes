@@ -27,6 +27,6 @@ readonly class ListProductController extends AbstractController
     {
         $products = $this->productRepository->findAll();
 
-        return $this->json($response, $products);
+        return $this->response($response, $products);
     }
 }

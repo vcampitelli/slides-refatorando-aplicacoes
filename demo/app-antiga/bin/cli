@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-use App\Commands\ImportProductsCommand;
+use App\Console\Commands\ImportProductsCommand;
 use Symfony\Component\Console\Application;
 
 require __DIR__ . '/../vendor/autoload.php';

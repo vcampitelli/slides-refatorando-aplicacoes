@@ -15,5 +15,5 @@ interface ProductRepositoryInterface
 
     public function findBySku(string $sku): ?Product;
 
-    public function save(Product $product): void;
+    public function save(Product $product): Product;
 }

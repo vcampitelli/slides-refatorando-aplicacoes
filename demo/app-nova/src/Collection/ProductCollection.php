@@ -8,6 +8,9 @@ use App\Models\Product;
 use ArrayIterator;
 use InvalidArgumentException;
 
+/**
+ * @implements CollectionInterface<Product>
+ */
 class ProductCollection implements CollectionInterface
 {
     /**
@@ -30,6 +33,9 @@ class ProductCollection implements CollectionInterface
         $this->products[] = $object;
     }
 
+    /**
+     * @return ArrayIterator<int, Product>
+     */
     public function getIterator(): \Traversable
     {
         return new ArrayIterator($this->products);

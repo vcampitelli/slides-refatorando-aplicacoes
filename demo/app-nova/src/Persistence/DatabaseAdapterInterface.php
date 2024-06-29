@@ -5,19 +5,16 @@ declare(strict_types=1);
 namespace App\Persistence;
 
 use App\Collection\CollectionInterface;
+use Generator;
 use stdClass;
 
 interface DatabaseAdapterInterface
 {
     /**
      * @param string $tableName
-     * @param CollectionInterface $collection
-     * @return CollectionInterface
+     * @return Generator<stdClass>
      */
-    public function findAll(
-        string $tableName,
-        CollectionInterface $collection,
-    ): CollectionInterface;
+    public function findAll(string $tableName): Generator;
 
     public function findOneBy(
         string $tableName,
