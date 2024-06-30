@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Controllers\Product;
 
 use App\Controllers\AbstractController;
-use App\UseCases\ViewProductUseCase;
-use Psr\Http\Message\ServerRequestInterface as Request;
+use App\UseCases\Product\ViewProductUseCase;
+use App\UseCases\Product\ViewProductUseCaseInput;
 use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
 readonly class ViewProductController extends AbstractController
 {
@@ -25,7 +26,9 @@ readonly class ViewProductController extends AbstractController
      */
     public function __invoke(Request $request, Response $response, array $args): Response
     {
-        $output = $this->useCase->handle((int) $args['id']);
+        $output = $this->useCase->handle(
+            new ViewProductUseCaseInput((int) $args['id'])
+        );
 
         return $this->response(
             $response,

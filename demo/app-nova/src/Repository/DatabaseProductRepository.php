@@ -48,7 +48,7 @@ class DatabaseProductRepository extends AbstractDatabaseRepository implements Pr
         }
         $object = new stdClass();
         $object->id = (isset($model->id)) ? $model->id : null;
-        $object->idCategory = (isset($model->idCategory)) ? $model->idCategory : null;
+        $object->id_category = (isset($model->idCategory)) ? $model->idCategory : null;
         $object->name = $model->name;
         $object->sku = $model->sku;
         $object->price = $model->price;

@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace App\Controllers\Product;
 
 use App\Controllers\AbstractController;
-use App\Models\Product;
-use App\Repository\ProductRepositoryInterface;
+use App\UseCases\Product\CreateProductUseCase;
+use App\UseCases\Product\CreateProductUseCaseInput;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Exception\HttpBadRequestException;
 
 readonly class CreateProductController extends AbstractController
 {
-    public function __construct(private ProductRepositoryInterface $productRepository)
+    public function __construct(private CreateProductUseCase $useCase)
     {
     }
 
@@ -28,16 +29,29 @@ readonly class CreateProductController extends AbstractController
     {
         $body = $request->getParsedBody();
 
-        $product = new Product(
-            id: null,
-            idCategory: $body['id_category'],
-            name: $body['name'],
-            sku: $body['sku'],
-            price: $body['price'],
-            active: true,
-        );
-        $this->productRepository->save($product);
+        if (!isset($body['id_category'])) {
+            throw new HttpBadRequestException($request, 'Categoria não informada');
+        }
+        if (!isset($body['name'])) {
+            throw new HttpBadRequestException($request, 'Nome não informado');
+        }
+        if (!isset($body['sku'])) {
+            throw new HttpBadRequestException($request, 'SKU não informado');
+        }
+        if (!isset($body['price'])) {
+            throw new HttpBadRequestException($request, 'Preço não informado');
+        }
 
-        return $this->response($response, $product);
+        $output = $this->useCase->handle(
+            new CreateProductUseCaseInput(
+                idCategory: (int) $body['id_category'],
+                name: $body['name'],
+                sku: $body['sku'],
+                price: (float) $body['price'],
+                active: true,
+            )
+        );
+
+        return $this->response($response, $output->product);
     }
 }

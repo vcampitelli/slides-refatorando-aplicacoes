@@ -40,4 +40,9 @@ class ProductCollection implements CollectionInterface
     {
         return new ArrayIterator($this->products);
     }
+
+    public function jsonSerialize(): mixed
+    {
+        return $this->products;
+    }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\UseCases;
+namespace App\UseCases\Product;
 
 use App\Models\Product;
 

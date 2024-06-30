@@ -8,7 +8,6 @@ use App\Persistence\Pdo\PdoStatementException;
 
 class InsertPdoStatement extends AbstractPdoStatement
 {
-
     /**
      * @param string $table
      * @param array  $values
