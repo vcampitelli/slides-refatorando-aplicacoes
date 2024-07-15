@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Refatorando aplicações na prática</title>
+
+        <link rel="stylesheet" href="reveal.js/dist/reset.css">
+        <link rel="stylesheet" href="reveal.js/dist/reveal.css">
+        <link rel="stylesheet" href="reveal.js/dist/theme/black.css">
+
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/dracula.min.css"
+              integrity="sha512-zKpFlhUX8c+WC6H/XTJavnEpWFt2zH9BU9vu0Hry5Y+SEgG21pRMFcecS7DgDXIegXBQ3uK9puwWPP3h6WSR9g=="
+              crossorigin="anonymous" referrerpolicy="no-referrer">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet"
+              href="https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&family=JetBrains+Mono&display=swap">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <section>
+                        <h1>Passos</h1>
+                    </section>
+                    <section>
+                        <h1>Passos</h1>
+                        <h2><em>Linting</em></h2>
+                        <p>
+                            Instale ferramentas de análise estática e <em>linting</em>, defina as regras e executa a
+                            ferramenta que corrige automaticamente o estilo do código
+                        </p>
+                        <ul>
+                            <li>PHP: PHPCS</li>
+                            <li>JavaScript: eslint, prettier</li>
+                            <li>Python: Pylint, Flake8</li>
+                            <li>Ruby: Rubocop</li>
+                            <li>Java: Checkstyle</li>
+                        </ul>
+                        <p>
+                            Configure o <em>plugin</em> da ferramenta na sua IDE para garantir que está escrevendo
+                            código de acordo com o formato configurado e adicione uma etapa no CI para rodar a checagem
+                        </p>
+                    </section>
+                    <section>
+                        <h1>Passos</h1>
+                        <h2>Testes - Parte 1</h2>
+                        <p>
+                            Antes de começar a refatorar, crie simples testes de contrato de suas <em>controllers</em>
+                            para que você possa ter mais confiança que não irá quebrar suas APIs
+                        </p>
+                        <p>
+                            Adicione também uma etapa no CI para rodar esses testes e barrar PRs ou <em>commits</em> que
+                            não passem
+                        </p>
+                    </section>
+                    <section>
+                        <h1>Passos</h1>
+                        <h2>Uma ação por <em>controller</em></h2>
+                        <p>
+                            Ao invés de ter grandes <em>controllers</em> com vários <em>endpoints</em>, sugiro
+                            dividi-los para que cada <em>endpoint</em> tenha sua própria classe (ou função, no caso de
+                            JavaScript)
+                        </p>
+                    </section>
+                    <section>
+                        <h1>Passos</h1>
+                        <h2>Isolamento de responsabilidades</h2>
+                        <h3>Mantenha suas <em>controllers</em> leves</h3>
+                        <div class="d-flex cols-2">
+                            <div>
+                                <p>
+                                    A <em>controller</em> deve ser apenas uma forma de traduzir o protocolo de entrada
+                                    (HTTP) para a execução das regras de negócio do seu sistema
+                                </p>
+                                <p>
+                                    Então, extraia as regras de negócio de suas <em>controllers</em> para novos serviços
+                                    (a <em>Clean Architecture</em> chama isso de <em>Use Case</em>)
+                                </p>
+                            </div>
+                            <div>
+                                <pre><code class="php" data-trim>
+                                    class ProductController {
+                                        public function create(Request $request) {
+                                            $name = $request->get('name');
+                                            $price = $request->get('price');
+                                            $description = $request->get('description');
+                                            $idCategory = $request->get('id_category');
+
+                                            if (empty($name)) { /* ... */ }
+                                            if ((empty($price)) || ($price <= 0)) { /* ... */ }
+                                            // validação dos outros campos...
+
+                                            if (!user()->authorized('PRODUCT_CREATE')) {
+                                                return response(403, 'Você não tem permissão a esse recurso');
+                                            }
+
+                                            $category = $this->categoryRepository->findById($idCategory);
+                                            if ((!$category) || (!$category->active)) {
+                                                return response(404, 'Categoria não encontrada');
+                                            }
+
+                                            $product = new Product($name, $description, $price, $category);
+                                            $this->productRepository->save($product);
+
+                                            return response(201);
+                                        }
+                                    }
+                                </code></pre>
+
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <h1>Passos</h1>
+                        <h2>Isolamento de responsabilidades</h2>
+                        <h3>Regras de negócio</h3>
+                        <div class="d-flex cols-2">
+                            <div>
+                                <p>
+                                    Levante regras de negócio espalhadas e centralize-as no serviço criado anteriormente
+                                </p>
+                                <p>
+                                    Caso encontre discrepâncias, será preciso determinar qual regra é correta
+                                </p>
+                            </div>
+                            <div>
+                                <pre><code class="php" data-trim>
+                                    class CreateProductUseCase {
+                                        public function handle(CreateProductUseCaseInput $input) {}
+                                    }
+                                    class ProductController {}
+                                </code></pre>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <h1>Passos</h1>
+                        <h2>Regras de negócio</h2>
+                        começar a centralizar regras de negócio e/ou validações na model
+                        model: separar banco de dados das regras de negócio - criar um repository?
+                        voltar na model: separar implementação do banco de dados
+                        refatorar os testes / criar testes de unidade e testes de integração
+                    </section>
+                    <section>
+                        <h1>Passos</h1>
+                        <h2><em>Exceptions</em></h2>
+                        <p>
+                            Crie <em>exceptions</em> customizadas para seus erros ao invés de usar as padrões da
+                            linguagem
+                        </p>
+                        <p>Nota: muitas pessoas não gostam do uso de <em>exceptions</em></p>
+                    </section>
+                    <section>
+                        <h1>Passos</h1>
+                        <h2>Evite métodos estáticos</h2>
+                        parar de usar static
+                    </section>
+                    <section>
+                        <h1>Passos</h1>
+                        <h2>Crie e dependa de abstrações</h2>
+                        depender de interfaces
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h1>Referências</h1>
+                        refactoring.io
+                    </section>
+                </section>
+                <section>
+                    <pre><code class="shell" data-trim>
+                        $ composer require --dev phpstan/phpstan squizlabs/php_codesniffer phpmd/phpmd
+                        Loading composer repositories with package information
+                        Updating dependencies
+                        Lock file operations: 10 installs, 0 updates, 0 removals
+                        Generating autoload files
+                        24 packages you are using are looking for funding.
+                        Use the `composer fund` command to find out more!
+                        No security vulnerability advisories found.
+                        Using version ^1.11 for phpstan/phpstan
+                        Using version ^3.10 for squizlabs/php_codesniffer
+                        Using version ^2.15 for phpmd/phpmd
+
+                        $ phpmd src/ ansi phpmd.xml
+
+                        FILE:
+                        src/Application/Handlers/HttpErrorHandler.php
+                        ----------------------------------------------------------------------------------------------------------------
+                        25 | VIOLATION | The method respond() has a Cyclomatic Complexity of 11. The configured
+                        cyclomatic complexity threshold is 10.
+
+
+                        FILE:
+                        src/Application/Middleware/SessionMiddleware.php
+                        -------------------------------------------------------------------------------------------------------------------
+                        17 | VIOLATION | process accesses the super-global variable $_SERVER.
+                        17 | VIOLATION | process accesses the super-global variable $_SESSION.
+
+
+                        FILE:
+                        src/Application/ResponseEmitter/ResponseEmitter.php
+                        ----------------------------------------------------------------------------------------------------------------------
+                        15 | VIOLATION | emit accesses the super-global variable $_SERVER.
+
+
+                        FILE:
+                        src/Commands/ImportProductsCommand.php
+                        ---------------------------------------------------------------------------------------------------------
+                        38 | VIOLATION | Missing class import via use statement (line '38', column '23').
+                        46 | VIOLATION | Missing class import via use statement (line '46', column '34').
+                        52 | VIOLATION | The method execute uses an else expression. Else clauses are basically not
+                        necessary and you can simplify the code by not using them.
+                        62 | VIOLATION | The method importCsv() has a Cyclomatic Complexity of 14. The configured
+                        cyclomatic complexity threshold is 10.
+                        62 | VIOLATION | The method importCsv() has an NPath complexity of 4098. The configured NPath
+                        complexity threshold is 200.
+                        66 | VIOLATION | Missing class import via use statement (line '66', column '23').
+                        119 | VIOLATION | Avoid using static access to class '\App\Models\Product' in method
+                        'importCsv'.
+                        147 | VIOLATION | Avoid unused parameters such as '$io'.
+                        147 | VIOLATION | Avoid unused parameters such as '$file'.
+
+
+                        FILE:
+                        src/Controllers/Product/ProductController.php
+                        ----------------------------------------------------------------------------------------------------------------
+                        21 | VIOLATION | Avoid unused parameters such as '$request'.
+                        23 | VIOLATION | Avoid using static access to class '\App\Models\Product' in method 'list'.
+                        36 | VIOLATION | Avoid unused parameters such as '$request'.
+                        38 | VIOLATION | Avoid using static access to class '\App\Models\Product' in method 'get'.
+                        51 | VIOLATION | The method create() has a Cyclomatic Complexity of 10. The configured
+                        cyclomatic complexity threshold is 10.
+                        51 | VIOLATION | The method create() has an NPath complexity of 512. The configured NPath
+                        complexity threshold is 200.
+                        56 | VIOLATION | Missing class import via use statement (line '56', column '23').
+                        60 | VIOLATION | Missing class import via use statement (line '60', column '23').
+                        65 | VIOLATION | Missing class import via use statement (line '65', column '23').
+                        68 | VIOLATION | Missing class import via use statement (line '68', column '23').
+                        71 | VIOLATION | Missing class import via use statement (line '71', column '23').
+                        75 | VIOLATION | Missing class import via use statement (line '75', column '23').
+                        78 | VIOLATION | Missing class import via use statement (line '78', column '23').
+                        82 | VIOLATION | Missing class import via use statement (line '82', column '23').
+                        86 | VIOLATION | Missing class import via use statement (line '86', column '23').
+                        106 | VIOLATION | The method bulk() has a Cyclomatic Complexity of 12. The configured cyclomatic
+                        complexity threshold is 10.
+                        106 | VIOLATION | The method bulk() has an NPath complexity of 1025. The configured NPath
+                        complexity threshold is 200.
+                        138 | VIOLATION | Avoid using undefined variables such as '$body' which will lead to PHP
+                        notices.
+                        138 | VIOLATION | Avoid unused local variables such as '$body'.
+
+
+                        FILE: src/Models/AbstractModel.php
+                        -----------------------------------------------------------------------------------------------
+                        15 | VIOLATION | getDatabase accesses the super-global variable $_ENV.
+                        15 | VIOLATION | getDatabase accesses the super-global variable $_ENV.
+                        15 | VIOLATION | getDatabase accesses the super-global variable $_ENV.
+                        15 | VIOLATION | getDatabase accesses the super-global variable $_ENV.
+                        15 | VIOLATION | getDatabase accesses the super-global variable $_ENV.
+                        84 | VIOLATION | Missing class import via use statement (line '84', column '27').
+                        86 | VIOLATION | The method save uses an else expression. Else clauses are basically not
+                        necessary and you can simplify the code by not using them.
+                        89 | VIOLATION | Missing class import via use statement (line '89', column '27').
+
+                        Found 40 violations and 0 errors in 122ms
+                    </code></pre>
+                </section>
+            </div>
+        </div>
+
+        <script src="reveal.js/dist/reveal.js"></script>
+        <script src="reveal.js/plugin/notes/notes.js"></script>
+        <script src="reveal.js/plugin/highlight/highlight.js"></script>
+        <script>
+            Reveal.initialize({
+                hash: true,
+                mouseWheel: true,
+                overview: false,
+                history: true,
+                plugins: [RevealHighlight, RevealNotes],
+                slideNumber: 'c/t',
+            });
+        </script>
+    </body>
+</html>

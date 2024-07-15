@@ -1,0 +1,54 @@
+:root {
+  --r-main-font-size: 28px;
+  --r-main-font: Roboto, sans-serif;
+  --r-heading-font: var(--r-main-font);
+  --r-heading-font-weight: 600;
+  --r-heading-letter-spacing: -2px;
+  --r-heading-text-transform: normal;
+  --r-code-font: "JetBrains Mono", monospace;
+  --r-link-color: #027bce;
+  --r-link-color-hover: var(--color-accent);
+  --r-block-margin: 10px;
+  --border-radius: 5px;
+  --color-accent: #0496ff;
+}
+
+/* Layout */
+.reveal .slide-background {
+  background-size: 100% 100%;
+  background-position: 0 0, 0 0, 0 0, 0 0;
+  background-image: radial-gradient(40% 30% at 110% 0%, #ff9e0030 0%, #19191900 100%),
+    radial-gradient(40% 20% at 40% 0%, #03232cff 0%, #19191900 100%),
+    radial-gradient(40% 40% at 0% 100%, #4d0a4dff 1%, #19191900 100%),
+    radial-gradient(142% 91% at 111% 84%, #151515ff 0%, #1a1a1aff 100%);
+}
+.reveal .slides {
+  text-align: left;
+  letter-spacing: -1px;
+}
+.reveal .slide-number {
+  border-radius: var(--border-radius);
+  right: auto;
+  left: 8px;
+}
+.reveal p {
+  --r-block-margin: 20px;
+}
+
+/* Código */
+.reveal pre {
+  margin-left: 0;
+  width: 100%;
+  letter-spacing: -0.5px;
+  font-size: 0.51em;
+}
+
+/* Layout */
+.d-flex {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 20px;
+}
+.d-flex.cols-2 > div {
+  flex: calc(50% - 10px) 1 0;
+}
