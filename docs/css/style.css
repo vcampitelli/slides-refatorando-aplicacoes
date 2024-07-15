@@ -1,9 +1,9 @@
 :root {
-  --r-main-font-size: 28px;
-  --r-main-font: Roboto, sans-serif;
+  --r-main-font-size: 32px;
+  --r-main-font: "PT Sans", sans-serif;
   --r-heading-font: var(--r-main-font);
   --r-heading-font-weight: 600;
-  --r-heading-letter-spacing: -2px;
+  --r-heading-letter-spacing: -1px;
   --r-heading-text-transform: normal;
   --r-code-font: "JetBrains Mono", monospace;
   --r-link-color: #027bce;
@@ -11,6 +11,8 @@
   --r-block-margin: 10px;
   --border-radius: 5px;
   --color-accent: #0496ff;
+  --color-subheading: #b5c2b7;
+  --color-muted: var(--color-subheading);
 }
 
 /* Layout */
@@ -24,23 +26,34 @@
 }
 .reveal .slides {
   text-align: left;
-  letter-spacing: -1px;
+  letter-spacing: -0.75px;
 }
 .reveal .slide-number {
   border-radius: var(--border-radius);
   right: auto;
   left: 8px;
 }
-.reveal p {
-  --r-block-margin: 20px;
+h1:not(:last-child) {
+  --r-heading1-size: 0.8em;
+  --r-heading-margin: 0 0 5px 0;
+  --r-heading-color: var(--color-subheading);
+  --r-heading-font-weight: 500;
+  --r-heading-letter-spacing: -1.4px;
 }
 
 /* Código */
 .reveal pre {
   margin-left: 0;
   width: 100%;
-  letter-spacing: -0.5px;
-  font-size: 0.51em;
+  letter-spacing: -0.25px;
+  line-height: 1.5;
+  font-size: 0.5em;
+}
+code.hljs {
+  border-radius: var(--border-radius);
+}
+td.hljs-ln-line.hljs-ln-numbers {
+  opacity: 0.25;
 }
 
 /* Layout */
@@ -51,4 +64,22 @@
 }
 .d-flex.cols-2 > div {
   flex: calc(50% - 10px) 1 0;
+}
+.w-100 {
+  width: 100%;
+}
+.ml-0 {
+  margin-left: 0 !important;
+}
+
+/* Tipografia */
+.caption {
+  font-size: 0.7em;
+  color: var(--color-muted);
+}
+
+/* SVG */
+.svg-wrapper > svg {
+  max-width: 100%;
+  letter-spacing: -0.5px;
 }

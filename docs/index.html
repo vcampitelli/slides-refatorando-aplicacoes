@@ -16,8 +16,8 @@
               crossorigin="anonymous" referrerpolicy="no-referrer">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet"
-              href="https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&family=JetBrains+Mono&display=swap">
+        <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono&display=swap"
+              rel="stylesheet">
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
@@ -25,7 +25,26 @@
             <div class="slides">
                 <section>
                     <section>
+                        <h1>Conceitos</h1>
+                    </section>
+                    <section>
+                        <h1>Conceitos</h1>
+                        SOLID
+                        Object Calisthenics
+                        Code Smells
+                    </section>
+                </section>
+                <section>
+                    <section>
                         <h1>Passos</h1>
+                    </section>
+                    <section>
+                        <h1>Passos</h1>
+                        <h2><em>Disclaimer</em></h2>
+                        <p>
+                            Faremos refatorações incrementais, então códigos nos <em>slides</em> intermediários ainda
+                            não estão prontos e apresentam problemas!
+                        </p>
                     </section>
                     <section>
                         <h1>Passos</h1>
@@ -66,30 +85,71 @@
                             dividi-los para que cada <em>endpoint</em> tenha sua própria classe (ou função, no caso de
                             JavaScript)
                         </p>
+                        <div class="d-flex cols-2">
+                            <div>
+                                <pre><code class="php" data-trim data-line-numbers>
+                                    class ProductController {
+                                        public function create(Request $request) {}
+
+                                        public function list(Request $request) {}
+
+                                        public function update(Request $request) {}
+
+                                        public function delete(Request $request) {}
+                                    }
+                                </code></pre>
+                                <p class="caption">Código pré-refatoração</p>
+                            </div>
+                            <div class="fragment" data-fragment-index="1">
+                                <pre><code class="php" data-trim data-line-numbers>
+                                    class CreateProductAction {
+                                        public function handle(Request $request) {}
+                                    }
+
+                                    class ListProductAction {
+                                        public function handle(Request $request) {}
+                                    }
+
+                                    class UpdateProductAction {
+                                        public function handle(Request $request) {}
+                                    }
+
+                                    class DeleteProductAction {
+                                        public function handle(Request $request) {}
+                                    }
+                                </code></pre>
+                                <p class="caption">Código pós-refatoração</p>
+                            </div>
+                        </div>
                     </section>
-                    <section>
+                    <section data-auto-animate>
                         <h1>Passos</h1>
                         <h2>Isolamento de responsabilidades</h2>
                         <h3>Mantenha suas <em>controllers</em> leves</h3>
-                        <div class="d-flex cols-2">
-                            <div>
-                                <p>
-                                    A <em>controller</em> deve ser apenas uma forma de traduzir o protocolo de entrada
-                                    (HTTP) para a execução das regras de negócio do seu sistema
-                                </p>
-                                <p>
-                                    Então, extraia as regras de negócio de suas <em>controllers</em> para novos serviços
-                                    (a <em>Clean Architecture</em> chama isso de <em>Use Case</em>)
-                                </p>
-                            </div>
-                            <div>
-                                <pre><code class="php" data-trim>
-                                    class ProductController {
-                                        public function create(Request $request) {
-                                            $name = $request->get('name');
-                                            $price = $request->get('price');
-                                            $description = $request->get('description');
-                                            $idCategory = $request->get('id_category');
+                        <p>
+                            A <em>controller</em> deve ser apenas uma forma de traduzir o protocolo de entrada
+                            (HTTP ou CLI) para a execução das regras de negócio do seu sistema
+                        </p>
+                        <p>
+                            Então, extraia as regras de negócio de suas <em>controllers</em> para novos serviços
+                        </p>
+                        <p>
+                            <em>Clean Architecture</em> chama isso de <em>Use Case</em>
+                        </p>
+                    </section>
+                    <section data-auto-animate>
+                        <h1>Passos</h1>
+                        <h2>Isolamento de responsabilidades</h2>
+                        <h3>Mantenha suas <em>controllers</em> leves</h3>
+                        <div class="r-stack">
+                            <div class="fragment fade-out w-100" data-fragment-index="1">
+                                <pre><code class="php" data-trim data-line-numbers>
+                                    class ProductCreateAction {
+                                        public function handle(Request $request) {
+                                            $name = (string) $request->get('name');
+                                            $price = (float) $request->get('price');
+                                            $description = (string) $request->get('description');
+                                            $idCategory = (int) $request->get('id_category');
 
                                             if (empty($name)) { /* ... */ }
                                             if ((empty($price)) || ($price <= 0)) { /* ... */ }
@@ -111,7 +171,44 @@
                                         }
                                     }
                                 </code></pre>
+                                <p class="caption" data-id="p">Código pré-refatoração</p>
+                            </div>
+                            <div class="fragment w-100" data-fragment-index="1">
+                                <pre><code class="php" data-trim data-line-numbers>
+                                    class ProductCreateAction {
+                                        public function handle(Request $request) {
+                                            $name = $request->get('name');
+                                            $price = $request->get('price');
+                                            $description = $request->get('description');
+                                            $idCategory = $request->get('id_category');
 
+                                            $useCase = new CreateProductUseCase();
+                                            return $useCase->handle($name, $price, $description, $idCategory);
+                                        }
+                                    }
+                                    class CreateProductUseCase {
+                                        public function handle(string $name, float $price, string $description, int $idCategory) {
+                                            if (empty($name)) { /* ... */ }
+                                            if ((empty($price)) || ($price <= 0)) { /* ... */ }
+                                            // validação dos outros campos...
+
+                                            if (!user()->authorized('PRODUCT_CREATE')) {
+                                                return response(403, 'Você não tem permissão a esse recurso');
+                                            }
+
+                                            $category = $this->categoryRepository->findById($idCategory);
+                                            if ((!$category) || (!$category->active)) {
+                                                return response(404, 'Categoria não encontrada');
+                                            }
+
+                                            $product = new Product($name, $description, $price, $category);
+                                            $this->productRepository->save($product);
+
+                                            return response(201);
+                                        }
+                                    }
+                                </code></pre>
+                                <p class="caption" data-id="p">Código pós-refatoração</p>
                             </div>
                         </div>
                     </section>
@@ -119,28 +216,59 @@
                         <h1>Passos</h1>
                         <h2>Isolamento de responsabilidades</h2>
                         <h3>Regras de negócio</h3>
+                        <p>
+                            Levante regras de negócio espalhadas entre <em>controllers</em>, comandos, <em>workers</em>,
+                            <em>models</em> e centralize-as no serviço criado anteriormente
+                        </p>
+                        <p>
+                            Caso encontre discrepâncias, será preciso determinar qual regra é correta (às vezes, até em
+                            reuniões com o cliente)
+                        </p>
+                        <figure>
+                            <img src="img/usecase.svg" alt="Uso de Use Cases" class="insert-svg">
+                        </figure>
+                    </section>
+                    <section>
+                        <h1>Passos</h1>
+                        <h2>Isolamento de responsabilidades</h2>
+                        <h3><em>Models</em> e banco de dados</h3>
+                        <p>
+                            É comum termos <em>models</em> que tenham tanto regras de negócio quanto interações com o
+                            banco de dados
+                        </p>
                         <div class="d-flex cols-2">
                             <div>
-                                <p>
-                                    Levante regras de negócio espalhadas e centralize-as no serviço criado anteriormente
-                                </p>
-                                <p>
-                                    Caso encontre discrepâncias, será preciso determinar qual regra é correta
-                                </p>
-                            </div>
-                            <div>
-                                <pre><code class="php" data-trim>
-                                    class CreateProductUseCase {
-                                        public function handle(CreateProductUseCaseInput $input) {}
+                                <pre><code class="php" data-trim data-line-numbers>
+                                    class Product {
+                                        public function findAll() {
+                                        }
                                     }
-                                    class ProductController {}
                                 </code></pre>
+                                <p class="caption">Código pré-refatoração</p>
+                            </div>
+                            <div class="fragment" data-fragment-index="1">
+                                <pre><code class="php" data-trim data-line-numbers>
+                                    class CreateProductAction {
+                                        public function handle(Request $request) {}
+                                    }
+
+                                    class ListProductAction {
+                                        public function handle(Request $request) {}
+                                    }
+
+                                    class UpdateProductAction {
+                                        public function handle(Request $request) {}
+                                    }
+
+                                    class DeleteProductAction {
+                                        public function handle(Request $request) {}
+                                    }
+                                </code></pre>
+                                <p class="caption">Código pós-refatoração</p>
                             </div>
                         </div>
                     </section>
                     <section>
-                        <h1>Passos</h1>
-                        <h2>Regras de negócio</h2>
                         começar a centralizar regras de negócio e/ou validações na model
                         model: separar banco de dados das regras de negócio - criar um repository?
                         voltar na model: separar implementação do banco de dados
@@ -277,6 +405,23 @@
         <script src="reveal.js/plugin/notes/notes.js"></script>
         <script src="reveal.js/plugin/highlight/highlight.js"></script>
         <script>
+            document.querySelectorAll('img.insert-svg').forEach(($img) => {
+                fetch($img.src).then(response => {
+                    if (!response.ok) {
+                        return;
+                    }
+                    response.text().then(contents => {
+                        const $wrapper = document.createElement('div');
+                        $wrapper.classList.add('svg-wrapper');
+                        if ($img.dataset.id) {
+                            contents = contents.replace("<svg", '<svg data-id="' + encodeURIComponent($img.dataset.id) + '"');
+                        }
+                        $wrapper.innerHTML = contents.replace('<?xml version="1.0" encoding="UTF-8"?>', '');
+                        $img.parentNode.replaceChild($wrapper, $img);
+                    });
+                });
+            });
+
             Reveal.initialize({
                 hash: true,
                 mouseWheel: true,
