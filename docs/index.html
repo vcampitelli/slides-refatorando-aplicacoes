@@ -228,7 +228,7 @@
                             <img src="img/usecase.svg" alt="Uso de Use Cases" class="insert-svg">
                         </figure>
                     </section>
-                    <section>
+                    <section data-auto-animate>
                         <h1>Passos</h1>
                         <h2>Isolamento de responsabilidades</h2>
                         <h3><em>Models</em> e banco de dados</h3>
@@ -236,52 +236,95 @@
                             É comum termos <em>models</em> que tenham tanto regras de negócio quanto interações com o
                             banco de dados
                         </p>
-                        <div class="d-flex cols-2">
-                            <div>
-                                <pre><code class="php" data-trim data-line-numbers>
-                                    class Product {
-                                        public function findAll() {
-                                        }
-                                    }
-                                </code></pre>
-                                <p class="caption">Código pré-refatoração</p>
-                            </div>
-                            <div class="fragment" data-fragment-index="1">
-                                <pre><code class="php" data-trim data-line-numbers>
-                                    class CreateProductAction {
-                                        public function handle(Request $request) {}
+                        <pre data-id="pre"><code class="php" data-trim data-line-numbers>
+                            class Product {
+                                public function __construct(private Pdo $dbh) {}
+                                public function findAll() {
+                                    $idStatus = [Status::ACTIVE];
+                                    if (user()->permission('PRODUCT_SEE_HIDDEN')) {
+                                        $idStatus[] = Status::HIDDEN;
                                     }
 
-                                    class ListProductAction {
-                                        public function handle(Request $request) {}
-                                    }
-
-                                    class UpdateProductAction {
-                                        public function handle(Request $request) {}
-                                    }
-
-                                    class DeleteProductAction {
-                                        public function handle(Request $request) {}
-                                    }
-                                </code></pre>
-                                <p class="caption">Código pós-refatoração</p>
-                            </div>
-                        </div>
+                                    return $this->dbh
+                                        ->select()
+                                        ->from('products')
+                                        ->where('id_status IN (?)', $idStatus)
+                                        ->build()
+                                        ->fetchAll();
+                                }
+                            }
+                        </code></pre>
+                        <p class="caption">Código pré-refatoração</p>
                     </section>
-                    <section>
-                        começar a centralizar regras de negócio e/ou validações na model
-                        model: separar banco de dados das regras de negócio - criar um repository?
-                        voltar na model: separar implementação do banco de dados
-                        refatorar os testes / criar testes de unidade e testes de integração
+                    <section data-auto-animate>
+                        <h1>Passos</h1>
+                        <h2>Isolamento de responsabilidades</h2>
+                        <h3><em>Models</em> e banco de dados</h3>
+                        <p>
+                            É comum termos <em>models</em> que tenham tanto regras de negócio quanto interações com o
+                            banco de dados
+                        </p>
+                        <pre data-id="pre"><code class="php" data-trim data-line-numbers>
+                            class Product {
+                                public function __construct(private DatabaseInterface $db) {}
+                                public function findAll() {
+                                    $idStatus = [Status::ACTIVE];
+                                    if (user()->permission('PRODUCT_SEE_HIDDEN')) {
+                                        $idStatus[] = Status::HIDDEN;
+                                    }
+                                    $where = new Where();
+                                    $where->addIn('id_status', $idStatus)
+
+                                    return $this->db->select('products', $where);
+                                }
+                            }
+                            class PdoDatabase implements DatabaseInterface {
+                                public function select(string $from, Where $where) {}
+                            }
+                        </code></pre>
+                        <p class="caption">Código pós-refatoração</p>
                     </section>
                     <section>
                         <h1>Passos</h1>
                         <h2><em>Exceptions</em></h2>
                         <p>
                             Crie <em>exceptions</em> customizadas para seus erros ao invés de usar as padrões da
-                            linguagem
+                            linguagem para facilitar o tratamento
                         </p>
-                        <p>Nota: muitas pessoas não gostam do uso de <em>exceptions</em></p>
+                        <div class="d-flex cols-2">
+                            <div>
+                                <pre><code class="php" data-trim>
+                                    public function handle(Request $request) {
+                                        try {
+                                            // ...
+                                        } catch (Exception $e) {
+                                            return response(
+                                                $e->getCode() ?: 500,
+                                                $e->getMessage()
+                                            );
+                                        }
+                                    }
+                                </code></pre>
+                                <p class="caption">Código pré-refatoração</p>
+                            </div>
+                            <div>
+                                <pre><code class="php" data-trim>
+                                    public function handle(Request $request) {
+                                        try {
+                                            // ...
+                                        } catch (ProductNotFoundException $e) {
+                                            return response(404, 'Produto não encontrado');
+                                        } catch (Exception $e) {
+                                            return response(
+                                                $e->getCode() ?: 500,
+                                                $e->getMessage()
+                                            );
+                                        }
+                                    }
+                                </code></pre>
+                                <p class="caption">Código pós-refatoração</p>
+                            </div>
+                        </div>
                     </section>
                     <section>
                         <h1>Passos</h1>
@@ -292,6 +335,11 @@
                         <h1>Passos</h1>
                         <h2>Crie e dependa de abstrações</h2>
                         depender de interfaces
+                    </section>
+                    <section>
+                        <h1>Passos</h1>
+                        <h2>Testes - Parte 2</h2>
+                        refatorar os testes / criar testes de unidade e testes de integração
                     </section>
                 </section>
                 <section>
