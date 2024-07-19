@@ -1,4 +1,4 @@
-<svg version="1.1" baseProfile="full" width="1199.0" height="248.0" viewBox="0 0 1199 248" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events">
+<svg version="1.1" baseProfile="full" width="1313.0" height="240.0" viewBox="0 0 1313 240" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events">
 	<title >usecase</title>
 	<desc >#title: usecase
 	#font: PT Sans
@@ -6,6 +6,7 @@
 	#edges: rounded
 	#.controller:
 
+	[&lt;abstract&gt; ProductEntity]
 	[&lt;usecase&gt; ImportProductUseCase]
 	[&lt;usecase&gt; CreateProductUseCase]
 	[&lt;controller&gt; CreateProductController]
@@ -17,35 +18,49 @@
 	[CreateProductController]-&gt;[CreateProductUseCase]
 	[CreateProductCommand]-&gt;[CreateProductUseCase]
 	[CreateProductJobWorker]-&gt;[CreateProductUseCase]
+	[CreateProductUseCase]-&gt;[ProductEntity]
 
 	[ImportProductController]-&gt;[ImportProductUseCase]
 	[ImportProductCommand]-&gt;[ImportProductUseCase]
 
-	[ImportProductUseCase]-&gt;[CreateProductUseCase]</desc>
-	<g stroke-width="1.0" text-align="left" font="12pt 'PT Sans', Helvetica, Arial, sans-serif" font-size="12pt" font-family="PT Sans" font-weight="bold" font-style="normal">
-		<g font-family="PT Sans" font-size="12pt" font-weight="bold" font-style="normal" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round" stroke="#aaa">
+	[ImportProductUseCase]-&gt;[ProductEntity]</desc>
+	<g stroke-width="1.0" text-align="left" font="12pt 'PT Sans', Helvetica, Arial, sans-serif" font-size="12pt" font-family="PT Sans, sans-serif" font-weight="bold" font-style="normal">
+		<g font-family="PT Sans, sans-serif" font-size="12pt" font-weight="bold" font-style="normal" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round" stroke="#eee8d5">
 			<g stroke="transparent" fill="transparent">
-				<rect x="0.0" y="0.0" height="248.0" width="1199.0" stroke="none"></rect>
+				<rect x="0.0" y="0.0" height="240.0" width="1313.0" stroke="none"></rect>
 			</g>
-			<g transform="translate(8, 8)" fill="#aaa">
-				<g transform="translate(20, 20)" fill="#aaa" font-family="PT Sans" font-size="12pt" font-weight="normal" font-style="normal">
-					<path d="M109.0 108.0 L109 132 L363.61879715680413 158.36828967319656 L363.6 158.4 " fill="none"></path>
-					<path d="M356.4 163.0 L363.6 158.4 L357.5 152.4 L370.3 159.1 Z"></path>
-					<path d="M366.0 108.0 L366 132 L424.25634455555644 150.02904280249328 L424.3 150.0 " fill="none"></path>
-					<path d="M416.3 153.2 L424.3 150.0 L419.5 143.0 L430.6 152.0 Z"></path>
-					<path d="M624.5 108.0 L624.5 132 L566.2436554444436 150.02904280249328 L566.2 150.0 " fill="none"></path>
-					<path d="M571.0 143.0 L566.2 150.0 L574.2 153.2 L559.9 152.0 Z"></path>
-					<path d="M772.0 32.0 L772 52 L830.8760315238615 70.04629318739049 L830.9 70.0 " fill="none"></path>
-					<path d="M822.9 73.2 L830.9 70.0 L826.1 63.0 L837.3 72.0 Z"></path>
-					<path d="M1033.0 32.0 L1033 52 L974.1239684761385 70.04629318739049 L974.1 70.0 " fill="none"></path>
-					<path d="M978.9 63.0 L974.1 70.0 L982.1 73.2 L967.8 72.0 Z"></path>
-					<path d="M902.5 112.0 L902.5 132 L626.8847404040251 159.0708665042087 L626.9 159.1 " fill="none"></path>
-					<path d="M633.0 153.1 L626.9 159.1 L634.0 163.7 L620.3 159.7 Z"></path>
+			<g transform="translate(8, 8)" fill="#333">
+				<g transform="translate(20, 20)" fill="#333" font-family="PT Sans, sans-serif" font-size="12pt" font-weight="normal" font-style="normal">
+					<path d="M109.0 32.0 L109 52 L234.41264340731416 71.51947757312283 L234.4 71.5 " fill="none"></path>
+					<path d="M227.0 75.8 L234.4 71.5 L228.6 65.2 L241.0 72.5 Z"></path>
+					<path d="M366.0 32.0 L366 52 L366 65.33333333333333 L366.0 65.3 " fill="none"></path>
+					<path d="M360.7 58.7 L366.0 65.3 L371.3 58.7 L366.0 72.0 Z"></path>
+					<path d="M624.5 32.0 L624.5 52 L497.5882582214758 71.63818054599987 L497.6 71.6 " fill="none"></path>
+					<path d="M503.4 65.3 L497.6 71.6 L505.0 75.9 L491.0 72.7 Z"></path>
+					<path d="M366.0 112.0 L366 132 L685.361483704497 161.4417757064325 L685.4 161.4 " fill="none"></path>
+					<path d="M678.2 166.1 L685.4 161.4 L679.2 155.5 L692.0 162.1 Z"></path>
+					<path d="M886.0 32.0 L886 52 L944.8760315238615 70.04629318739049 L944.9 70.0 " fill="none"></path>
+					<path d="M936.9 73.2 L944.9 70.0 L940.1 63.0 L951.3 72.0 Z"></path>
+					<path d="M1147.0 32.0 L1147 52 L1088.1239684761385 70.04629318739049 L1088.1 70.0 " fill="none"></path>
+					<path d="M1092.9 63.0 L1088.1 70.0 L1096.1 73.2 L1081.8 72.0 Z"></path>
+					<path d="M1016.5 112.0 L1016.5 132 L827.6036657784424 158.1548770460618 L827.6 158.2 " fill="none"></path>
+					<path d="M833.5 152.0 L827.6 158.2 L834.9 162.5 L821.0 159.1 Z"></path>
+					<g data-name="ProductEntity">
+						<g fill="#eee8d5" stroke="#eee8d5" data-name="ProductEntity">
+							<rect x="692.0" y="152.0" height="32.0" width="129.0" data-name="ProductEntity"></rect>
+						</g>
+						<g transform="translate(692, 152)" font-family="PT Sans, sans-serif" font-size="12pt" font-weight="normal" font-style="italic" data-name="ProductEntity">
+							<g transform="translate(8, 8)" fill="#333" text-align="center" data-name="ProductEntity">
+								<text x="56.5" y="14.1" stroke="none" text-anchor="middle" data-name="ProductEntity">ProductEntity</text>
+
+							</g>
+						</g>
+					</g>
 					<g data-name="ImportProductUseCase">
 						<g fill="#eee8d5" stroke="#eee8d5" data-name="ImportProductUseCase">
-							<ellipse cx="902.5" cy="92.0" rx="127.5" ry="20.0" data-name="ImportProductUseCase"></ellipse>
+							<ellipse cx="1016.5" cy="92.0" rx="127.5" ry="20.0" data-name="ImportProductUseCase"></ellipse>
 						</g>
-						<g transform="translate(800.5, 76)" font-family="PT Sans" font-size="12pt" font-weight="normal" font-style="normal" data-name="ImportProductUseCase">
+						<g transform="translate(914.5, 76)" font-family="PT Sans, sans-serif" font-size="12pt" font-weight="normal" font-style="normal" data-name="ImportProductUseCase">
 							<g transform="translate(8, 8)" fill="#333" text-align="center" data-name="ImportProductUseCase">
 								<text x="94.0" y="14.1" stroke="none" text-anchor="middle" data-name="ImportProductUseCase">ImportProductUseCase</text>
 
@@ -54,9 +69,9 @@
 					</g>
 					<g data-name="CreateProductUseCase">
 						<g fill="#eee8d5" stroke="#eee8d5" data-name="CreateProductUseCase">
-							<ellipse cx="495.3" cy="172.0" rx="125.0" ry="20.0" data-name="CreateProductUseCase"></ellipse>
+							<ellipse cx="366.0" cy="92.0" rx="125.0" ry="20.0" data-name="CreateProductUseCase"></ellipse>
 						</g>
-						<g transform="translate(395.25, 156)" font-family="PT Sans" font-size="12pt" font-weight="normal" font-style="normal" data-name="CreateProductUseCase">
+						<g transform="translate(266, 76)" font-family="PT Sans, sans-serif" font-size="12pt" font-weight="normal" font-style="normal" data-name="CreateProductUseCase">
 							<g transform="translate(8, 8)" fill="#333" text-align="center" data-name="CreateProductUseCase">
 								<text x="92.0" y="14.1" stroke="none" text-anchor="middle" data-name="CreateProductUseCase">CreateProductUseCase</text>
 
@@ -65,9 +80,9 @@
 					</g>
 					<g data-name="CreateProductController">
 						<g fill="#eee8d5" stroke="#eee8d5" data-name="CreateProductController">
-							<rect x="0.0" y="76.0" height="32.0" width="218.0" data-name="CreateProductController"></rect>
+							<rect x="0.0" y="0.0" height="32.0" width="218.0" data-name="CreateProductController"></rect>
 						</g>
-						<g transform="translate(0, 76)" font-family="PT Sans" font-size="12pt" font-weight="normal" font-style="normal" data-name="CreateProductController">
+						<g transform="translate(0, 0)" font-family="PT Sans, sans-serif" font-size="12pt" font-weight="normal" font-style="normal" data-name="CreateProductController">
 							<g transform="translate(8, 8)" fill="#333" text-align="center" data-name="CreateProductController">
 								<text x="101.0" y="14.1" stroke="none" text-anchor="middle" data-name="CreateProductController">CreateProductController</text>
 
@@ -76,9 +91,9 @@
 					</g>
 					<g data-name="CreateProductCommand">
 						<g fill="#eee8d5" stroke="#eee8d5" data-name="CreateProductCommand">
-							<rect x="258.0" y="76.0" height="32.0" width="216.0" data-name="CreateProductCommand"></rect>
+							<rect x="258.0" y="0.0" height="32.0" width="216.0" data-name="CreateProductCommand"></rect>
 						</g>
-						<g transform="translate(258, 76)" font-family="PT Sans" font-size="12pt" font-weight="normal" font-style="normal" data-name="CreateProductCommand">
+						<g transform="translate(258, 0)" font-family="PT Sans, sans-serif" font-size="12pt" font-weight="normal" font-style="normal" data-name="CreateProductCommand">
 							<g transform="translate(8, 8)" fill="#333" text-align="center" data-name="CreateProductCommand">
 								<text x="100.0" y="14.1" stroke="none" text-anchor="middle" data-name="CreateProductCommand">CreateProductCommand</text>
 
@@ -87,9 +102,9 @@
 					</g>
 					<g data-name="CreateProductJobWorker">
 						<g fill="#eee8d5" stroke="#eee8d5" data-name="CreateProductJobWorker">
-							<rect x="514.0" y="76.0" height="32.0" width="221.0" data-name="CreateProductJobWorker"></rect>
+							<rect x="514.0" y="0.0" height="32.0" width="221.0" data-name="CreateProductJobWorker"></rect>
 						</g>
-						<g transform="translate(514, 76)" font-family="PT Sans" font-size="12pt" font-weight="normal" font-style="normal" data-name="CreateProductJobWorker">
+						<g transform="translate(514, 0)" font-family="PT Sans, sans-serif" font-size="12pt" font-weight="normal" font-style="normal" data-name="CreateProductJobWorker">
 							<g transform="translate(8, 8)" fill="#333" text-align="center" data-name="CreateProductJobWorker">
 								<text x="102.5" y="14.1" stroke="none" text-anchor="middle" data-name="CreateProductJobWorker">CreateProductJobWorker</text>
 
@@ -98,9 +113,9 @@
 					</g>
 					<g data-name="ImportProductController">
 						<g fill="#eee8d5" stroke="#eee8d5" data-name="ImportProductController">
-							<rect x="661.0" y="0.0" height="32.0" width="222.0" data-name="ImportProductController"></rect>
+							<rect x="775.0" y="0.0" height="32.0" width="222.0" data-name="ImportProductController"></rect>
 						</g>
-						<g transform="translate(661, 0)" font-family="PT Sans" font-size="12pt" font-weight="normal" font-style="normal" data-name="ImportProductController">
+						<g transform="translate(775, 0)" font-family="PT Sans, sans-serif" font-size="12pt" font-weight="normal" font-style="normal" data-name="ImportProductController">
 							<g transform="translate(8, 8)" fill="#333" text-align="center" data-name="ImportProductController">
 								<text x="103.0" y="14.1" stroke="none" text-anchor="middle" data-name="ImportProductController">ImportProductController</text>
 
@@ -109,9 +124,9 @@
 					</g>
 					<g data-name="ImportProductCommand">
 						<g fill="#eee8d5" stroke="#eee8d5" data-name="ImportProductCommand">
-							<rect x="923.0" y="0.0" height="32.0" width="220.0" data-name="ImportProductCommand"></rect>
+							<rect x="1037.0" y="0.0" height="32.0" width="220.0" data-name="ImportProductCommand"></rect>
 						</g>
-						<g transform="translate(923, 0)" font-family="PT Sans" font-size="12pt" font-weight="normal" font-style="normal" data-name="ImportProductCommand">
+						<g transform="translate(1037, 0)" font-family="PT Sans, sans-serif" font-size="12pt" font-weight="normal" font-style="normal" data-name="ImportProductCommand">
 							<g transform="translate(8, 8)" fill="#333" text-align="center" data-name="ImportProductCommand">
 								<text x="102.0" y="14.1" stroke="none" text-anchor="middle" data-name="ImportProductCommand">ImportProductCommand</text>
 

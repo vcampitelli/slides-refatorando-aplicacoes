@@ -45,6 +45,10 @@
                             Faremos refatorações incrementais, então códigos nos <em>slides</em> intermediários ainda
                             não estão prontos e apresentam problemas!
                         </p>
+                        <p>
+                            Mesmo no código final pode ser ainda possível identificar melhorias, mas precisamos definir
+                            um tempo máximo para finalizar nossas mudanças.
+                        </p>
                     </section>
                     <section>
                         <h1>Passos</h1>
@@ -89,13 +93,13 @@
                             <div>
                                 <pre><code class="php" data-trim data-line-numbers>
                                     class ProductController {
-                                        public function create(Request $request) {}
+                                        public function create(Request $req) {}
 
-                                        public function list(Request $request) {}
+                                        public function list(Request $req) {}
 
-                                        public function update(Request $request) {}
+                                        public function update(Request $req) {}
 
-                                        public function delete(Request $request) {}
+                                        public function delete(Request $req) {}
                                     }
                                 </code></pre>
                                 <p class="caption">Código pré-refatoração</p>
@@ -103,19 +107,16 @@
                             <div class="fragment" data-fragment-index="1">
                                 <pre><code class="php" data-trim data-line-numbers>
                                     class CreateProductAction {
-                                        public function handle(Request $request) {}
+                                        public function handle(Request $req) {}
                                     }
-
                                     class ListProductAction {
-                                        public function handle(Request $request) {}
+                                        public function handle(Request $req) {}
                                     }
-
                                     class UpdateProductAction {
-                                        public function handle(Request $request) {}
+                                        public function handle(Request $req) {}
                                     }
-
                                     class DeleteProductAction {
-                                        public function handle(Request $request) {}
+                                        public function handle(Request $req) {}
                                     }
                                 </code></pre>
                                 <p class="caption">Código pós-refatoração</p>
@@ -134,7 +135,7 @@
                             Então, extraia as regras de negócio de suas <em>controllers</em> para novos serviços
                         </p>
                         <p>
-                            <em>Clean Architecture</em> chama isso de <em>Use Case</em>
+                            Por exemplo, <em>Clean Architecture</em> chama isso de <em>Use Case</em>
                         </p>
                     </section>
                     <section data-auto-animate>
@@ -177,31 +178,42 @@
                                 <pre><code class="php" data-trim data-line-numbers>
                                     class ProductCreateAction {
                                         public function handle(Request $request) {
-                                            $name = $request->get('name');
-                                            $price = $request->get('price');
-                                            $description = $request->get('description');
-                                            $idCategory = $request->get('id_category');
+                                            $name = (string) $request->get('name');
+                                            $price = (float) $request->get('price');
+                                            $description = (string) $request->get('description');
+                                            $idCategory = (int) $request->get('id_category');
 
                                             $useCase = new CreateProductUseCase();
-                                            return $useCase->handle($name, $price, $description, $idCategory);
+                                            return $useCase->handle(
+                                                new CreateProductUseCaseInput($name, $price, $description, $idCategory)
+                                            );
+                                        }
+                                    }
+                                    class CreateProductUseCaseInput {
+                                        public function __construct(string $name, float $price, string $description, int $idCategory) {
+                                            if (empty($input->name)) { /* ... */ }
+                                            if ((empty($input->price)) || ($input->price <= 0)) { /* ... */ }
                                         }
                                     }
                                     class CreateProductUseCase {
-                                        public function handle(string $name, float $price, string $description, int $idCategory) {
-                                            if (empty($name)) { /* ... */ }
-                                            if ((empty($price)) || ($price <= 0)) { /* ... */ }
+                                        public function handle(CreateProductUseCaseInput $input) {
                                             // validação dos outros campos...
 
                                             if (!user()->authorized('PRODUCT_CREATE')) {
                                                 return response(403, 'Você não tem permissão a esse recurso');
                                             }
 
-                                            $category = $this->categoryRepository->findById($idCategory);
+                                            $category = $this->categoryRepository->findById($input->idCategory);
                                             if ((!$category) || (!$category->active)) {
                                                 return response(404, 'Categoria não encontrada');
                                             }
 
-                                            $product = new Product($name, $description, $price, $category);
+                                            $product = new Product(
+                                                $input->name,
+                                                $input->description,
+                                                $input->price,
+                                                $category
+                                            );
                                             $this->productRepository->save($product);
 
                                             return response(201);
@@ -238,15 +250,16 @@
                         </p>
                         <pre data-id="pre"><code class="php" data-trim data-line-numbers>
                             class Product {
-                                public function __construct(private Pdo $dbh) {}
-                                public function findAll() {
+                                public function setName(string $name) {}
+                                public function setPrice(float $price) {}
+                                public function setStatus(Status $status) {}
+                                public static function findAll() {
                                     $idStatus = [Status::ACTIVE];
                                     if (user()->permission('PRODUCT_SEE_HIDDEN')) {
                                         $idStatus[] = Status::HIDDEN;
                                     }
 
-                                    return $this->dbh
-                                        ->select()
+                                    return Db::select()
                                         ->from('products')
                                         ->where('id_status IN (?)', $idStatus)
                                         ->build()
@@ -261,28 +274,76 @@
                         <h2>Isolamento de responsabilidades</h2>
                         <h3><em>Models</em> e banco de dados</h3>
                         <p>
-                            É comum termos <em>models</em> que tenham tanto regras de negócio quanto interações com o
-                            banco de dados
+                            É recomendado separar essas ações para facilitar a manutenção e os <em>mocks</em> na hora de
+                            testar
                         </p>
                         <pre data-id="pre"><code class="php" data-trim data-line-numbers>
                             class Product {
+                                public function setName(string $name) {}
+                                public function setPrice(float $price) {}
+                                public function setStatus(Status $status) {}
+                            }
+                            class ProductRepository {
                                 public function __construct(private DatabaseInterface $db) {}
                                 public function findAll() {
                                     $idStatus = [Status::ACTIVE];
                                     if (user()->permission('PRODUCT_SEE_HIDDEN')) {
                                         $idStatus[] = Status::HIDDEN;
                                     }
-                                    $where = new Where();
-                                    $where->addIn('id_status', $idStatus)
-
-                                    return $this->db->select('products', $where);
+                                    $condition = new Condition();
+                                    $condition->in('id_status', $idStatus);
+                                    return $this->db->find('products', $condition);
                                 }
                             }
                             class PdoDatabase implements DatabaseInterface {
-                                public function select(string $from, Where $where) {}
+                                public function find(string $from, Condition $condition) {}
                             }
                         </code></pre>
                         <p class="caption">Código pós-refatoração</p>
+                    </section>
+                    <section>
+                        <h1>Passos</h1>
+                        <h2>Princípio <em>Tell, don't ask</em></h2>
+                        <p>
+                            <em>Getters</em> e <em>setters</em> acabam espalhando regras de negócio e responsabilidades
+                            para outras entidades do sistema
+                        </p>
+                        <div class="d-flex cols-2">
+                            <div>
+                                <pre><code class="php" data-trim data-line-numbers>
+                                    class Time {
+                                        public function getPontos(): int {
+                                            return $this->pontos;
+                                        }
+                                        public function setPontos(
+                                            int $pontos
+                                        ): void {
+                                            $this->pontos = $pontos;
+                                        }
+                                    }
+
+                                    $time->setPontos($time->getPontos() + 3);
+                                </code></pre>
+                                <p class="caption">Código pré-refatoração</p>
+                            </div>
+                            <div>
+                                <pre><code class="php" data-trim data-line-numbers>
+                                    class Time {
+                                        public function vence(): void {
+                                            $this->pontos += 3;
+                                        }
+                                        public function empata(): void {
+                                            $this->pontos += 1;
+                                        }
+                                    }
+
+
+
+                                    $time->vence();
+                                </code></pre>
+                                <p class="caption">Código pós-refatoração</p>
+                            </div>
+                        </div>
                     </section>
                     <section>
                         <h1>Passos</h1>
@@ -291,34 +352,74 @@
                             Crie <em>exceptions</em> customizadas para seus erros ao invés de usar as padrões da
                             linguagem para facilitar o tratamento
                         </p>
-                        <div class="d-flex cols-2">
+                        <div class="d-flex">
                             <div>
                                 <pre><code class="php" data-trim>
-                                    public function handle(Request $request) {
-                                        try {
-                                            // ...
-                                        } catch (Exception $e) {
-                                            return response(
-                                                $e->getCode() ?: 500,
-                                                $e->getMessage()
-                                            );
-                                        }
+                                    try {
+                                        // ...
+                                    } catch (Exception $e) {
+                                        return response(
+                                            $e->getCode() ?: 500,
+                                            $e->getMessage()
+                                        );
                                     }
                                 </code></pre>
                                 <p class="caption">Código pré-refatoração</p>
                             </div>
                             <div>
                                 <pre><code class="php" data-trim>
-                                    public function handle(Request $request) {
-                                        try {
-                                            // ...
-                                        } catch (ProductNotFoundException $e) {
-                                            return response(404, 'Produto não encontrado');
-                                        } catch (Exception $e) {
-                                            return response(
-                                                $e->getCode() ?: 500,
-                                                $e->getMessage()
+                                    try {
+                                        // ...
+                                    } catch (ProductNotFoundException|ProductInactiveException $e) {
+                                        return response(404, 'Produto não encontrado');
+                                    } catch (SystemException $e) {
+                                        $this->logger->error($e);
+                                        return response(500, 'Um erro desconhecido ocorreu');
+                                    } catch (UserException $e) {
+                                        return response(
+                                            $e->getCode() ?: 500,
+                                            $e->getMessage()
+                                        );
+                                    }
+                                </code></pre>
+                                <p class="caption">Código pós-refatoração</p>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <h1>Passos</h1>
+                        <h2>Injeção de dependências</h2>
+                        <p>
+                            As dependências de sua classe devem ser informadas pelo construtor
+                        </p>
+                        <div class="d-flex cols-2">
+                            <div>
+                                <pre><code class="php" data-trim data-line-numbers>
+                                    class CreatePaymentUseCase {
+                                        public function handle() {
+                                            $paymentRepository = app(
+                                                MySqlPaymentRepository::class
                                             );
+                                            $orderRepository = app(
+                                                MongoOrderRepository::class
+                                            );
+                                            // ...
+                                        }
+                                    }
+                                </code></pre>
+                                <p class="caption">Código pré-refatoração</p>
+                            </div>
+                            <div>
+                                <pre><code class="php" data-trim data-line-numbers>
+                                    class CreatePaymentUseCase {
+                                        public function __construct(
+                                            private MySqlPaymentRepository $paymentRepository,
+                                            private MongoOrderRepository $orderRepository,
+                                        ) {}
+                                        public function handle() {
+                                            $this->paymentRepository->method();
+                                            $this->orderRepository->method();
+                                            // ...
                                         }
                                     }
                                 </code></pre>
@@ -328,24 +429,68 @@
                     </section>
                     <section>
                         <h1>Passos</h1>
-                        <h2>Evite métodos estáticos</h2>
-                        parar de usar static
-                    </section>
-                    <section>
-                        <h1>Passos</h1>
-                        <h2>Crie e dependa de abstrações</h2>
-                        depender de interfaces
+                        <h2>Dependa de abstrações</h2>
+                        <p>
+                            Seu código não deve depender de implementações concretas, mas sim respeitar contratos
+                        </p>
+                        <div class="r-stack">
+                            <div class="fragment fade-out w-100" data-fragment-index="1">
+                                <pre><code class="php" data-trim data-line-numbers>
+                                    class UpdatePaymentUseCase {
+                                        public function __construct(
+                                            private MySqlPaymentRepository $paymentRepository,
+                                            private MongoOrderRepository $orderRepository,
+                                            private PHPMailer $mailer,
+                                        ) {}
+                                        public function handle(CreatePaymentUseCaseInput $input) {
+                                            $payment = $this->paymentRepository->findById($input->paymentId);
+                                            $order = $this->orderRepository->findByPayment($payment);
+                                            $this->mailer->send();
+                                            // ...
+                                        }
+                                    }
+                                </code></pre>
+                            </div>
+                            <div class="fragment w-100" data-fragment-index="1">
+                                <pre><code class="php" data-trim data-line-numbers>
+                                    class UpdatePaymentUseCase {
+                                        public function __construct(
+                                            private PaymentRepositoryInterface $paymentRepository,
+                                            private OrderRepositoryInterface $orderRepository,
+                                            private MailerInterface $mailer,
+                                        ) {}
+                                        public function handle(CreatePaymentUseCaseInput $input) {
+                                            $payment = $this->paymentRepository->findById($input->paymentId);
+                                            $order = $this->orderRepository->findByPayment($payment);
+                                            $this->mailer->send();
+                                            // ...
+                                        }
+                                    }
+                                </code></pre>
+                            </div>
+                        </div>
                     </section>
                     <section>
                         <h1>Passos</h1>
                         <h2>Testes - Parte 2</h2>
-                        refatorar os testes / criar testes de unidade e testes de integração
+                        <p>
+                            Refatore seus testes para começar a testar os <em>UseCases</em>, <em>models</em> e
+                            repositórios ao invés das <em>controllers</em>
+                        </p>
                     </section>
                 </section>
                 <section>
                     <section>
                         <h1>Referências</h1>
-                        refactoring.io
+                    </section>
+                    <section>
+                        <h1>Referências</h1>
+                        <h2>Sites</h2>
+                        <ul>
+                            <li>
+                                <a href="https://refactoring.io" target="_blank" rel="noopener">refactoring.io</a>
+                            </li>
+                        </ul>
                     </section>
                 </section>
                 <section>

@@ -12,7 +12,7 @@
   --border-radius: 5px;
   --color-accent: #0496ff;
   --color-subheading: #b5c2b7;
-  --color-muted: var(--color-subheading);
+  --color-muted: #6b6c6c;
 }
 
 /* Layout */
@@ -74,7 +74,7 @@ td.hljs-ln-line.hljs-ln-numbers {
 
 /* Tipografia */
 .caption {
-  font-size: 0.7em;
+  font-size: 0.6em;
   color: var(--color-muted);
 }
 
