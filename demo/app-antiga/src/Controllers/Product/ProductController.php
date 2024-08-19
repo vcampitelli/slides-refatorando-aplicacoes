@@ -107,7 +107,8 @@ class ProductController extends AbstractController
     {
         $count = 0;
         $errors = [];
-        foreach ($request as $i => $row) {
+        $body = $request->getParsedBody();
+        foreach ($body['products'] as $i => $row) {
             if (!isset($errors[$i])) {
                 $errors[$i] = [];
             }
