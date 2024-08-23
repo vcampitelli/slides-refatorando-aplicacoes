@@ -12,13 +12,13 @@
         <link rel="stylesheet" href="reveal.js/dist/theme/black.css">
 
         <link rel="stylesheet"
-              href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/dracula.min.css"
-              integrity="sha512-zKpFlhUX8c+WC6H/XTJavnEpWFt2zH9BU9vu0Hry5Y+SEgG21pRMFcecS7DgDXIegXBQ3uK9puwWPP3h6WSR9g=="
-              crossorigin="anonymous" referrerpolicy="no-referrer">
+              href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/framer.min.css"
+              integrity="sha512-tegeSiwBwq2gYD87Cycxj1Q5PX/y2owrYz1b0QmyEBldD9+mH+CxQK0/3FgRY37inbVLVNaARzMbLD/sl5YtCA=="
+              crossorigin="anonymous" referrerpolicy="no-referrer"/>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono&display=swap"
-              rel="stylesheet">
+        <link rel="stylesheet"
+              href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono&display=swap">
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
@@ -118,7 +118,7 @@
                                               class="fill"></path>
                                     </svg>
                                     <div>
-                                        <p><span class="text-strike text-muted">X</span> Twitter</p>
+                                        <p><span class="text-muted">X</span> Twitter</p>
                                         <a href="https://twitter.com/vcampitelli" target="_blank" rel="noopener">
                                             vcampitelli
                                         </a>
@@ -144,8 +144,13 @@
                             </div>
                         </div>
                     </section>
+                </section> <!-- Sobre -->
+                <section> <!-- Preparação -->
                     <section>
-                        <h1>Sobre</h1>
+                        <h1>Preparação</h1>
+                    </section>
+                    <section>
+                        <h1>Preparação</h1>
                         <h2>Slides</h2>
                         <div class="d-flex justify-start items-center">
                             <div style="flex-shrink: 0">
@@ -155,16 +160,54 @@
                                 </a>
                             </div>
                             <div class="qrcode-featured-text">
-                                Clone este repositório em
-                                <a href="https://github.com/vcampitelli/slides-refatorando-aplicacoes" target="_blank"
-                                   rel="noopener" class="d-block">github.com/vcampitelli/slides-refatorando-aplicacoes</a>
-                                ou acesse os <em>slides</em> em
+                                Acesse os <em>slides</em> em<br>
                                 <a href="https://viniciuscampitelli.com/slides-refatorando-aplicacoes" target="_blank"
-                                   rel="noopener" class="d-block">viniciuscampitelli.com/slides-refatorando-aplicacoes</a>
+                                   rel="noopener" class="d-block">
+                                    viniciuscampitelli.com/refatorando-aplicacoes-pratica
+                                </a>
                             </div>
                         </div>
                     </section>
-                </section> <!-- Sobre -->
+                    <section id="preparacao-maos-na-massa">
+                        <h1>Preparação</h1>
+                        <h2>Mãos na massa</h2>
+                        <ol>
+                            <li>
+                                Certifique-se que você tenha o
+                                <a href="https://docs.docker.com/get-docker" target="_blank" rel="noopener">
+                                    Docker
+                                </a>
+                                e o
+                                <a href="https://docs.docker.com/compose" target="_blank" rel="noopener">
+                                    Docker Compose
+                                </a>
+                                instalados
+                            </li>
+                            <li>
+                                Clone o repositório
+                                <a href="https://github.com/vcampitelli/slides-refatorando-aplicacoes" target="_blank"
+                                   rel="noopener">vcampitelli/slides-refatorando-aplicacoes</a> do GitHub
+                                <pre><code class="shell" data-trim>
+                                    $ git clone git@github.com/vcampitelli/slides-refatorando-aplicacoes.git
+                                </code></pre>
+                            </li>
+                            <li>
+                                Inicialize os <em>containers</em> da aplicação
+                                <pre><code class="shell" data-trim>
+                                    $ cd demo/app-antiga
+                                    $ docker compose up -d
+                                </code></pre>
+                            </li>
+                            <li>
+                                Acesse <a href="http://localhost:8080" target="_blank" rel="noopener">localhost:8080</a>
+                                em seu navegador
+                            </li>
+                        </ol>
+                        <div class="mt-1 text-right fs-small opacity-50">
+                            <a href="#/maos-na-massa">Ir para o slide <em>"Mãos na massa"</em> &#8594;</a>
+                        </div>
+                    </section>
+                </section> <!-- Preparação -->
 
                 <section> <!-- Conceitos -->
                     <section>
@@ -173,7 +216,13 @@
                     <section>
                         <h1>Conceitos</h1>
                         <h2>SOLID</h2>
-                        <ul>
+                        <p>
+                            Princípios que foram apresentados originalmente por Robert Martin em 2000 em seu artigo
+                            <a href="https://web.archive.org/web/20150906155800/http://www.objectmentor.com/resources/articles/Principles_and_Patterns.pdf"
+                               target="_blank" rel="noopener">Design Principles and Design Patterns</a>, em que
+                            descreve conceitos para evitar que um <em>software</em> <b>apodreça</b>
+                        </p>
+                        <ol>
                             <li>
                                 <em>Single Responsibility Principle</em>
                             </li>
@@ -189,23 +238,119 @@
                             <li>
                                 <em>Dependency Inversion Principle</em>
                             </li>
-                        </ul>
+                        </ol>
+                        <div class="alert mt-1">
+                            Curiosidade: no artigo não há o acrônimo <em>SOLID</em>, pois outros princípios são
+                            explicados, em outra ordem e até com nomes diferentes. Foi em 2004 que Michael Feathers
+                            reordenou alguns desses conceitos e sugeriu o termo.
+                        </div>
+                        <div class="references">
+                            <a href="https://viniciuscampitelli.com/slides-boas-praticas/#/2" target="_blank"
+                               rel="noopener">
+                                Meus slides sobre SOLID
+                            </a>
+                            <a href="https://medium.com/backticks-tildes/the-s-o-l-i-d-principles-in-pictures-b34ce2f1e898"
+                               target="_blank" rel="noopener">
+                                The S.O.L.I.D Principles in Pictures
+                            </a>
+                        </div>
                     </section>
                     <section>
                         <h1>Conceitos</h1>
                         <h2><em>Object Calisthenics</em></h2>
+                        <p>
+                            Conjunto de 9 regras inventadas por Jeff Bay no livro <em>The ThoughtWorks Anthology</em> de
+                            2008
+                        </p>
+                        <ol>
+                            <li><em>Only One Level Of Indentation Per Method</em></li>
+                            <li><em>Don’t Use The ELSE Keyword</em></li>
+                            <li><em>Wrap All Primitives And Strings</em></li>
+                            <li><em>First Class Collections</em></li>
+                            <li><em>One Dot Per Line</em></li>
+                            <li><em>Don't Abbreviate</em></li>
+                            <li><em>Keep All Entities Small</em></li>
+                            <li><em>No Classes With More Than Two Instance Variables</em></li>
+                            <li><em>No Getters/Setters/Properties</em></li>
+                        </ol>
+                        <div class="references">
+                            <a href="https://viniciuscampitelli.com/slides-boas-praticas/#/3" target="_blank"
+                               rel="noopener">
+                                Meus slides sobre Object Calisthenics
+                            </a>
+                            <a href="https://williamdurand.fr/2013/06/03/object-calisthenics/" target="_blank"
+                               rel="noopener">
+                                Object Calisthenics (William Durand)
+                            </a>
+                        </div>
                     </section>
                     <section>
                         <h1>Conceitos</h1>
                         <h2><em>Code Smells</em></h2>
-                    </section>
-                    <section>
-                        <h1>Conceitos</h1>
-                        <h2><em>Domain-Driven Design</em></h2>
+                        <blockquote>
+                            Qualquer característica do código fonte de um programa de computador que indique a
+                            possibilidade de um problema mais profundo no sistema
+                        </blockquote>
+                        <a href="https://pt.wikipedia.org/wiki/Code_smell" target="_blank" rel="noopener" class="reference">
+                            Wikipedia: Code Smell
+                        </a>
                     </section>
                     <section>
                         <h1>Conceitos</h1>
                         <h2><em>Clean Architecture</em></h2>
+                        <p>
+                            Abordagem para produzir sistemas testáveis e independentes de <em>frameworks</em>, UI,
+                            banco de dados, ou qualquer outro agente externo
+                        </p>
+                        <div class="d-flex cols-2">
+                            <div class="r-stack">
+                                <img src="img/clean-architecture-entities.png" alt="Entities"
+                                     class="fragment" data-fragment-index="1">
+                                <img src="img/clean-architecture-use-cases.png" alt="Use Cases"
+                                     class="fragment" data-fragment-index="2">
+                                <img src="img/clean-architecture-interface-adapters.png" alt="Interface adapters"
+                                     class="fragment" data-fragment-index="3">
+                                <img src="img/clean-architecture-framework-and-drivers.png" alt="Framework e drivers"
+                                     class="fragment" data-fragment-index="4">
+                            </div>
+                            <div class="r-stack">
+                                <div class="fragment fade-in-then-out" data-fragment-index="1">
+                                    <p class="fw-bold">
+                                        <span class="text-block" style="color: #ffffca">■</span>
+                                        <em>Entities</em>
+                                    </p>
+                                    Encapsulam regras de negócios de toda a empresa, que podem ser usadas por diferentes
+                                    sistemas &mdash; geralmente são <em>models</em> e validações de seus atributos
+                                </div>
+                                <div class="fragment fade-in-then-out" data-fragment-index="2">
+                                    <p class="fw-bold">
+                                        <span class="text-block" style="color: #ffb0ac">■</span>
+                                        <em>Use Cases</em>
+                                    </p>
+                                    Definem regras de negócios específicas da aplicação, que normalmente são um conjunto
+                                    de <em>Use Cases</em> ou ações executadas sobre as <em>Entities</em>
+                                </div>
+                                <div class="fragment fade-in-then-out" data-fragment-index="3">
+                                    <p class="fw-bold">
+                                        <span class="text-block" style="color: #b3ffcb">■</span>
+                                        <em>Interface Adapters</em>
+                                    </p>
+                                    São um conjunto de adaptadores que convertem dados de agentes externos para os
+                                    <em>Use Cases</em> e <em>Entities</em>
+                                </div>
+                                <div class="fragment" data-fragment-index="4">
+                                    <p class="fw-bold">
+                                        <span class="text-block" style="color: #b7e7ff">■</span>
+                                        <em>Framework e Drivers</em>
+                                    </p>
+                                    São serviços externos aos quais os <em>Interface Adapters</em> se conectam
+                                </div>
+                            </div>
+                        </div>
+                        <a href="https://levelup.gitconnected.com/a-quick-architecture-and-components-design-2baf0216021f"
+                           target="_blank" rel="noopener" class="reference">
+                            A Brief Introduction to Architecture Design Using the Clean Architecture Approach
+                        </a>
                     </section>
                 </section> <!-- Conceitos -->
 
@@ -260,17 +405,51 @@
                             código de acordo com o formato configurado e adicione uma etapa no CI para rodar a checagem
                         </div>
                     </section>
-                    <section>
+                    <section data-auto-animate>
                         <h1>Refatoração</h1>
                         <h2>Testes - Parte 1</h2>
                         <p>
-                            Antes de começar a refatorar, crie simples testes de contrato de suas <em>controllers</em>
-                            para que você possa ter mais confiança que não irá quebrar suas APIs
+                            Crie simples testes de contrato de suas <em>controllers</em> para ter mais confiança que a
+                            refatoração não irá quebrar suas APIs
                         </p>
-                        <p>
-                            Adicione também uma etapa no CI para rodar esses testes e barrar PRs ou <em>commits</em> que
-                            não passem
-                        </p>
+                        <pre><code class="php" data-trim data-line-numbers>
+                            public function testProductListAction() {
+                                $body = $this->makeGetRequest('/product/list')->body();
+                                $this->assertArrayHasKey('status', $body);
+                                $this->assertTrue($body['status']);
+                                $this->assertArrayHasKey('products', $body);
+                                $this->assertArrayHasKey('name', $body['products'][0]);
+                                $this->assertArrayHasKey('price', $body['products'][0]);
+                                $this->assertArrayHasKey('description', $body['products'][0]);
+                            }
+                        </code></pre>
+                        <div class="alert mt-1">
+                            Atenção: não é recomendado testar <em>controllers</em>, então depois iremos refatorar esses
+                            testes também!
+                        </div>
+                    </section>
+                    <section data-auto-animate>
+                        <h1>Refatoração</h1>
+                        <h2>Testes - Parte 1</h2>
+                        <div class="d-flex cols-2">
+                            <div>
+                                <p>
+                                    Adicione também uma etapa no CI para rodar esses testes e barrar
+                                    <em>Pull Requests</em> que não passem
+                                </p>
+                            </div>
+                            <div>
+                                <pre><code class="yaml" data-trim data-line-numbers>
+                                    on:
+                                      pull_request:
+
+                                    steps:
+                                      - uses: actions@checkout
+                                      - uses: shivammathur/setup-php@v2
+                                      - run: composer test
+                                </code></pre>
+                            </div>
+                        </div>
                     </section>
                     <section>
                         <h1>Refatoração</h1>
@@ -281,7 +460,7 @@
                             JavaScript)
                         </p>
                         <div class="d-flex cols-2">
-                            <div>
+                            <div class="fragment semi-fade-out" data-fragment-index="1">
                                 <pre><code class="php" data-trim data-line-numbers>
                                     class ProductController {
                                         public function create(Request $req) {}
@@ -320,13 +499,14 @@
                         <h3>Mantenha suas <em>controllers</em> leves</h3>
                         <p>
                             A <em>controller</em> deve ser apenas uma forma de traduzir o protocolo de entrada
-                            (HTTP ou CLI) para a execução das regras de negócio do seu sistema
+                            (HTTP) para a execução das regras de negócio do seu sistema
+                        </p>
+                        <p>
+                            Afinal, pode haver outros tipos de entrada (como ferramentas CLI ou <em>workers</em>) que
+                            precisem executar as mesmas ações
                         </p>
                         <p>
                             Então, extraia as regras de negócio de suas <em>controllers</em> para novos serviços
-                        </p>
-                        <p>
-                            Por exemplo, <em>Clean Architecture</em> chama isso de <em>Use Case</em>
                         </p>
                     </section>
                     <section data-auto-animate>
@@ -441,9 +621,8 @@
                         </p>
                         <pre data-id="pre"><code class="php" data-trim data-line-numbers>
                             class Product {
-                                public function setName(string $name) {}
-                                public function setPrice(float $price) {}
-                                public function setStatus(Status $status) {}
+                                public function setName(string $name) { /* Regras de negócio do nome */ }
+                                public function setPrice(float $price) { /* Regras de negócio do preço */ }
                                 public static function findAll() {
                                     $idStatus = [Status::ACTIVE];
                                     if (user()->permission('PRODUCT_SEE_HIDDEN')) {
@@ -470,9 +649,8 @@
                         </p>
                         <pre data-id="pre"><code class="php" data-trim data-line-numbers>
                             class Product {
-                                public function setName(string $name) {}
-                                public function setPrice(float $price) {}
-                                public function setStatus(Status $status) {}
+                                public function setName(string $name) { /* Regras de negócio do nome */ }
+                                public function setPrice(float $price) { /* Regras de negócio do preço */ }
                             }
                             class ProductRepository {
                                 public function __construct(private DatabaseInterface $db) {}
@@ -486,9 +664,7 @@
                                     return $this->db->find('products', $condition);
                                 }
                             }
-                            class PdoDatabase implements DatabaseInterface {
-                                public function find(string $from, Condition $condition) {}
-                            }
+                            class PdoDatabase implements DatabaseInterface {}
                         </code></pre>
                         <p class="caption">Código pós-refatoração</p>
                     </section>
@@ -500,7 +676,7 @@
                             para outras entidades do sistema
                         </p>
                         <div class="d-flex cols-2">
-                            <div>
+                            <div class="fragment semi-fade-out" data-fragment-index="1">
                                 <pre><code class="php" data-trim data-line-numbers>
                                     class Time {
                                         public function getPontos(): int {
@@ -517,7 +693,7 @@
                                 </code></pre>
                                 <p class="caption">Código pré-refatoração</p>
                             </div>
-                            <div>
+                            <div class="fragment" data-fragment-index="1">
                                 <pre><code class="php" data-trim data-line-numbers>
                                     class Time {
                                         public function vence(): void {
@@ -544,7 +720,7 @@
                             linguagem para facilitar o tratamento
                         </p>
                         <div class="d-flex">
-                            <div>
+                            <div class="fragment semi-fade-out" data-fragment-index="1">
                                 <pre><code class="php" data-trim>
                                     try {
                                         // ...
@@ -557,7 +733,7 @@
                                 </code></pre>
                                 <p class="caption">Código pré-refatoração</p>
                             </div>
-                            <div>
+                            <div class="fragment" data-fragment-index="1">
                                 <pre><code class="php" data-trim>
                                     try {
                                         // ...
@@ -585,196 +761,166 @@
                             vínculos
                         </p>
                         <div class="d-flex cols-2">
-                            <div>
+                            <div class="fragment semi-fade-out" data-fragment-index="1">
                                 <pre><code class="php" data-trim data-line-numbers>
                                     class CreatePaymentUseCase {
-                                        public function handle() {
-                                            $paymentRepository = app(
-                                                MySqlPaymentRepository::class
-                                            );
-                                            $orderRepository = app(
-                                                MongoOrderRepository::class
-                                            );
-                                            // ...
-                                        }
+                                      public function handle() {
+                                        $paymentRepository = app(
+                                          MySqlPaymentRepository::class
+                                        );
+                                        $orderRepository = app(
+                                          MongoOrderRepository::class
+                                        );
+                                        // ...
+                                        // ...
+                                      }
                                     }
                                 </code></pre>
                                 <p class="caption">Código pré-refatoração</p>
                             </div>
-                            <div>
+                            <div class="fragment" data-fragment-index="1">
                                 <pre><code class="php" data-trim data-line-numbers>
                                     class CreatePaymentUseCase {
-                                        public function __construct(
-                                            private MySqlPaymentRepository $paymentRepository,
-                                            private MongoOrderRepository $orderRepository,
-                                        ) {}
-                                        public function handle() {
-                                            $this->paymentRepository->method();
-                                            $this->orderRepository->method();
-                                            // ...
-                                        }
+                                      public function __construct(
+                                        private MySqlPaymentRepository $paymentRepository,
+                                        private MongoOrderRepository $orderRepository,
+                                      ) {
+                                      }
+                                      public function handle() {
+                                        $this->paymentRepository->method();
+                                        $this->orderRepository->method();
+                                        // ...
+                                      }
                                     }
                                 </code></pre>
                                 <p class="caption">Código pós-refatoração</p>
                             </div>
                         </div>
                     </section>
-                    <section>
+                    <section data-auto-animate data-auto-animate-restart>
                         <h1>Refatoração</h1>
                         <h2>Dependa de abstrações</h2>
                         <p>
                             Seu código não deve depender de implementações concretas, mas sim respeitar contratos
                             impostos por <em>interfaces</em>
                         </p>
-                        <div class="r-stack">
-                            <div class="fragment fade-out w-100" data-fragment-index="1">
-                                <pre><code class="php" data-trim data-line-numbers>
-                                    class UpdatePaymentUseCase {
-                                        public function __construct(
-                                            private MySqlPaymentRepository $paymentRepository,
-                                            private MongoOrderRepository $orderRepository,
-                                            private PHPMailer $mailer,
-                                        ) {}
-                                        public function handle(CreatePaymentUseCaseInput $input) {
-                                            $payment = $this->paymentRepository->findById($input->paymentId);
-                                            $order = $this->orderRepository->findByPayment($payment);
-                                            $this->mailer->send($to, $subject, $body);
-                                            // ...
-                                        }
-                                    }
-                                </code></pre>
-                            </div>
-                            <div class="fragment w-100" data-fragment-index="1">
-                                <pre><code class="php" data-trim data-line-numbers>
-                                    class UpdatePaymentUseCase {
-                                        public function __construct(
-                                            private PaymentRepositoryInterface $paymentRepository,
-                                            private OrderRepositoryInterface $orderRepository,
-                                            private MailerInterface $mailer,
-                                        ) {}
-                                        public function handle(CreatePaymentUseCaseInput $input) {
-                                            $payment = $this->paymentRepository->findById($input->paymentId);
-                                            $order = $this->orderRepository->findByPayment($payment);
-                                            $this->mailer->send($to, $subject, $body);
-                                            // ...
-                                        }
-                                    }
-                                </code></pre>
-                            </div>
-                        </div>
+                        <pre data-id="pre"><code class="php" data-trim data-line-numbers>
+                            public function __construct(
+                              private PdoPaymentRepository $paymentRepository,
+                              private MongoOrderRepository $orderRepository,
+                              private PHPMailer $mailer,
+                            ) {
+                            }
+
+                            public function handle(PaymentUseCaseInput $input) {
+                              $payment = $this->paymentRepository->findById($input->paymentId);
+                              $order = $this->orderRepository->findByPayment($payment);
+                              $this->mailer->send($to, $subject, $body);
+                              // ...
+                            }
+                        </code></pre>
+                        <p class="caption">Código pré-refatoração</p>
+                    </section>
+                    <section data-auto-animate>
+                        <h1>Refatoração</h1>
+                        <h2>Dependa de abstrações</h2>
+                        <p>
+                            Seu código não deve depender de implementações concretas, mas sim respeitar contratos
+                            impostos por <em>interfaces</em>
+                        </p>
+                        <pre data-id="pre"><code class="php" data-trim data-line-numbers>
+                            public function __construct(
+                              private PaymentRepositoryInterface $paymentRepository,
+                              private OrderRepositoryInterface $orderRepository,
+                              private MailerInterface $mailer,
+                            ) {
+                            }
+
+                            public function handle(PaymentUseCaseInput $input) {
+                              $payment = $this->paymentRepository->findById($input->paymentId);
+                              $order = $this->orderRepository->findByPayment($payment);
+                              $this->mailer->send($to, $subject, $body);
+                              // ...
+                            }
+
+                            interface PaymentRepositoryInterface { /* ... */ }
+                            interface OrderRepositoryInterface { /* ... */ }
+                            interface MailerInterface { /* ... */ }
+                        </code></pre>
+                        <p class="caption">Código pós-refatoração</p>
                     </section>
                     <section>
                         <h1>Refatoração</h1>
                         <h2>Testes - Parte 2</h2>
                         <p>
-                            Refatore seus testes para começar a testar os <em>UseCases</em>, <em>models</em> e
-                            repositórios ao invés das <em>controllers</em>
+                            Refatore seus testes criados em <b>Testes - Parte 1</b> para começar a testar os
+                            <em>UseCases</em> e <em>models</em> ao invés das <em>controllers</em>
                         </p>
+                        <pre><code class="php" data-trim data-line-numbers>
+                            public function testListActiveProductsUseCase() {
+                                $products = [
+                                    new Product(title: 'Produto Ativo 1', active: true),
+                                    new Product(title: 'Produto Ativo 2', active: true),
+                                    new Product(title: 'Produto Inativo', active: false),
+                                ];
+
+                                $mock = $this->createMock(ProductRepositoryInterface::class);
+                                $mock->method('findAllActive')
+                                    ->willReturn($products);
+
+                                $useCase = new ListActiveProductsUseCase($mock);
+                                $products = $useCase->handle();
+                                $this->assertCount(2, $products, 'Retorna apenas 2 produtos ativos');
+                            }
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h1>Refatoração</h1>
+                        <h2>Dicas gerais</h2>
+                        <ul>
+                            <li class="fragment">
+                                Antes de refatorar algo, certifique-se que você possua bons testes para aquela
+                                funcionalidade
+                            </li>
+                            <li class="fragment">
+                                Utilize as funções das IDEs para refatoração, principalmente
+                                <a href="https://refactoring.guru/extract-method" target="_blank" rel="noopener">
+                                    Extract Method
+                                </a>
+                            </li>
+                            <li class="fragment">
+                                Dedique tempo pensando o quê &mdash; e quando &mdash; refatorar
+                            </li>
+                            <li class="fragment">Escolha bons nomes para variáveis e não abrevie</li>
+                            <li class="fragment">
+                                Não coloque <code>Abstract</code>, <code>Interface</code> ou <code>Type</code> nos nomes
+                                <em>(polêmico)</em>
+                            </li>
+                            <li class="fragment">
+                                Evite superclasses <code>Helper</code>, <code>Utils</code> ou afins
+                            </li>
+                        </ul>
                     </section>
                 </section> <!-- Refatoração -->
+
                 <section> <!-- Mãos na massa -->
-                    <section>
+                    <section data-auto-animate data-auto-animate-restart>
                         <h1>Mãos na massa</h1>
                     </section>
-                    <section>
-                    <pre><code class="shell" data-trim>
-                        $ composer require --dev phpstan/phpstan squizlabs/php_codesniffer phpmd/phpmd
-                        Loading composer repositories with package information
-                        Updating dependencies
-                        Lock file operations: 10 installs, 0 updates, 0 removals
-                        Generating autoload files
-                        24 packages you are using are looking for funding.
-                        Use the `composer fund` command to find out more!
-                        No security vulnerability advisories found.
-                        Using version ^1.11 for phpstan/phpstan
-                        Using version ^3.10 for squizlabs/php_codesniffer
-                        Using version ^2.15 for phpmd/phpmd
-
-                        $ phpmd src/ ansi phpmd.xml
-
-                        FILE:
-                        src/Application/Handlers/HttpErrorHandler.php
-                        ----------------------------------------------------------------------------------------------------------------
-                        25 | VIOLATION | The method respond() has a Cyclomatic Complexity of 11. The configured
-                        cyclomatic complexity threshold is 10.
-
-
-                        FILE:
-                        src/Application/Middleware/SessionMiddleware.php
-                        -------------------------------------------------------------------------------------------------------------------
-                        17 | VIOLATION | process accesses the super-global variable $_SERVER.
-                        17 | VIOLATION | process accesses the super-global variable $_SESSION.
-
-
-                        FILE:
-                        src/Application/ResponseEmitter/ResponseEmitter.php
-                        ----------------------------------------------------------------------------------------------------------------------
-                        15 | VIOLATION | emit accesses the super-global variable $_SERVER.
-
-
-                        FILE:
-                        src/Commands/ImportProductsCommand.php
-                        ---------------------------------------------------------------------------------------------------------
-                        38 | VIOLATION | Missing class import via use statement (line '38', column '23').
-                        46 | VIOLATION | Missing class import via use statement (line '46', column '34').
-                        52 | VIOLATION | The method execute uses an else expression. Else clauses are basically not
-                        necessary and you can simplify the code by not using them.
-                        62 | VIOLATION | The method importCsv() has a Cyclomatic Complexity of 14. The configured
-                        cyclomatic complexity threshold is 10.
-                        62 | VIOLATION | The method importCsv() has an NPath complexity of 4098. The configured NPath
-                        complexity threshold is 200.
-                        66 | VIOLATION | Missing class import via use statement (line '66', column '23').
-                        119 | VIOLATION | Avoid using static access to class '\App\Models\Product' in method
-                        'importCsv'.
-                        147 | VIOLATION | Avoid unused parameters such as '$io'.
-                        147 | VIOLATION | Avoid unused parameters such as '$file'.
-
-
-                        FILE:
-                        src/Controllers/Product/ProductController.php
-                        ----------------------------------------------------------------------------------------------------------------
-                        21 | VIOLATION | Avoid unused parameters such as '$request'.
-                        23 | VIOLATION | Avoid using static access to class '\App\Models\Product' in method 'list'.
-                        36 | VIOLATION | Avoid unused parameters such as '$request'.
-                        38 | VIOLATION | Avoid using static access to class '\App\Models\Product' in method 'get'.
-                        51 | VIOLATION | The method create() has a Cyclomatic Complexity of 10. The configured
-                        cyclomatic complexity threshold is 10.
-                        51 | VIOLATION | The method create() has an NPath complexity of 512. The configured NPath
-                        complexity threshold is 200.
-                        56 | VIOLATION | Missing class import via use statement (line '56', column '23').
-                        60 | VIOLATION | Missing class import via use statement (line '60', column '23').
-                        65 | VIOLATION | Missing class import via use statement (line '65', column '23').
-                        68 | VIOLATION | Missing class import via use statement (line '68', column '23').
-                        71 | VIOLATION | Missing class import via use statement (line '71', column '23').
-                        75 | VIOLATION | Missing class import via use statement (line '75', column '23').
-                        78 | VIOLATION | Missing class import via use statement (line '78', column '23').
-                        82 | VIOLATION | Missing class import via use statement (line '82', column '23').
-                        86 | VIOLATION | Missing class import via use statement (line '86', column '23').
-                        106 | VIOLATION | The method bulk() has a Cyclomatic Complexity of 12. The configured cyclomatic
-                        complexity threshold is 10.
-                        106 | VIOLATION | The method bulk() has an NPath complexity of 1025. The configured NPath
-                        complexity threshold is 200.
-                        138 | VIOLATION | Avoid using undefined variables such as '$body' which will lead to PHP
-                        notices.
-                        138 | VIOLATION | Avoid unused local variables such as '$body'.
-
-
-                        FILE: src/Models/AbstractModel.php
-                        -----------------------------------------------------------------------------------------------
-                        15 | VIOLATION | getDatabase accesses the super-global variable $_ENV.
-                        15 | VIOLATION | getDatabase accesses the super-global variable $_ENV.
-                        15 | VIOLATION | getDatabase accesses the super-global variable $_ENV.
-                        15 | VIOLATION | getDatabase accesses the super-global variable $_ENV.
-                        15 | VIOLATION | getDatabase accesses the super-global variable $_ENV.
-                        84 | VIOLATION | Missing class import via use statement (line '84', column '27').
-                        86 | VIOLATION | The method save uses an else expression. Else clauses are basically not
-                        necessary and you can simplify the code by not using them.
-                        89 | VIOLATION | Missing class import via use statement (line '89', column '27').
-
-                        Found 40 violations and 0 errors in 122ms
-                    </code></pre>
+                    <section id="maos-na-massa" data-auto-animate>
+                        <h1 class="title">Mãos na massa</h1>
+                        <ul>
+                            <li>
+                                Certifique-se que você clonou o repositório e inicializou os <em>containers</em>, como
+                                descrito <a href="#/preparacao-maos-na-massa">no slide de preparação</a>
+                            </li>
+                            <li>
+                                Abra a pasta <code>demo/app-antiga</code> em sua IDE e vamos começar a refatorar juntos!
+                            </li>
+                        </ul>
                     </section>
                 </section> <!-- Mãos na massa -->
+
                 <section> <!-- Referências -->
                     <section>
                         <h1>Referências</h1>
@@ -784,7 +930,29 @@
                         <h2>Sites</h2>
                         <ul>
                             <li>
-                                <a href="https://refactoring.io" target="_blank" rel="noopener">refactoring.io</a>
+                                <a href="https://medium.com/backticks-tildes/the-s-o-l-i-d-principles-in-pictures-b34ce2f1e898" target="_blank" rel="noopener">
+                                    The S.O.L.I.D Principles in Pictures
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://williamdurand.fr/2013/06/03/object-calisthenics/" target="_blank" rel="noopener">
+                                    Object Calisthenics (William Durand)
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://refactoring.com" target="_blank" rel="noopener">
+                                    Refactoring.com (Martin Fowler)
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://refactoring.guru/" target="_blank" rel="noopener">
+                                    Refactoring.Guru
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.youtube.com/watch?v=-J3wNP6u5YU" target="_blank" rel="noopener">
+                                    Vídeo: Naming Things in Code
+                                </a>
                             </li>
                         </ul>
                     </section>
@@ -831,7 +999,7 @@
                                       class="fill"></path>
                             </svg>
                             <div>
-                                <p><span class="text-strike text-muted">X</span> Twitter</p>
+                                <p><span class="text-muted">X</span> Twitter</p>
                                 <a href="https://twitter.com/vcampitelli" target="_blank" rel="noopener">
                                     vcampitelli
                                 </a>
@@ -882,7 +1050,7 @@
 
             Reveal.initialize({
                 hash: true,
-                mouseWheel: true,
+                mouseWheel: false,
                 overview: false,
                 history: true,
                 plugins: [RevealHighlight, RevealNotes],
