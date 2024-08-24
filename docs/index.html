@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta name="author" content="Vinícius Campitelli, eu@viniciuscampitelli.com">
 
-        <title>Refatorando aplicações na prática | Vinícius Campitelli</title>
+        <title>Refatorando Aplicações na Prática | Vinícius Campitelli</title>
 
         <link rel="stylesheet" href="reveal.js/dist/reset.css">
         <link rel="stylesheet" href="reveal.js/dist/reveal.css">
@@ -18,14 +18,14 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet"
-              href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono&display=swap">
+              href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=JetBrains+Mono&display=swap">
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
         <div class="reveal">
             <div class="slides">
                 <section id="first-slide">
-                    <h1 class="title">Refatorando aplicações na prática</h1>
+                    <h1 class="title">Refatorando Aplicações<br>na Prática</h1>
                     <h2>Vinícius Campitelli</h2>
                 </section>
 
@@ -38,17 +38,22 @@
                         <h2>Sobre mim</h2>
                         <div id="about-me">
                             <div class="text-center">
-                                <img src="img/profile.jpg" alt="Vinícius Campitelli" id="profile-pic">
+                                <figure id="profile-pic">
+                                    <img src="img/profile.jpg" alt="Vinícius Campitelli">
+                                    <figcaption id="about-me-name">Vinícius<br>Campitelli</figcaption>
+                                </figure>
                             </div>
                             <ul>
                                 <li>
-                                    Membro do <a href="https://phpsp.org.br" target="_blank" rel="noopener">PHPSP</a>
+                                    Bacharel em Ciência da Computação pela UFSCar
                                 </li>
                                 <li>Desenvolvedor há mais de 15 anos</li>
+                                <li>
+                                    Membro do <a href="https://phpsp.org.br" target="_blank" rel="noopener">PHPSP</a>
+                                </li>
                                 <li>Entusiasta em cibersegurança</li>
                                 <li>Consultor de TI e instrutor de treinamentos</li>
                             </ul>
-                            <div id="about-me-name" class="text-center">Vinícius<br>Campitelli</div>
                         </div>
                         <div>
                             <div class="about-me-links">
@@ -163,7 +168,7 @@
                                 Acesse os <em>slides</em> em<br>
                                 <a href="https://viniciuscampitelli.com/slides-refatorando-aplicacoes" target="_blank"
                                    rel="noopener" class="d-block">
-                                    viniciuscampitelli.com/refatorando-aplicacoes-pratica
+                                    viniciuscampitelli.com/slides-refatorando-aplicacoes
                                 </a>
                             </div>
                         </div>
@@ -361,14 +366,21 @@
                     <section>
                         <h1>Refatoração</h1>
                         <h2><em>Disclaimer</em></h2>
-                        <p>
-                            Faremos refatorações incrementais, então códigos nos <em>slides</em> intermediários ainda
-                            não estão prontos e apresentam problemas
-                        </p>
-                        <p>
-                            Mesmo no código final pode ser ainda possível identificar melhorias, mas precisamos definir
-                            um tempo máximo para finalizar nossas mudanças
-                        </p>
+                        <ol>
+                            <li class="fragment">
+                                Faremos refatorações incrementais, então códigos nos <em>slides</em> intermediários
+                                ainda não estão prontos e apresentam problemas
+                            </li>
+                            <li class="fragment">
+                                Mesmo no código final pode ser ainda possível identificar melhorias, mas temos um tempo
+                                limite da apresentação, logicamente
+                            </li>
+                            <li class="fragment">
+                                Esses passos <b>não são verdade absoluta</b>: é algo que funcionou <b>para mim</b> e por
+                                isso quis compartilhar, mas existem dezenas de outras formas de refatorar aplicações, e
+                                cada pessoa tem sua própria abordagem
+                            </li>
+                        </ol>
                     </section>
                     <section>
                         <h1>Refatoração</h1>
@@ -719,9 +731,9 @@
                             Crie <em>exceptions</em> customizadas para seus erros ao invés de usar as padrões da
                             linguagem para facilitar o tratamento
                         </p>
-                        <div class="d-flex">
+                        <div class="d-flex cols-2">
                             <div class="fragment semi-fade-out" data-fragment-index="1">
-                                <pre><code class="php" data-trim>
+                                <pre><code class="php" data-trim data-line-numbers>
                                     try {
                                         // ...
                                     } catch (Exception $e) {
@@ -734,7 +746,7 @@
                                 <p class="caption">Código pré-refatoração</p>
                             </div>
                             <div class="fragment" data-fragment-index="1">
-                                <pre><code class="php" data-trim>
+                                <pre><code class="php" data-trim data-line-numbers>
                                     try {
                                         // ...
                                     } catch (ProductNotFoundException|ProductInactiveException $e) {
@@ -918,6 +930,31 @@
                                 Abra a pasta <code>demo/app-antiga</code> em sua IDE e vamos começar a refatorar juntos!
                             </li>
                         </ul>
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="title">Mãos na massa</h1>
+                        <p>
+                            Essas são as requisições que usaremos para validar as principais regras de negócio do
+                            sistema:
+                        </p>
+                        <pre><code class="shell" data-trim data-line-numbers>
+                            $ curl localhost:8080/products
+                            $ curl localhost:8080/products/1
+                            $ curl localhost:8080/products/10
+                            $ curl -X POST localhost:8080/products
+                            $ curl -X POST -d 'id_category=erro' localhost:8080/products
+                            $ curl -X POST -d 'id_category=1' localhost:8080/products
+                            $ curl -X POST -d 'id_category=1&name=A' localhost:8080/products
+                            $ curl -X POST -d 'id_category=1&name=Meu+nome+de+produto+muito+grande' localhost:8080/products
+                            $ curl -X POST -d 'id_category=1&name=Meu+produto' localhost:8080/products
+                            $ curl -X POST -d 'id_category=1&name=Meu+produto&sku=TESTE' localhost:8080/products
+                            $ curl -X POST -d 'id_category=1&name=Meu+produto&sku=TESTE00000' localhost:8080/products
+                            $ curl -X POST -d 'id_category=1&name=Meu+produto&sku=TESTE00000&price=0' localhost:8080/products
+                            $ curl -X POST -d 'id_category=1&name=Meu+produto&sku=TESTE00000&price=10' localhost:8080/products
+                            $ curl -X POST \
+                                -d 'products[0][id_category]=1&products[0][name]=Meu+produto+1&products[0][sku]=BULK000001&products[0][price]=10&products[1][id_category]=2&products[1][name]=Meu+produto+2&products[1][sku]=BULK000002&products[1][price]=20' \
+                                localhost:8080/products
+                        </code></pre>
                     </section>
                 </section> <!-- Mãos na massa -->
 

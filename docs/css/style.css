@@ -19,7 +19,6 @@
 
 /* Primeiro slide */
 #first-slide > h1 {
-  --r-heading-font-weight: 700;
   --r-heading-line-height: 1;
 }
 #first-slide > h2 {
@@ -31,20 +30,20 @@
 
 /* Sobre mim */
 #about-me {
-  display: grid;
+  display: flex;
   grid-template-columns: auto 1fr;
   column-gap: 3rem;
 }
 #about-me > ul {
   list-style-type: circle;
 }
-#about-me-name {
-  font-weight: 600;
-  line-height: 1;
-}
-#profile-pic {
+#profile-pic > img {
   margin: 0;
   border-radius: var(--border-radius);
+}
+#profile-pic > figcaption {
+  font-weight: 600;
+  line-height: 1;
 }
 .about-me-links {
   margin-top: 3rem;
@@ -129,6 +128,9 @@ code.hljs {
 td.hljs-ln-line.hljs-ln-numbers {
   opacity: 0.25;
 }
+.hljs-meta.prompt_ {
+  user-select: none;
+}
 
 /* Scaffolding */
 .d-flex {
@@ -153,6 +155,9 @@ td.hljs-ln-line.hljs-ln-numbers {
 }
 
 /* Tipografia */
+.reveal strong, .reveal b {
+  font-weight: 600;
+}
 .text-block {
   user-select: none;
   vertical-align: text-bottom;
@@ -162,11 +167,14 @@ td.hljs-ln-line.hljs-ln-numbers {
 }
 .text-muted {
   color: var(--color-muted);
-  opacity: 0.8;
+  opacity: 0.4;
 }
 .caption {
   font-size: 0.6em;
   color: var(--color-muted);
+}
+.text-center {
+  text-align: center;
 }
 .text-right {
   text-align: right;
@@ -219,7 +227,7 @@ img {
   margin: 0.5em 0 0.5em 1em;
 }
 li + li {
-  margin-top: 0.2em;
+  margin-top: 0.3em;
 }
 
 /* Referências */
