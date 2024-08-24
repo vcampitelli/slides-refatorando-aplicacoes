@@ -1,49 +1,37 @@
-name: Tests
+name: Linting e tests
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
 
 jobs:
-    tests:
-        name: Tests PHP ${{ matrix.php }}
-        runs-on: ubuntu-latest
-        continue-on-error: ${{ matrix.experimental }}
-        strategy:
-            fail-fast: false
-            matrix:
-                php: [7.4, 8.0, 8.1]
-                experimental: [false]
-                include:
-                    - php: 8.1
-                      analysis: true
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
 
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v2
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v3
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
 
-            - name: Set up PHP ${{ matrix.php }}
-              uses: shivammathur/setup-php@v2
-              with:
-                  php-version: ${{ matrix.php }}
-                  coverage: xdebug
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress
 
-            - name: Install dependencies with Composer
-              uses: ramsey/composer-install@v2
+    - name: Run PHPCS
+      run: composer run-script phpcs
 
-            - name: Coding standards
-              if: matrix.analysis
-              run: vendor/bin/phpcs
+    - name: Run PHPMD
+      run: composer run-script phpmd
 
-            - name: Static analysis
-              if: matrix.analysis
-              run: vendor/bin/phpstan
-
-            - name: Tests
-              run: vendor/bin/phpunit --coverage-clover clover.xml
-
-            - name: Upload coverage results to Coveralls
-              if: matrix.analysis
-              env:
-                  COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              run: |
-                  composer require php-coveralls/php-coveralls -n -W
-                  vendor/bin/php-coveralls --coverage_clover=clover.xml -v
+    - name: Run PHPStan
+      run: composer run-script phpstan
