@@ -21,6 +21,8 @@ readonly class ListProductController extends AbstractController
      * @param Request $request
      * @param Response $response
      * @return Response
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function __invoke(Request $request, Response $response): Response
     {

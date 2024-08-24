@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\UseCases\Product;
+namespace App\UseCases\Product\BulkCreate;
 
 use ArrayIterator;
 use stdClass;

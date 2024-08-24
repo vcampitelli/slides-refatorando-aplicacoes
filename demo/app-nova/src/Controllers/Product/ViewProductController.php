@@ -23,6 +23,8 @@ readonly class ViewProductController extends AbstractController
      * @param Response $response
      * @param array $args
      * @return Response
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function __invoke(Request $request, Response $response, array $args): Response
     {

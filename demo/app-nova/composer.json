@@ -48,7 +48,7 @@
         }
     },
     "scripts": {
-        "start": "php -S localhost:8080 -t public",
+        "start": "php -S 0.0.0.0:8080 -t public",
         "phpcs": "phpcs",
         "phpmd": "phpmd app/,bin/,src/ ansi phpmd.xml",
         "phpstan": "phpstan"

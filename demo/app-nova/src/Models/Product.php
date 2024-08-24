@@ -77,6 +77,7 @@ readonly class Product implements ModelInterface
             'name' => $this->name,
             'sku' => $this->sku,
             'price' => $this->price,
+            'active' => $this->active,
         ];
     }
 
@@ -87,13 +88,48 @@ readonly class Product implements ModelInterface
 
     public function withId(?int $id): ModelInterface
     {
+        return $this->build(id: $id);
+    }
+    public function withIdCategory(int $idCategory): Product
+    {
+        return $this->build(idCategory: $idCategory);
+    }
+
+    public function withName(string $name): Product
+    {
+        return $this->build(name: $name);
+    }
+
+    public function withSku(string $sku): Product
+    {
+        return $this->build(sku: $sku);
+    }
+
+    public function withPrice(float $price): Product
+    {
+        return $this->build(price: $price);
+    }
+
+    public function withActive(bool $active): Product
+    {
+        return $this->build(active: $active);
+    }
+
+    protected function build(
+        ?int $id = null,
+        ?int $idCategory = null,
+        ?string $name = null,
+        ?string $sku = null,
+        ?float $price = null,
+        ?bool $active = null
+    ): Product {
         return new Product(
-            id: $id,
-            idCategory: $this->idCategory,
-            name: $this->name,
-            sku: $this->sku,
-            price: $this->price,
-            active: $this->active,
+            id: $id ?? $this->id,
+            idCategory: $idCategory ?? $this->idCategory,
+            name: $name ?? $this->name,
+            sku: $sku ?? $this->sku,
+            price: $price ?? $this->price,
+            active: $active ?? $this->active,
         );
     }
 }

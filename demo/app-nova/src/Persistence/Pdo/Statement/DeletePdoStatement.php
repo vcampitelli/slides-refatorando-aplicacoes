@@ -12,12 +12,12 @@ class DeletePdoStatement extends AbstractPdoStatement
     use WhereStatementTrait;
 
     /**
-     * @param array  $values
      * @param string $table
+     * @param array  $criteria
      *
      * @return void
      */
-    public function __invoke(array $values, string $table): void
+    public function __invoke(string $table, array $criteria = []): void
     {
         $sql = 'DELETE FROM ' . $this->pdo->quoteIdentifier($table);
         $placeholders = [];

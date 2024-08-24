@@ -9,6 +9,9 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\MiddlewareInterface as Middleware;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 
+/**
+ * @SuppressWarnings(PHPMD.Superglobals)
+ */
 class SessionMiddleware implements Middleware
 {
     /**

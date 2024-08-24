@@ -26,6 +26,7 @@
     "require": {
         "php": "^8.3",
         "ext-json": "*",
+        "ext-pdo": "*",
         "catfan/medoo": "^2.1",
         "monolog/monolog": "^2.8",
         "php-di/php-di": "^6.4",
@@ -43,6 +44,6 @@
         }
     },
     "scripts": {
-        "start": "php -S localhost:8080 -t public"
+        "start": "php -S 0.0.0.0:8080 -t public"
     }
 }

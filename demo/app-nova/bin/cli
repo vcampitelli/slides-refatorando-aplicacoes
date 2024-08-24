@@ -3,11 +3,22 @@
 
 use App\Console\Commands\ImportProductsCommand;
 use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\CommandLoader\FactoryCommandLoader;
 
-require __DIR__ . '/../vendor/autoload.php';
+/** @var \DI\Container $container */
+$container = require __DIR__ . '/../app/bootstrap.php';
 
 $application = new Application();
+$container = function (string $className) use ($container): callable {
+    return static fn(): Command => $container->get($className);
+};
 
-$application->add(new ImportProductsCommand());
+$commandLoader = new FactoryCommandLoader([
+    // Note that the `list` command will still instantiate that command
+    // in this example.
+    'product:import' => $container(ImportProductsCommand::class),
+]);
+$application->setCommandLoader($commandLoader);
 
 $application->run();

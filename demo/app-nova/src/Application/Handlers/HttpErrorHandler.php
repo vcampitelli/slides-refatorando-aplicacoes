@@ -32,22 +32,7 @@ class HttpErrorHandler extends SlimErrorHandler
         );
 
         if ($exception instanceof HttpException) {
-            $statusCode = $exception->getCode();
-            $error->setDescription($exception->getMessage());
-
-            if ($exception instanceof HttpNotFoundException) {
-                $error->setType(ActionError::RESOURCE_NOT_FOUND);
-            } elseif ($exception instanceof HttpMethodNotAllowedException) {
-                $error->setType(ActionError::NOT_ALLOWED);
-            } elseif ($exception instanceof HttpUnauthorizedException) {
-                $error->setType(ActionError::UNAUTHENTICATED);
-            } elseif ($exception instanceof HttpForbiddenException) {
-                $error->setType(ActionError::INSUFFICIENT_PRIVILEGES);
-            } elseif ($exception instanceof HttpBadRequestException) {
-                $error->setType(ActionError::BAD_REQUEST);
-            } elseif ($exception instanceof HttpNotImplementedException) {
-                $error->setType(ActionError::NOT_IMPLEMENTED);
-            }
+            $statusCode = $this->handleHttpException($exception, $error);
         }
 
         if (
@@ -58,12 +43,19 @@ class HttpErrorHandler extends SlimErrorHandler
             $error->setDescription($exception->getMessage());
         }
 
-        if ($previous = $exception->getPrevious()) {
+        $previous = $exception->getPrevious();
+        if ($previous !== null) {
             $error->setDescription(
                 "{$error->getDescription()}: {$previous->getMessage()}"
             );
         }
-        $error->setTrace($exception->getTrace());
+
+        if ($this->displayErrorDetails) {
+            $error->setDescription(
+                \get_class($exception) . ": {$error->getDescription()}"
+            );
+            $error->setTrace($exception->getTrace());
+        }
 
         $payload = new ActionPayload($statusCode, null, $error);
         $encodedPayload = json_encode($payload, JSON_PRETTY_PRINT);
@@ -72,5 +64,31 @@ class HttpErrorHandler extends SlimErrorHandler
         $response->getBody()->write($encodedPayload);
 
         return $response->withHeader('Content-Type', 'application/json');
+    }
+
+    /**
+     * @param HttpException $exception
+     * @param ActionError $error
+     * @return int
+     */
+    protected function handleHttpException(HttpException $exception, ActionError $error): int
+    {
+        $error->setDescription($exception->getMessage());
+
+        if ($exception instanceof HttpNotFoundException) {
+            $error->setType(ActionError::RESOURCE_NOT_FOUND);
+        } elseif ($exception instanceof HttpMethodNotAllowedException) {
+            $error->setType(ActionError::NOT_ALLOWED);
+        } elseif ($exception instanceof HttpUnauthorizedException) {
+            $error->setType(ActionError::UNAUTHENTICATED);
+        } elseif ($exception instanceof HttpForbiddenException) {
+            $error->setType(ActionError::INSUFFICIENT_PRIVILEGES);
+        } elseif ($exception instanceof HttpBadRequestException) {
+            $error->setType(ActionError::BAD_REQUEST);
+        } elseif ($exception instanceof HttpNotImplementedException) {
+            $error->setType(ActionError::NOT_IMPLEMENTED);
+        }
+
+        return $exception->getCode();
     }
 }

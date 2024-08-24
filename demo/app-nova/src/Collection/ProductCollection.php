@@ -7,6 +7,7 @@ namespace App\Collection;
 use App\Models\Product;
 use ArrayIterator;
 use InvalidArgumentException;
+use Traversable;
 
 /**
  * @implements CollectionInterface<Product>
@@ -36,7 +37,7 @@ class ProductCollection implements CollectionInterface
     /**
      * @return ArrayIterator<int, Product>
      */
-    public function getIterator(): \Traversable
+    public function getIterator(): Traversable
     {
         return new ArrayIterator($this->products);
     }

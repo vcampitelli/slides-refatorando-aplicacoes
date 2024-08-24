@@ -11,7 +11,7 @@ class Product extends AbstractModel
     private string $name = '';
     private string $sku = '';
     private float $price = 0.0;
-    private bool $active = true;
+    private bool $active = false;
 
     public function getId(): ?int
     {
@@ -98,6 +98,7 @@ class Product extends AbstractModel
             'name' => $this->getName(),
             'sku' => $this->getSku(),
             'price' => $this->getPrice(),
+            'active' => $this->isActive(),
         ];
     }
 }

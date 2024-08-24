@@ -89,8 +89,8 @@ class ProductController extends AbstractController
         $product = new Product();
         $product->setIdCategory($body['id_category']);
         $product->setName($body['name']);
+        $product->setSku($body['sku']);
         $product->setPrice($body['price']);
-        $product->setActive(true);
         $product->save();
 
         return $this->response($response, $product);

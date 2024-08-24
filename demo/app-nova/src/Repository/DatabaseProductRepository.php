@@ -9,6 +9,7 @@ use App\Collection\ProductCollection;
 use App\Models\ModelInterface;
 use App\Models\Product;
 use App\Persistence\DatabaseAdapterInterface;
+use InvalidArgumentException;
 use stdClass;
 
 /**
@@ -44,7 +45,7 @@ class DatabaseProductRepository extends AbstractDatabaseRepository implements Pr
     protected function serialize(ModelInterface $model): stdClass
     {
         if (!$model instanceof Product) {
-            throw new \InvalidArgumentException();
+            throw new InvalidArgumentException();
         }
         $object = new stdClass();
         $object->id = (isset($model->id)) ? $model->id : null;
