@@ -203,12 +203,13 @@ img {
   background: var(--r-link-color-hover);
   font-size: 0.6em;
   border-radius: var(--border-radius);
+  color: rgba(255, 255, 255, 0.9);
 }
 .alert > a {
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(0, 0, 0, 0.45);
 }
 .alert > a:is(:hover, :focus) {
-  color: rgba(0, 0, 0, 0.6);
+  color: rgba(0, 0, 0, 0.5);
 }
 
 /* Quote */

@@ -52,7 +52,7 @@
                                     Membro do <a href="https://phpsp.org.br" target="_blank" rel="noopener">PHPSP</a>
                                 </li>
                                 <li>Entusiasta em cibersegurança</li>
-                                <li>Consultor de TI e instrutor de treinamentos</li>
+                                <li>Consultor de TI e instrutor de treinamentos na Yampi</li>
                             </ul>
                         </div>
                         <div>
@@ -159,16 +159,16 @@
                         <h2>Slides</h2>
                         <div class="d-flex justify-start items-center">
                             <div style="flex-shrink: 0">
-                                <a href="https://viniciuscampitelli.com/slides-refatorando-aplicacoes" target="_blank"
+                                <a href="https://github.com/somosyampi/curso-refatoracao" target="_blank"
                                    rel="noopener" class="d-block">
                                     <img src="img/qrcode-slides.png" alt="Workshops" class="my-0">
                                 </a>
                             </div>
                             <div class="qrcode-featured-text">
                                 Acesse os <em>slides</em> em<br>
-                                <a href="https://viniciuscampitelli.com/slides-refatorando-aplicacoes" target="_blank"
+                                <a href="https://github.com/somosyampi/curso-refatoracao" target="_blank"
                                    rel="noopener" class="d-block">
-                                    viniciuscampitelli.com/slides-refatorando-aplicacoes
+                                    github.com/somosyampi/curso-refatoracao
                                 </a>
                             </div>
                         </div>
@@ -190,10 +190,10 @@
                             </li>
                             <li>
                                 Clone o repositório
-                                <a href="https://github.com/vcampitelli/slides-refatorando-aplicacoes" target="_blank"
-                                   rel="noopener">vcampitelli/slides-refatorando-aplicacoes</a> do GitHub
+                                <a href="https://github.com/somosyampi/curso-refatoracao" target="_blank"
+                                   rel="noopener">somosyampi/curso-refatoracao</a> do GitHub
                                 <pre><code class="shell" data-trim>
-                                    $ git clone git@github.com/vcampitelli/slides-refatorando-aplicacoes.git
+                                    $ git clone git@github.com/somosyampi/curso-refatoracao.git
                                 </code></pre>
                             </li>
                             <li>
@@ -460,6 +460,214 @@
                                       - uses: shivammathur/setup-php@v2
                                       - run: composer test
                                 </code></pre>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <h1>Refatoração</h1>
+                        <h2>Tipar argumentos e retornos</h2>
+                        <p>
+                            Especifique os tipos dos argumentos e os retornos dos métodos
+                        </p>
+                        <div class="d-flex cols-2">
+                            <div class="fragment semi-fade-out" data-fragment-index="1">
+                                <pre><code class="php" data-trim data-line-numbers>
+                                    public function create(
+                                        $request,
+                                        $alias,
+                                        $id
+                                    ) {}
+                                </code></pre>
+                                <p class="caption">Código pré-refatoração</p>
+                            </div>
+                            <div class="fragment" data-fragment-index="1">
+                                <pre><code class="php" data-trim data-line-numbers>
+                                    public function create(
+                                        Request $request,
+                                        string $alias,
+                                        int $id
+                                    ): Response {}
+                                </code></pre>
+                                <p class="caption">Código pós-refatoração</p>
+                            </div>
+                        </div>
+                        <div class="alert mt-2">
+                            Isso ajudará inclusive ao criar testes de unidade (já que ferramentas como o PHPUnit
+                            conseguem criar <em>mocks</em> automaticamente) e também nas ferramentas de análise estática
+                            (como o
+                            <a href="https://github.com/larastan/larastan" target="_blank" rel="noopener">larastan</a>)
+                        </div>
+                    </section>
+                    <section>
+                        <h1>Refatoração</h1>
+                        <h2>Não dependa de <em>strings</em></h2>
+                        <p>
+                            Use constantes ao invés de <em>strings</em> para identificadores e outros textos
+                            pré-estabelecidos, diminuindo a possibilidade de errar e facilitando possíveis refatorações
+                            no futuro
+                        </p>
+                        <div class="d-flex cols-2">
+                            <div class="fragment semi-fade-out" data-fragment-index="1">
+                                <pre><code class="php" data-trim data-line-numbers>
+                                    switch ($method) {
+                                        case 'appmax':
+                                            // ...
+                                        case 'paypal':
+                                            // ...
+                                        case 'pagarme':
+                                            // ...
+                                    }
+                                </code></pre>
+                                <p class="caption">Código pré-refatoração</p>
+                            </div>
+                            <div class="fragment" data-fragment-index="1">
+                                <pre><code class="php" data-trim data-line-numbers>
+                                    switch ($method) {
+                                        case AppmaxGateway::IDENTIFIER:
+                                            // ...
+                                        case PaypalGateway::IDENTIFIER:
+                                            // ...
+                                        case PagarmeGateway::IDENTIFIER:
+                                            // ...
+                                    }
+                                </code></pre>
+                                <p class="caption">Código pós-refatoração</p>
+                            </div>
+                        </div>
+                    </section>
+                    <section data-auto-animate>
+                        <h1>Refatoração</h1>
+                        <h2>Desacople atributos de sistemas externos</h2>
+                        <p>
+                            Ao invés de acessar os valores brutos das respostas de sistemas externos, crie abstrações,
+                            como os DTOs <em>(Data Transfer Objects)</em>, diminuindo a quantidade de mudanças
+                            necessárias em seu código quando houver alterações externas
+                        </p>
+                        <pre data-id="pre"><code class="twig" data-trim data-line-numbers>
+                            {# produtos/externos/listar.phtml #}
+                            {% for product in products %}
+                                &lt;li&gt;
+                                    &lt;p&gt;{{ product.titulo }}&lt;/p&gt;
+                                    R$ {{ product.preco|number_format(2, '.', ',') }}
+                                &lt;/li&gt;
+                            {% endfor %}
+
+                            {# produtos/externos/visualizar.phtml #}
+                            &lt;div&gt;
+                                &lt;p&gt;{{ product.titulo }}&lt;/p&gt;
+                                R$ {{ product.preco|number_format(2, '.', ',') }}
+                            &lt;/div&gt;
+                        </code></pre>
+                        <p class="caption">Código pré-refatoração</p>
+                    </section>
+                    <section data-auto-animate>
+                        <h1>Refatoração</h1>
+                        <h2>Desacople atributos de sistemas externos</h2>
+                        <p>
+                            Ao invés de acessar os valores brutos das respostas de sistemas externos, crie abstrações,
+                            como os DTOs <em>(Data Transfer Objects)</em>, diminuindo a quantidade de mudanças
+                            necessárias em seu código quando houver alterações externas
+                        </p>
+                        <pre data-id="pre"><code class="twig" data-trim data-line-numbers>
+                            {# produtos/externos/listar.phtml #}
+                            {% for product in products %}
+                                &lt;li&gt;
+                                    &lt;p&gt;{{ product.title }}&lt;/p&gt;
+                                    R$ {{ (product.price / 100)|number_format(2, '.', ',') }}
+                                &lt;/li&gt;
+                            {% endfor %}
+
+                            {# produtos/externos/visualizar.phtml #}
+                            &lt;div&gt;
+                                &lt;p&gt;{{ product.title }}&lt;/p&gt;
+                                R$ {{ (product.price / 100)|number_format(2, '.', ',') }}
+                            &lt;/div&gt;
+                        </code></pre>
+                        <p class="caption">Código pré-refatoração com mudanças no sistema externo refletidas</p>
+                    </section>
+                    <section data-auto-animate>
+                        <h1>Refatoração</h1>
+                        <h2>Desacople atributos de sistemas externos</h2>
+                        <p>
+                            Ao invés de acessar os valores brutos das respostas de sistemas externos, crie abstrações,
+                            como os DTOs <em>(Data Transfer Objects)</em>, diminuindo a quantidade de mudanças
+                            necessárias em seu código quando houver alterações externas
+                        </p>
+                        <div class="d-flex cols-2">
+                            <div>
+                                <pre data-id="pre"><code class="twig" data-trim data-line-numbers>
+                                    {# produtos/externos/listar.phtml #}
+                                    {% for productDto in products %}
+                                        &lt;li&gt;
+                                            &lt;p&gt;{{ productDto.title }}&lt;/p&gt;
+                                            R$ {{ productDto.price|number_format(2, '.', ',') }}
+                                        &lt;/li&gt;
+                                    {% endfor %}
+
+                                    {# produtos/externos/visualizar.phtml #}
+                                    &lt;div&gt;
+                                        &lt;p&gt;{{ productDto.title }}&lt;/p&gt;
+                                        R$ {{ productDto.price|number_format(2, '.', ',') }}
+                                    &lt;/div&gt;
+                                </code></pre>
+                                <p class="caption">Código pós-refatoração</p>
+                            </div>
+                            <div>
+                                <pre data-id="pre-dto"><code class="php" data-trim data-line-numbers>
+                                    class ProductDto
+                                    {
+                                        public static function build(
+                                            stdClass $data
+                                        ) {
+                                            $this->title = $data->titulo;
+                                            $this->price = $data->preco;
+                                        }
+                                    }
+                                </code></pre>
+                                <p class="caption">DTO para isolar o sistema externo</p>
+                            </div>
+                        </div>
+                    </section>
+                    <section data-auto-animate>
+                        <h1>Refatoração</h1>
+                        <h2>Desacople atributos de sistemas externos</h2>
+                        <p>
+                            Ao invés de acessar os valores brutos das respostas de sistemas externos, crie abstrações,
+                            como os DTOs <em>(Data Transfer Objects)</em>, diminuindo a quantidade de mudanças
+                            necessárias em seu código quando houver alterações externas
+                        </p>
+                        <div class="d-flex cols-2">
+                            <div>
+                                <pre data-id="pre"><code class="twig" data-trim data-line-numbers>
+                                    {# produtos/externos/listar.phtml #}
+                                    {% for productDto in products %}
+                                        &lt;li&gt;
+                                            &lt;p&gt;{{ productDto.title }}&lt;/p&gt;
+                                            R$ {{ productDto.price|number_format(2, '.', ',') }}
+                                        &lt;/li&gt;
+                                    {% endfor %}
+
+                                    {# produtos/externos/visualizar.phtml #}
+                                    &lt;div&gt;
+                                        &lt;p&gt;{{ productDto.title }}&lt;/p&gt;
+                                        R$ {{ productDto.price|number_format(2, '.', ',') }}
+                                    &lt;/div&gt;
+                                </code></pre>
+                                <p class="caption">Código pós-refatoração resiliente às mudanças no sistema externo</p>
+                            </div>
+                            <div>
+                                <pre data-id="pre-dto"><code class="php" data-trim data-line-numbers>
+                                    class ProductDto
+                                    {
+                                        public static function build(
+                                            stdClass $data
+                                        ) {
+                                            $this->title = $data->title;
+                                            $this->price = $data->price / 100;
+                                        }
+                                    }
+                                </code></pre>
+                                <p class="caption">As mudanças ocorrem apenas no DTO</p>
                             </div>
                         </div>
                     </section>
@@ -994,24 +1202,6 @@
                         </ul>
                     </section>
                 </section> <!-- Referências -->
-
-                <section> <!-- Treinamentos in company -->
-                    <h1 class="title">Treinamentos <em>in company</em></h1>
-                    <div class="d-flex cols-2 items-center">
-                        <div class="qrcode-featured-text">
-                            Gostou? Então conheça meus treinamentos corporativos e sob demanda sobre Desenvolvimento,
-                            Segurança da Informação, DevOps, Arquitetura de Sistemas e diversos outros assuntos em
-                            <a href="https://bit.ly/vcampitelli" target="_blank" rel="noopener" class="fw-bold">
-                                viniciuscampitelli.com
-                            </a>
-                        </div>
-                        <div>
-                            <a href="https://bit.ly/vcampitelli" target="_blank" rel="noopener" class="d-block">
-                                <img src="img/qrcode-workshops.png" alt="Workshops" style="height: 300px" class="my-0">
-                            </a>
-                        </div>
-                    </div>
-                </section> <!-- Treinamentos in company -->
 
                 <section> <!-- Obrigado -->
                     <h1 class="text-center title">Obrigado!</h1>
