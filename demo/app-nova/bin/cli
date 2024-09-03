@@ -15,8 +15,6 @@ $container = function (string $className) use ($container): callable {
 };
 
 $commandLoader = new FactoryCommandLoader([
-    // Note that the `list` command will still instantiate that command
-    // in this example.
     'product:import' => $container(ImportProductsCommand::class),
 ]);
 $application->setCommandLoader($commandLoader);

@@ -36,6 +36,7 @@
     "require-dev": {
         "phpmd/phpmd": "^2.15",
         "phpstan/phpstan": "^1.11",
+        "phpunit/phpunit": "^11.3",
         "squizlabs/php_codesniffer": "^3.10"
     },
     "config": {
@@ -47,10 +48,16 @@
             "App\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
     "scripts": {
         "start": "php -S 0.0.0.0:8080 -t public",
         "phpcs": "phpcs",
         "phpmd": "phpmd app/,bin/,src/ ansi phpmd.xml",
-        "phpstan": "phpstan"
+        "phpstan": "phpstan",
+        "test": "phpunit"
     }
 }

@@ -2,4 +2,8 @@
 .vscode/
 /vendor/
 /logs/*
-!/logs/README.md
+/var/cache/*
+.phpunit.result.cache
+.phpunit.cache/
+cache.properties
+.php_cs.cache

@@ -34,28 +34,16 @@ readonly class Product implements ModelInterface
         float $price,
         bool $active
     ) {
+        if (($id !== null) && ($id < 1)) {
+            throw new InvalidArgumentException('ID do produto inválido');
+        }
         if ($idCategory < 1) {
             throw new InvalidArgumentException('ID da categoria inválido');
         }
 
-        $name = trim($name);
-        if (empty($name)) {
-            throw new InvalidArgumentException('Nome do produto não informado');
-        }
-        if (strlen($name) < 3) {
-            throw new InvalidArgumentException('O nome do produto deve conter ao menos 3 letras');
-        }
-        if (strlen($name) > 30) {
-            throw new InvalidArgumentException('O nome do produto deve conter até 30 letras');
-        }
+        $name = $this->validateName($name);
 
-        $sku = trim($sku);
-        if (empty($sku)) {
-            throw new InvalidArgumentException('SKU não informado');
-        }
-        if (strlen($sku) != 10) {
-            throw new InvalidArgumentException('O SKU deve conter 10 dígitos');
-        }
+        $sku = $this->validateSKu($sku);
 
         if ($price <= 0) {
             throw new InvalidArgumentException('Preço inválido');
@@ -131,5 +119,33 @@ readonly class Product implements ModelInterface
             price: $price ?? $this->price,
             active: $active ?? $this->active,
         );
+    }
+
+    private function validateName(string $name): string
+    {
+        $name = trim($name);
+        if (empty($name)) {
+            throw new InvalidArgumentException('Nome do produto não informado');
+        }
+        if (strlen($name) < 3) {
+            throw new InvalidArgumentException('O nome do produto deve conter ao menos 3 letras');
+        }
+        if (strlen($name) > 30) {
+            throw new InvalidArgumentException('O nome do produto deve conter até 30 letras');
+        }
+
+        return $name;
+    }
+
+    private function validateSKu(string $sku): string
+    {
+        $sku = trim($sku);
+        if (empty($sku)) {
+            throw new InvalidArgumentException('SKU não informado');
+        }
+        if (strlen($sku) != 10) {
+            throw new InvalidArgumentException('O SKU deve conter 10 dígitos');
+        }
+        return $sku;
     }
 }

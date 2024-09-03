@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Controllers\Product;
+namespace App\Application\Controllers\Product;
 
-use App\Controllers\AbstractController;
+use App\Application\Controllers\AbstractController;
 use App\UseCases\Product\ListProductUseCase;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;

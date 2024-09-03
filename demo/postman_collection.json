@@ -1,0 +1,499 @@
+{
+	"info": {
+		"_postman_id": "a0f2f83f-1566-40fe-83fa-5ff3d407b765",
+		"name": "Demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1420980"
+	},
+	"item": [
+		{
+			"name": "Criar produto",
+			"item": [
+				{
+					"name": "00 - Sem nenhuma informação",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "01 - Categoria inválida",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id_category",
+									"value": "erro",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "02 - Sem nome",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id_category",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "03 - Nome muito curto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id_category",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "A",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "04 - Nome muito longo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id_category",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Meu nome de produto muito grande",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "05 - Sem SKU",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id_category",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Meu produto",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							]
+						},
+						"description": "Generated from cURL: curl -X POST -d 'id_category=1&name=Meu+produto' http://localhost:8080/products"
+					},
+					"response": []
+				},
+				{
+					"name": "06 - SKU inválido",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id_category",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Meu produto",
+									"type": "text"
+								},
+								{
+									"key": "sku",
+									"value": "TESTE",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							]
+						},
+						"description": "Generated from cURL: curl -X POST -d 'id_category=1&name=Meu+produto&sku=TESTE' http://localhost:8080/products"
+					},
+					"response": []
+				},
+				{
+					"name": "07 - Sem preço",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id_category",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Meu produto",
+									"type": "text"
+								},
+								{
+									"key": "sku",
+									"value": "TESTE00000",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							]
+						},
+						"description": "Generated from cURL: curl -X POST -d 'id_category=1&name=Meu+produto&sku=TESTE00000' http://localhost:8080/products"
+					},
+					"response": []
+				},
+				{
+					"name": "08 - Preço inválido",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id_category",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Meu produto",
+									"type": "text"
+								},
+								{
+									"key": "sku",
+									"value": "TESTE00000",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							]
+						},
+						"description": "Generated from cURL: curl -X POST -d 'id_category=1&name=Meu+produto&sku=TESTE00000&price=0' http://localhost:8080/products"
+					},
+					"response": []
+				},
+				{
+					"name": "09 - Produto válido",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id_category",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Meu produto",
+									"type": "text"
+								},
+								{
+									"key": "sku",
+									"value": "TESTE00000",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "10",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							]
+						},
+						"description": "Generated from cURL: curl -X POST -d 'id_category=1&name=Meu+produto&sku=TESTE00000&price=10' http://localhost:8080/products"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Listar produtos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/products",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Visualizar produto existente",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/products/1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"products",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Visualizar produto inexistente",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/products/10",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"products",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Importação em lote",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Comment",
+						"value": "",
+						"description": "Sim, esse endpoint está bugado! É um easter egg :)",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "products[0][id_category]",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "products[0][name]",
+							"value": "Meu produto 1",
+							"type": "text"
+						},
+						{
+							"key": "products[0][sku]",
+							"value": "BULK000001",
+							"type": "text"
+						},
+						{
+							"key": "products[0][price]",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "products[1][id_category]",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "products[1][name]",
+							"value": "Meu produto 2",
+							"type": "text"
+						},
+						{
+							"key": "products[1][sku]",
+							"value": "BULK000002",
+							"type": "text"
+						},
+						{
+							"key": "products[1][price]",
+							"value": "20",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/products/bulk",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"products",
+						"bulk"
+					]
+				},
+				"description": "Generated from cURL: curl -X POST -d 'products[0][id_category]=1&products[0][name]=Meu+produto+1&products[0][sku]=BULK000001&products[0][price]=10&products[1][id_category]=2&products[1][name]=Meu+produto+2&products[1][sku]=BULK000002&products[1][price]=20' http://localhost:8080/products/bulk"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}

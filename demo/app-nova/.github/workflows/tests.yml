@@ -17,21 +17,29 @@ jobs:
 
     - name: Cache Composer packages
       id: composer-cache
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: vendor
         key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
           ${{ runner.os }}-php-
 
-    - name: Install dependencies
+    - name: Configurando PHP
+      uses: shivammathur/setup-php@15b611248c3d140461e97b2eb10de461ca9ec5a3
+      with:
+        php-version: '8.3'
+
+    - name: Instalando dependências
       run: composer install --prefer-dist --no-progress
 
-    - name: Run PHPCS
-      run: composer run-script phpcs
+    - name: Executando PHPCS
+      run: composer run phpcs
 
-    - name: Run PHPMD
-      run: composer run-script phpmd
+    - name: Executando PHPMD
+      run: composer run phpmd
 
-    - name: Run PHPStan
-      run: composer run-script phpstan
+    - name: Executando PHPStan
+      run: composer run phpstan
+
+    - name: Executando testes
+      run: composer run test
