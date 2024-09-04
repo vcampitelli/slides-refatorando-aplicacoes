@@ -6,26 +6,31 @@
   --r-heading-font: var(--r-main-font);
   --r-heading-letter-spacing: -0.05em;
   --r-heading-text-transform: normal;
-  --r-link-color-hover: var(--color-accent);
-  --r-link-color: #027bce;
+  --r-link-color: var(--color-accent);
+  --r-link-color-hover: #503296;
   --r-main-color: #e4e1e6;
   --r-main-font-size: 28px;
   --r-main-font: "Fira Sans", sans-serif;
   --border-radius: 5px;
-  --color-accent: #0496ff;
-  --color-subheading: #a1a4a5;
+  --color-accent: #725bc2;
+  --color-subheading: #818485;
   --color-muted: #6b6c6c;
 }
 
 /* Primeiro slide */
 #first-slide > h1 {
+  --r-heading-letter-spacing: -0.044em;
   --r-heading-line-height: 1;
+  --r-heading-font-weight: 700;
+  --r-heading-margin: 0 0 10px 0;
+  background-image: linear-gradient(45deg, #af2369 0%, #fa3296 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 #first-slide > h2 {
-  display: inline-block;
   --r-heading2-size: 1.2em;
   --r-heading-font-weight: 600;
-  --r-heading-color: var(--color-accent);
+  --r-heading-color: var(--color-muted);
 }
 
 /* Sobre mim */
@@ -179,6 +184,9 @@ td.hljs-ln-line.hljs-ln-numbers {
 .text-right {
   text-align: right;
 }
+.text-shadow {
+  text-shadow: 0 0 2em #000;
+}
 .fs-small {
   font-size: 0.5em;
 }
@@ -199,11 +207,12 @@ img {
 
 /* Alert */
 .alert {
-  padding: 0.5em 0.7em;
+  padding: 0.6em 0.75em;
   background: var(--r-link-color-hover);
-  font-size: 0.6em;
+  font-size: 0.65em;
   border-radius: var(--border-radius);
   color: rgba(255, 255, 255, 0.9);
+  letter-spacing: -0.03em;
 }
 .alert > a {
   color: rgba(0, 0, 0, 0.45);

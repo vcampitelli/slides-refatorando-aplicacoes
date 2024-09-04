@@ -11,14 +11,11 @@
         <link rel="stylesheet" href="reveal.js/dist/reveal.css">
         <link rel="stylesheet" href="reveal.js/dist/theme/black.css">
 
-        <link rel="stylesheet"
-              href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/framer.min.css"
-              integrity="sha512-tegeSiwBwq2gYD87Cycxj1Q5PX/y2owrYz1b0QmyEBldD9+mH+CxQK0/3FgRY37inbVLVNaARzMbLD/sl5YtCA=="
-              crossorigin="anonymous" referrerpolicy="no-referrer"/>
+        <link rel="stylesheet" href="css/framer.min.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet"
-              href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=JetBrains+Mono&display=swap">
+              href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=JetBrains+Mono&display=swap">
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
@@ -478,7 +475,14 @@
                                         $id
                                     ) {}
                                 </code></pre>
-                                <p class="caption">Código pré-refatoração</p>
+                                <pre><code class="typescript" data-trim data-line-numbers>
+                                    export default function create(
+                                        request: any,
+                                        alias: any,
+                                        id: any
+                                    ): any {}
+                                </code></pre>
+                                <p class="caption">Códigos pré-refatoração</p>
                             </div>
                             <div class="fragment" data-fragment-index="1">
                                 <pre><code class="php" data-trim data-line-numbers>
@@ -488,7 +492,14 @@
                                         int $id
                                     ): Response {}
                                 </code></pre>
-                                <p class="caption">Código pós-refatoração</p>
+                                <pre><code class="typescript" data-trim data-line-numbers>
+                                    export default function create(
+                                        request: Request,
+                                        alias: string,
+                                        id: number
+                                    ): Entity {}
+                                </code></pre>
+                                <p class="caption">Códigos pós-refatoração</p>
                             </div>
                         </div>
                         <div class="alert mt-2">
@@ -510,84 +521,105 @@
                             <div class="fragment semi-fade-out" data-fragment-index="1">
                                 <pre><code class="php" data-trim data-line-numbers>
                                     switch ($method) {
-                                        case 'appmax':
-                                            // ...
-                                        case 'paypal':
-                                            // ...
                                         case 'pagarme':
+                                            // ...
+                                        case 'pagseguro':
                                             // ...
                                     }
                                 </code></pre>
-                                <p class="caption">Código pré-refatoração</p>
+                                <pre><code class="typescript" data-trim>
+                                    if (stepBefore === 'steps.account.username') {
+                                        return redirectTo('steps.account.password');
+                                    }
+                                </code></pre>
+                                <p class="caption">Códigos pré-refatoração</p>
                             </div>
                             <div class="fragment" data-fragment-index="1">
                                 <pre><code class="php" data-trim data-line-numbers>
                                     switch ($method) {
-                                        case AppmaxGateway::IDENTIFIER:
-                                            // ...
-                                        case PaypalGateway::IDENTIFIER:
-                                            // ...
                                         case PagarmeGateway::IDENTIFIER:
+                                            // ...
+                                        case PagSeguroGateway::IDENTIFIER:
                                             // ...
                                     }
                                 </code></pre>
-                                <p class="caption">Código pós-refatoração</p>
+                                <pre><code class="typescript" data-trim>
+                                    enum STEPS {
+                                        ACCOUNT_USERNAME = 'steps.account.username',
+                                        MERCHANT_CONFIG = 'steps.merchant.config',
+                                    }
+                                    if (stepBefore === STEPS.ACCOUNT_USERNAME) {
+                                        return redirectTo(STEPS.MERCHANT_CONFIG);
+                                    }
+                                </code></pre>
+                                <p class="caption">Códigos pós-refatoração</p>
                             </div>
                         </div>
                     </section>
                     <section data-auto-animate>
                         <h1>Refatoração</h1>
-                        <h2>Desacople atributos de sistemas externos</h2>
+                        <h2>Isole informações de sistemas externos</h2>
                         <p>
                             Ao invés de acessar os valores brutos das respostas de sistemas externos, crie abstrações,
                             como os DTOs <em>(Data Transfer Objects)</em>, diminuindo a quantidade de mudanças
                             necessárias em seu código quando houver alterações externas
                         </p>
-                        <pre data-id="pre"><code class="twig" data-trim data-line-numbers>
-                            {# produtos/externos/listar.phtml #}
-                            {% for product in products %}
-                                &lt;li&gt;
-                                    &lt;p&gt;{{ product.titulo }}&lt;/p&gt;
-                                    R$ {{ product.preco|number_format(2, '.', ',') }}
-                                &lt;/li&gt;
-                            {% endfor %}
+                        <div class="r-stack">
+                            <div class="w-100 fragment semi-fade-out" data-fragment-index="1">
+                                <pre data-id="pre"><code class="twig" data-trim data-line-numbers>
+                                    {# produtos/externos/listar.phtml #}
+                                    {% for product in products %}
+                                        &lt;li&gt;
+                                            &lt;p&gt;{{ product.titulo }}&lt;/p&gt;
+                                            R$ {{ product.preco|number_format(2, '.', ',') }}
+                                        &lt;/li&gt;
+                                    {% endfor %}
 
-                            {# produtos/externos/visualizar.phtml #}
-                            &lt;div&gt;
-                                &lt;p&gt;{{ product.titulo }}&lt;/p&gt;
-                                R$ {{ product.preco|number_format(2, '.', ',') }}
-                            &lt;/div&gt;
-                        </code></pre>
-                        <p class="caption">Código pré-refatoração</p>
+                                    {# produtos/externos/visualizar.phtml #}
+                                    &lt;div&gt;
+                                        &lt;p&gt;{{ product.titulo }}&lt;/p&gt;
+                                        R$ {{ product.preco|number_format(2, '.', ',') }}
+                                    &lt;/div&gt;
+                                </code></pre>
+                                <p class="caption">Código pré-refatoração</p>
+                            </div>
+                            <p class="fragment text-shadow" data-fragment-index="1">
+                                E se o sistema externo mudar a resposta?
+                            </p>
+                        </div>
                     </section>
                     <section data-auto-animate>
                         <h1>Refatoração</h1>
-                        <h2>Desacople atributos de sistemas externos</h2>
+                        <h2>Isole informações de sistemas externos</h2>
                         <p>
                             Ao invés de acessar os valores brutos das respostas de sistemas externos, crie abstrações,
                             como os DTOs <em>(Data Transfer Objects)</em>, diminuindo a quantidade de mudanças
                             necessárias em seu código quando houver alterações externas
                         </p>
-                        <pre data-id="pre"><code class="twig" data-trim data-line-numbers>
-                            {# produtos/externos/listar.phtml #}
-                            {% for product in products %}
-                                &lt;li&gt;
-                                    &lt;p&gt;{{ product.title }}&lt;/p&gt;
-                                    R$ {{ (product.price / 100)|number_format(2, '.', ',') }}
-                                &lt;/li&gt;
-                            {% endfor %}
+                        <div class="r-stack">
+                            <div class="w-100">
+                                <pre data-id="pre"><code class="twig" data-trim data-line-numbers>
+                                    {# produtos/externos/listar.phtml #}
+                                    {% for product in products %}
+                                        &lt;li&gt;
+                                            &lt;p&gt;{{ product.title }}&lt;/p&gt;
+                                            R$ {{ (product.price / 100)|number_format(2, '.', ',') }}
+                                        &lt;/li&gt;
+                                    {% endfor %}
 
-                            {# produtos/externos/visualizar.phtml #}
-                            &lt;div&gt;
-                                &lt;p&gt;{{ product.title }}&lt;/p&gt;
-                                R$ {{ (product.price / 100)|number_format(2, '.', ',') }}
-                            &lt;/div&gt;
-                        </code></pre>
-                        <p class="caption">Código pré-refatoração com mudanças no sistema externo refletidas</p>
+                                    {# produtos/externos/visualizar.phtml #}
+                                    &lt;div&gt;
+                                        &lt;p&gt;{{ product.title }}&lt;/p&gt;
+                                        R$ {{ (product.price / 100)|number_format(2, '.', ',') }}
+                                    &lt;/div&gt;
+                                </code></pre>
+                                <p class="caption">Código pré-refatoração com mudanças no sistema externo refletidas</p>
+                            </div>
+                        </div>
                     </section>
                     <section data-auto-animate>
                         <h1>Refatoração</h1>
-                        <h2>Desacople atributos de sistemas externos</h2>
+                        <h2>Isole informações de sistemas externos</h2>
                         <p>
                             Ao invés de acessar os valores brutos das respostas de sistemas externos, crie abstrações,
                             como os DTOs <em>(Data Transfer Objects)</em>, diminuindo a quantidade de mudanças
@@ -619,8 +651,10 @@
                                         public static function build(
                                             stdClass $data
                                         ) {
-                                            $this->title = $data->titulo;
-                                            $this->price = $data->preco;
+                                            return new ProductDto(
+                                                title: $data->titulo,
+                                                price: $data->preco,
+                                            );
                                         }
                                     }
                                 </code></pre>
@@ -630,7 +664,7 @@
                     </section>
                     <section data-auto-animate>
                         <h1>Refatoração</h1>
-                        <h2>Desacople atributos de sistemas externos</h2>
+                        <h2>Isole informações de sistemas externos</h2>
                         <p>
                             Ao invés de acessar os valores brutos das respostas de sistemas externos, crie abstrações,
                             como os DTOs <em>(Data Transfer Objects)</em>, diminuindo a quantidade de mudanças
@@ -662,8 +696,10 @@
                                         public static function build(
                                             stdClass $data
                                         ) {
-                                            $this->title = $data->title;
-                                            $this->price = $data->price / 100;
+                                            return new ProductDto(
+                                                title: $data->title,
+                                                price: $data->price / 100,
+                                            );
                                         }
                                     }
                                 </code></pre>
@@ -898,7 +934,8 @@
                         <div class="d-flex cols-2">
                             <div class="fragment semi-fade-out" data-fragment-index="1">
                                 <pre><code class="php" data-trim data-line-numbers>
-                                    class Time {
+                                    class Time
+                                    {
                                         public function getPontos(): int {
                                             return $this->pontos;
                                         }
@@ -915,16 +952,17 @@
                             </div>
                             <div class="fragment" data-fragment-index="1">
                                 <pre><code class="php" data-trim data-line-numbers>
-                                    class Time {
-                                        public function vence(): void {
+                                    class Time
+                                    {
+                                        public function vence(): void
+                                        {
                                             $this->pontos += 3;
                                         }
-                                        public function empata(): void {
+                                        public function empata(): void
+                                        {
                                             $this->pontos += 1;
                                         }
                                     }
-
-
 
                                     $time->vence();
                                 </code></pre>
