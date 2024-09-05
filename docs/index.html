@@ -11,7 +11,10 @@
         <link rel="stylesheet" href="reveal.js/dist/reveal.css">
         <link rel="stylesheet" href="reveal.js/dist/theme/black.css">
 
-        <link rel="stylesheet" href="css/framer.min.css">
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/framer.min.css"
+              integrity="sha512-tegeSiwBwq2gYD87Cycxj1Q5PX/y2owrYz1b0QmyEBldD9+mH+CxQK0/3FgRY37inbVLVNaARzMbLD/sl5YtCA=="
+              crossorigin="anonymous" referrerpolicy="no-referrer">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet"
@@ -217,6 +220,33 @@
                     </section>
                     <section>
                         <h1>Conceitos</h1>
+                        <h2>Coesão</h2>
+                        <blockquote>
+                            Relacionamento que os membros de um módulo possuem. Códigos coesos são aqueles de relação
+                            forte, onde seus membros estão intimamente ligados e estão ali por um objetivo comum.
+                            Membros que não são absolutamente necessários para aquele módulo não devem estar presentes
+                            em códigos coesos.
+                        </blockquote>
+                        <a href="https://pt.stackoverflow.com/questions/81314/o-que-s%C3%A3o-os-conceitos-de-coes%C3%A3o-e-acoplamento"
+                           target="_blank" rel="noopener" class="reference">
+                            StackOverflow: O que são os conceitos de coesão e acoplamento?
+                        </a>
+                    </section>
+                    <section>
+                        <h1>Conceitos</h1>
+                        <h2>Acoplamento</h2>
+                        <blockquote>
+                            Relacionamento entre os módulos. Indica quanto um módulo depende de outro para funcionar.
+                            Códigos desacoplados são aqueles de relação fraca, e não dependem de outros para fazer sua
+                            funcionalidade básica. É sempre desejável um baixo nível de acoplamento.
+                        </blockquote>
+                        <a href="https://pt.stackoverflow.com/questions/81314/o-que-s%C3%A3o-os-conceitos-de-coes%C3%A3o-e-acoplamento"
+                           target="_blank" rel="noopener" class="reference">
+                            StackOverflow: O que são os conceitos de coesão e acoplamento?
+                        </a>
+                    </section>
+                    <section>
+                        <h1>Conceitos</h1>
                         <h2>SOLID</h2>
                         <p>
                             Princípios que foram apresentados originalmente por Robert Martin em 2000 em seu artigo
@@ -381,14 +411,26 @@
                     </section>
                     <section>
                         <h1>Refatoração</h1>
-                        <h2><em>Linting</em></h2>
+                        <h2><em>Linting</em> e análise estática</h2>
                         <p>
                             Instale ferramentas de análise estática e <em>linting</em>, defina as regras e executa a
                             ferramenta que corrige automaticamente o estilo do código
                         </p>
                         <ul>
                             <li>
-                                PHP: <a href="https://github.com/squizlabs/PHP_CodeSniffer" target="_blank" rel="noopener">PHPCS</a>
+                                PHP:
+                                <a href="https://github.com/squizlabs/PHP_CodeSniffer" target="_blank" rel="noopener">
+                                    PHPCS</a>,
+                                <a href="https://github.com/larastan/larastan" target="_blank" rel="noopener">
+                                    larastan</a>,
+                                <a href="https://github.com/phan/phan" target="_blank" rel="noopener">
+                                    phan</a>,
+                                <a href="https://psalm.dev" target="_blank" rel="noopener">
+                                    psalm
+                                </a> e
+                                <a href="https://phpmd.org/" target="_blank" rel="noopener">
+                                    PHPMD
+                                </a>
                             </li>
                             <li>
                                 JavaScript: <a href="https://eslint.org/" target="_blank" rel="noopener">ESLint</a>,
@@ -412,52 +454,6 @@
                         <div class="alert mt-1">
                             Dica: configure o <em>plugin</em> da ferramenta na sua IDE para garantir que está escrevendo
                             código de acordo com o formato configurado e adicione uma etapa no CI para rodar a checagem
-                        </div>
-                    </section>
-                    <section data-auto-animate>
-                        <h1>Refatoração</h1>
-                        <h2>Testes - Parte 1</h2>
-                        <p>
-                            Crie simples testes de contrato de suas <em>controllers</em> para ter mais confiança que a
-                            refatoração não irá quebrar suas APIs
-                        </p>
-                        <pre><code class="php" data-trim data-line-numbers>
-                            public function testProductListAction() {
-                                $body = $this->makeGetRequest('/product/list')->body();
-                                $this->assertArrayHasKey('status', $body);
-                                $this->assertTrue($body['status']);
-                                $this->assertArrayHasKey('products', $body);
-                                $this->assertArrayHasKey('name', $body['products'][0]);
-                                $this->assertArrayHasKey('price', $body['products'][0]);
-                                $this->assertArrayHasKey('description', $body['products'][0]);
-                            }
-                        </code></pre>
-                        <div class="alert mt-1">
-                            Atenção: não é recomendado testar <em>controllers</em>, então depois iremos refatorar esses
-                            testes também!
-                        </div>
-                    </section>
-                    <section data-auto-animate>
-                        <h1>Refatoração</h1>
-                        <h2>Testes - Parte 1</h2>
-                        <div class="d-flex cols-2">
-                            <div>
-                                <p>
-                                    Adicione também uma etapa no CI para rodar esses testes e barrar
-                                    <em>Pull Requests</em> que não passem
-                                </p>
-                            </div>
-                            <div>
-                                <pre><code class="yaml" data-trim data-line-numbers>
-                                    on:
-                                      pull_request:
-
-                                    steps:
-                                      - uses: actions@checkout
-                                      - uses: shivammathur/setup-php@v2
-                                      - run: composer test
-                                </code></pre>
-                            </div>
                         </div>
                     </section>
                     <section>
@@ -509,6 +505,52 @@
                             <a href="https://github.com/larastan/larastan" target="_blank" rel="noopener">larastan</a>)
                         </div>
                     </section>
+                    <section data-auto-animate>
+                        <h1>Refatoração</h1>
+                        <h2>Testes - Parte 1</h2>
+                        <p>
+                            Crie simples testes de contrato de suas <em>controllers</em> para ter mais confiança que a
+                            refatoração não irá quebrar suas APIs
+                        </p>
+                        <pre><code class="php" data-trim data-line-numbers>
+                            public function testProductListAction() {
+                                $body = $this->makeGetRequest('/product/list')->body();
+                                $this->assertArrayHasKey('status', $body);
+                                $this->assertTrue($body['status']);
+                                $this->assertArrayHasKey('products', $body);
+                                $this->assertArrayHasKey('name', $body['products'][0]);
+                                $this->assertArrayHasKey('price', $body['products'][0]);
+                                $this->assertArrayHasKey('description', $body['products'][0]);
+                            }
+                        </code></pre>
+                        <div class="alert mt-1">
+                            Atenção: não é recomendado testar <em>controllers</em>, então depois iremos refatorar esses
+                            testes também!
+                        </div>
+                    </section>
+                    <section data-auto-animate>
+                        <h1>Refatoração</h1>
+                        <h2>Testes - Parte 1</h2>
+                        <div class="d-flex cols-2">
+                            <div>
+                                <p>
+                                    Adicione também uma etapa no CI para rodar esses testes e barrar
+                                    <em>Pull Requests</em> que não passem
+                                </p>
+                            </div>
+                            <div>
+                                <pre><code class="yaml" data-trim data-line-numbers>
+                                    on:
+                                      pull_request:
+
+                                    steps:
+                                      - uses: actions@checkout
+                                      - uses: shivammathur/setup-php@v2
+                                      - run: composer test
+                                </code></pre>
+                            </div>
+                        </div>
+                    </section>
                     <section>
                         <h1>Refatoração</h1>
                         <h2>Não dependa de <em>strings</em></h2>
@@ -558,7 +600,7 @@
                     </section>
                     <section data-auto-animate>
                         <h1>Refatoração</h1>
-                        <h2>Isole informações de sistemas externos</h2>
+                        <h2>Separe informações de sistemas externos</h2>
                         <p>
                             Ao invés de acessar os valores brutos das respostas de sistemas externos, crie abstrações,
                             como os DTOs <em>(Data Transfer Objects)</em>, diminuindo a quantidade de mudanças
@@ -590,7 +632,7 @@
                     </section>
                     <section data-auto-animate>
                         <h1>Refatoração</h1>
-                        <h2>Isole informações de sistemas externos</h2>
+                        <h2>Separe informações de sistemas externos</h2>
                         <p>
                             Ao invés de acessar os valores brutos das respostas de sistemas externos, crie abstrações,
                             como os DTOs <em>(Data Transfer Objects)</em>, diminuindo a quantidade de mudanças
@@ -619,7 +661,7 @@
                     </section>
                     <section data-auto-animate>
                         <h1>Refatoração</h1>
-                        <h2>Isole informações de sistemas externos</h2>
+                        <h2>Separe informações de sistemas externos</h2>
                         <p>
                             Ao invés de acessar os valores brutos das respostas de sistemas externos, crie abstrações,
                             como os DTOs <em>(Data Transfer Objects)</em>, diminuindo a quantidade de mudanças
@@ -664,7 +706,7 @@
                     </section>
                     <section data-auto-animate>
                         <h1>Refatoração</h1>
-                        <h2>Isole informações de sistemas externos</h2>
+                        <h2>Separe informações de sistemas externos</h2>
                         <p>
                             Ao invés de acessar os valores brutos das respostas de sistemas externos, crie abstrações,
                             como os DTOs <em>(Data Transfer Objects)</em>, diminuindo a quantidade de mudanças
