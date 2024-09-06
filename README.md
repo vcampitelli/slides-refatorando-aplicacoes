@@ -2,10 +2,10 @@
 
 ## Slides
 
-Acesse os slides hospedados em [viniciuscampitelli.com/slides-refatorando-aplicacoes](https://viniciuscampitelli.com/slides-refatorando-aplicacoes) ou clone este repositório e acesse o arquivo [`docs/index.html`](./docs/index.html) em seu navegador.
+Clone este repositório e acesse o arquivo [`docs/index.html`](./docs/index.html) em seu navegador.
 
 ```shell
-git clone --recursive git@github.com:vcampitelli/slides-refatorando-aplicacoes.git
+git clone --recursive git@github.com:somosyampi/curso-refatoracao.git
 ```
 
 > Note que é preciso informar o parâmetro `--recursive` para que os slides funcionem corretamente
@@ -16,7 +16,7 @@ git clone --recursive git@github.com:vcampitelli/slides-refatorando-aplicacoes.g
 2. Clone este repositório
 
     ```shell
-    git clone git@github.com/vcampitelli/slides-refatorando-aplicacoes.git
+    git clone git@github.com/somosyampi/curso-refatoracao.git
     ```
 3. Inicialize os _containers_ da aplicação
 
