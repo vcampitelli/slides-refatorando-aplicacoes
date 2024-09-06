@@ -214,9 +214,77 @@
                     </section>
                 </section> <!-- Preparação -->
 
-                <section> <!-- Conceitos -->
+                <section> <!-- Quando refatorar -->
+                    <section data-auto-animate data-auto-animate-restart>
+                        <h1>Quando refatorar</h1>
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="title">Quando refatorar</h1>
+                        <ul>
+                            <li>Quando é a terceira vez que mexemos naquele código</li>
+                            <li class="fragment">Antes de criar ou alterar uma funcionalidade grande ou complexa</li>
+                            <li class="fragment">Quando o código é difícil de entender</li>
+                            <li class="fragment">Para pagar débito técnico ou corrigir algo mal feito</li>
+                            <li class="fragment">Quando há algum <em>bug</em> não identificado</li>
+                            <li class="fragment">Para criar testes</li>
+                        </ul>
+                        <div class="references fragment">
+                            <a href="https://martinfowler.com/books/refactoring.html" target="_blank"
+                               rel="noopener">
+                                Livro <em>&ldquo;Refactoring: Improving the Design of Existing Code&rdquo;</em>
+                                (Martin Fowler)
+                            </a>
+                            <a href="https://blog.alexewerlof.com/p/tech-debt-day" target="_blank" rel="noopener">
+                                We invested 10% to pay back tech debt; Here's what happened
+                            </a>
+                        </div>
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="title">Quando refatorar</h1>
+                        <blockquote>
+                            You have to refactor when you run into ugly code &mdash; but excellent code needs plenty of
+                            refactoring too.
+                            <cite>Martin Fowler</cite>
+                        </blockquote>
+                        <div class="references">
+                            <a href="https://martinfowler.com/books/refactoring.html" target="_blank"
+                               rel="noopener">
+                                Livro <em>&ldquo;Refactoring: Improving the Design of Existing Code&rdquo;</em>
+                                (Martin Fowler)
+                            </a>
+                        </div>
+                    </section>
                     <section>
+                        <h1 class="title">Quando não refatorar</h1>
+                        <ul>
+                            <li class="fragment">Quando você não tem experiência o suficiente</li>
+                            <li class="fragment">Quando você não conhece o código (ou o negócio) o suficiente</li>
+                            <li class="fragment">Se você não irá precisar modificar aquele código</li>
+                            <li class="fragment">Quando é mais fácil reescrever do que refatorar</li>
+                        </ul>
+                        <div class="references fragment">
+                            <a href="https://martinfowler.com/books/refactoring.html" target="_blank"
+                               rel="noopener">
+                                Livro <em>&ldquo;Refactoring: Improving the Design of Existing Code&rdquo;</em>
+                                (Martin Fowler)
+                            </a>
+                        </div>
+                    </section>
+                </section> <!-- Quando refatorar -->
+
+                <section> <!-- Conceitos -->
+                    <section data-auto-animate data-auto-animate-restart>
                         <h1>Conceitos</h1>
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="title">Conceitos</h1>
+                        <blockquote>
+                            Any fool can write code that a computer can understand. Good programmers write code that
+                            humans can understand.
+                            <cite>Martin Fowler</cite>
+                        </blockquote>
+                        <a href="https://en.wikiquote.org/wiki/Martin_Fowler" target="_blank" rel="noopener"
+                           class="reference">Refactoring: Improving the Design of Existing Code</a>
                     </section>
                     <section>
                         <h1>Conceitos</h1>
@@ -291,8 +359,8 @@
                         <h1>Conceitos</h1>
                         <h2><em>Object Calisthenics</em></h2>
                         <p>
-                            Conjunto de 9 regras inventadas por Jeff Bay no livro <em>The ThoughtWorks Anthology</em> de
-                            2008
+                            Conjunto de 9 regras inventadas por Jeff Bay no livro <em>&ldquo;The ThoughtWorks
+                            Anthology&rdquo;</em> de 2008
                         </p>
                         <ol>
                             <li><em>Only One Level Of Indentation Per Method</em></li>
@@ -513,7 +581,8 @@
                             refatoração não irá quebrar suas APIs
                         </p>
                         <pre><code class="php" data-trim data-line-numbers>
-                            public function testProductListAction() {
+                            public function testProductListAction()
+                            {
                                 $body = $this->makeGetRequest('/product/list')->body();
                                 $this->assertArrayHasKey('status', $body);
                                 $this->assertTrue($body['status']);
@@ -562,28 +631,24 @@
                         <div class="d-flex cols-2">
                             <div class="fragment semi-fade-out" data-fragment-index="1">
                                 <pre><code class="php" data-trim data-line-numbers>
-                                    switch ($method) {
-                                        case 'pagarme':
-                                            // ...
-                                        case 'pagseguro':
-                                            // ...
-                                    }
+                                    return match ($method) {
+                                        'pagarme' => /* ... */,
+                                        'pagseguro'=> /* ... */
+                                    };
                                 </code></pre>
                                 <pre><code class="typescript" data-trim>
                                     if (stepBefore === 'steps.account.username') {
-                                        return redirectTo('steps.account.password');
+                                        return redirectTo('steps.merchant.config');
                                     }
                                 </code></pre>
                                 <p class="caption">Códigos pré-refatoração</p>
                             </div>
                             <div class="fragment" data-fragment-index="1">
                                 <pre><code class="php" data-trim data-line-numbers>
-                                    switch ($method) {
-                                        case PagarmeGateway::IDENTIFIER:
-                                            // ...
-                                        case PagSeguroGateway::IDENTIFIER:
-                                            // ...
-                                    }
+                                    return match ($method) {
+                                        PagarmeGateway::IDENTIFIER => /* ... */,
+                                        PagSeguroGateway::IDENTIFIER => /* ... */
+                                    };
                                 </code></pre>
                                 <pre><code class="typescript" data-trim>
                                     enum STEPS {
@@ -607,7 +672,7 @@
                             necessárias em seu código quando houver alterações externas
                         </p>
                         <div class="r-stack">
-                            <div class="w-100 fragment semi-fade-out" data-fragment-index="1">
+                            <div class="w-100 fragment semi-fade-out then-fade-in" data-fragment-index="1">
                                 <pre data-id="pre"><code class="twig" data-trim data-line-numbers>
                                     {# produtos/externos/listar.phtml #}
                                     {% for product in products %}
@@ -623,10 +688,12 @@
                                         R$ {{ product.preco|number_format(2, '.', ',') }}
                                     &lt;/div&gt;
                                 </code></pre>
-                                <p class="caption">Código pré-refatoração</p>
+                                <p class="caption">
+                                    <span data-id="codigo-pre-refatoracao">Código pré-refatoração</span>
+                                </p>
                             </div>
-                            <p class="fragment text-shadow" data-fragment-index="1">
-                                E se o sistema externo mudar a resposta?
+                            <p class="fragment text-shadow pb-1" data-fragment-index="1">
+                                <span class="fragment fade-out">E se o sistema externo mudar a resposta?</span>
                             </p>
                         </div>
                     </section>
@@ -655,7 +722,10 @@
                                         R$ {{ (product.price / 100)|number_format(2, '.', ',') }}
                                     &lt;/div&gt;
                                 </code></pre>
-                                <p class="caption">Código pré-refatoração com mudanças no sistema externo refletidas</p>
+                                <p class="caption">
+                                    <span data-id="codigo-pre-refatoracao">Código pré-refatoração</span>
+                                    <span>com mudanças no sistema externo refletidas</span>
+                                </p>
                             </div>
                         </div>
                     </section>
@@ -684,7 +754,8 @@
                                         R$ {{ productDto.price|number_format(2, '.', ',') }}
                                     &lt;/div&gt;
                                 </code></pre>
-                                <p class="caption">Código pós-refatoração</p>
+                                <p class="caption">
+                                    <span data-id="codigo-pos-refatoracao">Código pós-refatoraçã</span>o</p>
                             </div>
                             <div>
                                 <pre data-id="pre-dto"><code class="php" data-trim data-line-numbers>
@@ -729,7 +800,10 @@
                                         R$ {{ productDto.price|number_format(2, '.', ',') }}
                                     &lt;/div&gt;
                                 </code></pre>
-                                <p class="caption">Código pós-refatoração resiliente às mudanças no sistema externo</p>
+                                <p class="caption">
+                                    <span data-id="codigo-pos-refatoracao">Código pós-refatoração</span>
+                                    <span>resiliente às mudanças no sistema externo</span>
+                                </p>
                             </div>
                             <div>
                                 <pre data-id="pre-dto"><code class="php" data-trim data-line-numbers>
@@ -811,87 +885,82 @@
                         <h1>Refatoração</h1>
                         <h2>Isolamento de responsabilidades</h2>
                         <h3>Mantenha suas <em>controllers</em> leves</h3>
-                        <div class="r-stack">
-                            <div class="fragment fade-out w-100" data-fragment-index="1">
-                                <pre><code class="php" data-trim data-line-numbers>
-                                    class ProductCreateAction {
-                                        public function handle(Request $request) {
-                                            $name = (string) $request->get('name');
-                                            $price = (float) $request->get('price');
-                                            $description = (string) $request->get('description');
-                                            $idCategory = (int) $request->get('id_category');
+                        <pre data-id="pre"><code class="php" data-trim data-line-numbers>
+                            class ProductCreateAction {
+                                public function handle(Request $request) {
+                                    $name = (string) $request->get('name');
+                                    $price = (float) $request->get('price');
+                                    $description = (string) $request->get('description');
+                                    $idCategory = (int) $request->get('id_category');
 
-                                            if (empty($name)) { /* ... */ }
-                                            if ((empty($price)) || ($price <= 0)) { /* ... */ }
-                                            // validação dos outros campos...
+                                    if (empty($name)) { /* ... */ }
+                                    if ((empty($price)) || ($price <= 0)) { /* ... */ }
+                                    // validação dos outros campos...
 
-                                            if (!user()->authorized('PRODUCT_CREATE')) {
-                                                return response(403, 'Você não tem permissão a esse recurso');
-                                            }
-
-                                            $category = $this->categoryRepository->findById($idCategory);
-                                            if ((!$category) || (!$category->active)) {
-                                                return response(404, 'Categoria não encontrada');
-                                            }
-
-                                            $product = new Product($name, $description, $price, $category);
-                                            $this->productRepository->save($product);
-
-                                            return response(201);
-                                        }
+                                    if (!user()->authorized('PRODUCT_CREATE')) {
+                                        return response(403, 'Você não tem permissão a esse recurso');
                                     }
-                                </code></pre>
-                                <p class="caption" data-id="p">Código pré-refatoração</p>
-                            </div>
-                            <div class="fragment w-100" data-fragment-index="1">
-                                <pre><code class="php" data-trim data-line-numbers>
-                                    class ProductCreateAction {
-                                        public function handle(Request $request) {
-                                            $name = (string) $request->get('name');
-                                            $price = (float) $request->get('price');
-                                            $description = (string) $request->get('description');
-                                            $idCategory = (int) $request->get('id_category');
 
-                                            $useCase = new CreateProductUseCase();
-                                            return $useCase->handle(
-                                                new CreateProductUseCaseInput($name, $price, $description, $idCategory)
-                                            );
-                                        }
+                                    $category = $this->categoryRepository->findById($idCategory);
+                                    if ((!$category) || (!$category->active)) {
+                                        return response(404, 'Categoria não encontrada');
                                     }
-                                    class CreateProductUseCaseInput {
-                                        public function __construct(string $name, float $price, string $description, int $idCategory) {
-                                            if (empty($input->name)) { /* ... */ }
-                                            if ((empty($input->price)) || ($input->price <= 0)) { /* ... */ }
-                                        }
+
+                                    $product = new Product($name, $description, $price, $category);
+                                    $this->productRepository->save($product);
+
+                                    return response(201);
+                                }
+                            }
+                        </code></pre>
+                        <p class="caption" data-id="p">Código pré-refatoração</p>
+                    </section>
+                    <section data-auto-animate>
+                        <h1>Refatoração</h1>
+                        <h2>Isolamento de responsabilidades</h2>
+                        <h3>Mantenha suas <em>controllers</em> leves</h3>
+                        <pre data-id="pre"><code class="php" data-trim data-line-numbers>
+                            class ProductCreateAction {
+                                public function handle(Request $request) {
+                                    $name = (string) $request->get('name');
+                                    $price = (float) $request->get('price');
+                                    $description = (string) $request->get('description');
+                                    $idCategory = (int) $request->get('id_category');
+
+                                    $useCase = new CreateProductUseCase();
+                                    return $useCase->handle(
+                                        $name, $price, $description, $idCategory
+                                    );
+                                }
+                            }
+                            class CreateProductUseCase {
+                                public function handle(string $name, float $price, string $description, int $idCategory) {
+                                    if (empty($name)) { /* ... */ }
+                                    if ((empty($price)) || ($price <= 0)) { /* ... */ }
+                                    // validação dos outros campos...
+
+                                    if (!user()->authorized('PRODUCT_CREATE')) {
+                                        return response(403, 'Você não tem permissão a esse recurso');
                                     }
-                                    class CreateProductUseCase {
-                                        public function handle(CreateProductUseCaseInput $input) {
-                                            // validação dos outros campos...
 
-                                            if (!user()->authorized('PRODUCT_CREATE')) {
-                                                return response(403, 'Você não tem permissão a esse recurso');
-                                            }
-
-                                            $category = $this->categoryRepository->findById($input->idCategory);
-                                            if ((!$category) || (!$category->active)) {
-                                                return response(404, 'Categoria não encontrada');
-                                            }
-
-                                            $product = new Product(
-                                                $input->name,
-                                                $input->description,
-                                                $input->price,
-                                                $category
-                                            );
-                                            $this->productRepository->save($product);
-
-                                            return response(201);
-                                        }
+                                    $category = $this->categoryRepository->findById($idCategory);
+                                    if ((!$category) || (!$category->active)) {
+                                        return response(404, 'Categoria não encontrada');
                                     }
-                                </code></pre>
-                                <p class="caption" data-id="p">Código pós-refatoração</p>
-                            </div>
-                        </div>
+
+                                    $product = new Product(
+                                        $name,
+                                        $description,
+                                        $price,
+                                        $category
+                                    );
+                                    $this->productRepository->save($product);
+
+                                    return response(201);
+                                }
+                            }
+                        </code></pre>
+                        <p class="caption" data-id="p">Código pós-refatoração</p>
                     </section>
                     <section>
                         <h1>Refatoração</h1>
@@ -914,8 +983,7 @@
                         <h2>Isolamento de responsabilidades</h2>
                         <h3><em>Models</em> e banco de dados</h3>
                         <p>
-                            É comum termos <em>models</em> que tenham tanto regras de negócio quanto interações com o
-                            banco de dados
+                            Separe essas ações para facilitar a manutenção e criação de <em>mocks</em> para testar
                         </p>
                         <pre data-id="pre"><code class="php" data-trim data-line-numbers>
                             class Product {
@@ -942,8 +1010,7 @@
                         <h2>Isolamento de responsabilidades</h2>
                         <h3><em>Models</em> e banco de dados</h3>
                         <p>
-                            É recomendado separar essas ações para facilitar a manutenção e os <em>mocks</em> na hora de
-                            testar
+                            Separe essas ações para facilitar a manutenção e criação de <em>mocks</em> para testar
                         </p>
                         <pre data-id="pre"><code class="php" data-trim data-line-numbers>
                             class Product {
@@ -1267,6 +1334,13 @@
                             <li>
                                 <a href="https://refactoring.com" target="_blank" rel="noopener">
                                     Refactoring.com (Martin Fowler)
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://martinfowler.com/books/refactoring.html" target="_blank"
+                                   rel="noopener">
+                                    Livro <em>&ldquo;Refactoring: Improving the Design of Existing Code&rdquo;</em>
+                                    (Martin Fowler)
                                 </a>
                             </li>
                             <li>
