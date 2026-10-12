@@ -15,30 +15,70 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/base16/materia.css"
             integrity="sha512-dNLKjYYuuAr03jsJq+Bs9vgzuZbDnp/b4O1JwQQbsyCvpYfG3DDGQfxcZ7121JtfHH9Cted46eLPuJY+bSBP9Q=="
             crossorigin="anonymous" referrerpolicy="no-referrer">
+        <link rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.49.0/dist/tabler-icons.min.css"
+            integrity="sha256-xGoLxkNRWscNGQstexcb4qRorIGTh+9hxS3XqqHF/fA="
+            crossorigin="anonymous" referrerpolicy="no-referrer">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono&display=swap">
+            href="https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@0,400..900;1,400..700&family=JetBrains+Mono&display=swap">
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
         <div class="reveal">
             <div class="slides">
                 <section id="first-slide">
-                    <h1 class="title">
-                        Refatorando<br>
-                        Aplicações<br>
-                        na Prática
+                    <h1 class="title-word" aria-label="Refatorando">
+                      <span style="--i:0">R</span>
+                      <span style="--i:1">e</span>
+                      <span style="--i:2">f</span>
+                      <span style="--i:3">a</span>
+                      <span style="--i:4">t</span>
+                      <span style="--i:5">o</span>
+                      <span style="--i:6">r</span>
+                      <span style="--i:7">a</span>
+                      <span style="--i:8">n</span>
+                      <span style="--i:9">d</span>
+                      <span style="--i:10">o</span>
                     </h1>
-                    <h2>Vinícius Campitelli</h2>
+                    <h1 class="title-word" aria-label="Aplicações">
+                      <span style="--i:11">A</span>
+                      <span style="--i:12">p</span>
+                      <span style="--i:13">l</span>
+                      <span style="--i:14">i</span>
+                      <span style="--i:15">c</span>
+                      <span style="--i:16">a</span>
+                      <span style="--i:17">ç</span>
+                      <span style="--i:18">õ</span>
+                      <span style="--i:19">e</span>
+                      <span style="--i:20">s</span>
+                    </h1>
+                    <h1 class="title-word" aria-label="na Prática">
+                      <span style="--i:21">n</span>
+                      <span style="--i:22">a</span>
+                      &nbsp;
+                      <span style="--i:23">P</span>
+                      <span style="--i:24">r</span>
+                      <span style="--i:25">á</span>
+                      <span style="--i:26">t</span>
+                      <span style="--i:27">i</span>
+                      <span style="--i:28">c</span>
+                      <span style="--i:29">a</span>
+                    </h1>
+                    <h2>por Vinícius Campitelli</h2>
                 </section>
 
                 <section> <!-- Sobre -->
                     <section data-auto-animate data-auto-animate-restart>
-                        <h1>Sobre mim</h1>
+                        <h1 class="title">
+                            <i class="ti ti-user"></i><span>Sobre mim</span>
+                        </h1>
                     </section>
                     <section data-auto-animate>
-                        <h1 class="title">Sobre mim</h1>
+                        <h1 class="title">
+                            <i class="ti ti-user"></i><span>Sobre mim</span>
+                        </h1>
                         <div id="about-me">
                             <div class="text-center">
                                 <figure id="profile-pic">
@@ -155,11 +195,15 @@
                 </section> <!-- Sobre -->
                 <section> <!-- Preparação -->
                     <section>
-                        <h1>Preparação</h1>
+                        <h1>
+                            <i class="ti ti-map"></i><span>Preparação</span>
+                        </h1>
                     </section>
                     <section>
                         <h1>Preparação</h1>
-                        <h2>Slides</h2>
+                        <h2>
+                            <i class="ti ti-presentation"></i><span>Slides</span>
+                        </h2>
                         <div class="d-flex justify-start items-center">
                             <div style="flex-shrink: 0">
                                 <a href="https://github.com/vcampitelli/slides-refatorando-aplicacoes" target="_blank"
@@ -168,7 +212,7 @@
                                 </a>
                             </div>
                             <div class="qrcode-featured-text">
-                                Acesse os <em>slides</em> em<br>
+                                Acesse os <i>slides</i> em<br>
                                 <a href="https://github.com/vcampitelli/slides-refatorando-aplicacoes" target="_blank"
                                    rel="noopener" class="d-block">
                                     github.com/vcampitelli/slides-refatorando-aplicacoes
@@ -178,7 +222,9 @@
                     </section>
                     <section id="preparacao-maos-na-massa">
                         <h1>Preparação</h1>
-                        <h2>Mãos na massa</h2>
+                        <h2>
+                            <i class="ti ti-tool"></i><span>Mãos na massa</span>
+                        </h2>
                         <ol>
                             <li>
                                 Certifique-se que você tenha
@@ -200,7 +246,7 @@
                                 </code></pre>
                             </li>
                             <li>
-                                Inicialize os <em>containers</em> da aplicação:
+                                Inicialize os <i>containers</i> da aplicação:
                                 <pre><code class="shell" data-trim>
                                     $ cd demo/app-antiga
                                     $ docker compose up -d
@@ -212,29 +258,33 @@
                             </li>
                         </ol>
                         <div class="mt-1 text-right fs-small opacity-50">
-                            <a href="#/maos-na-massa">Ir para o slide <em>"Mãos na massa"</em> &#8594;</a>
+                            <a href="#/maos-na-massa">Ir para o slide <i>"Mãos na massa"</i> &#8594;</a>
                         </div>
                     </section>
                 </section> <!-- Preparação -->
 
                 <section> <!-- Quando refatorar -->
                     <section data-auto-animate data-auto-animate-restart>
-                        <h1>Quando refatorar</h1>
+                        <h1 class="title">
+                            <i class="ti ti-recycle"></i><span>Quando refatorar?</span>
+                        </h1>
                     </section>
                     <section data-auto-animate>
-                        <h1 class="title">Quando refatorar</h1>
+                        <h1 class="title">
+                            <i class="ti ti-recycle"></i><span>Quando refatorar?</span>
+                        </h1>
                         <ul>
-                            <li>Quando é a terceira vez que mexemos naquele código</li>
-                            <li class="fragment">Antes de criar ou alterar uma funcionalidade grande ou complexa</li>
-                            <li class="fragment">Quando o código é difícil de entender</li>
-                            <li class="fragment">Para pagar débito técnico ou corrigir algo mal feito</li>
-                            <li class="fragment">Quando há algum <em>bug</em> não identificado</li>
-                            <li class="fragment">Para criar testes</li>
+                            <li>Quando é a <b>terceira vez</b> que mexemos naquele código</li>
+                            <li class="fragment">Antes de criar ou alterar uma funcionalidade <b>grande ou complexa</b></li>
+                            <li class="fragment">Quando o código é <b>difícil de entender</b></li>
+                            <li class="fragment">Para pagar <b>débito técnico</b> ou corrigir algo mal feito</li>
+                            <li class="fragment">Quando há algum <i>bug</i> <b>não identificado</b></li>
+                            <li class="fragment">Para <b>criar testes</b></li>
                         </ul>
                         <div class="references fragment">
                             <a href="https://martinfowler.com/books/refactoring.html" target="_blank"
                                rel="noopener">
-                                Livro <em>&ldquo;Refactoring: Improving the Design of Existing Code&rdquo;</em>
+                                Livro <i>&ldquo;Refactoring: Improving the Design of Existing Code&rdquo;</i>
                                 (Martin Fowler)
                             </a>
                             <a href="https://blog.alexewerlof.com/p/tech-debt-day" target="_blank" rel="noopener">
@@ -243,7 +293,9 @@
                         </div>
                     </section>
                     <section data-auto-animate>
-                        <h1 class="title">Quando refatorar</h1>
+                        <h1 class="title">
+                            <i class="ti ti-recycle"></i><span>Quando refatorar?</span>
+                        </h1>
                         <blockquote>
                             You have to refactor when you run into ugly code &mdash; but excellent code needs plenty of
                             refactoring too.
@@ -252,13 +304,15 @@
                         <div class="references">
                             <a href="https://martinfowler.com/books/refactoring.html" target="_blank"
                                rel="noopener">
-                                Livro <em>&ldquo;Refactoring: Improving the Design of Existing Code&rdquo;</em>
+                                Livro <i>&ldquo;Refactoring: Improving the Design of Existing Code&rdquo;</i>
                                 (Martin Fowler)
                             </a>
                         </div>
                     </section>
                     <section>
-                        <h1 class="title">Quando não refatorar</h1>
+                        <h1 class="title">
+                            <i class="ti ti-recycle-off"></i><span>Quando <b>não</b> refatorar?</span>
+                        </h1>
                         <ul>
                             <li class="fragment">Quando você não tem experiência o suficiente</li>
                             <li class="fragment">Quando você não conhece o código (ou o negócio) o suficiente</li>
@@ -268,7 +322,7 @@
                         <div class="references fragment">
                             <a href="https://martinfowler.com/books/refactoring.html" target="_blank"
                                rel="noopener">
-                                Livro <em>&ldquo;Refactoring: Improving the Design of Existing Code&rdquo;</em>
+                                Livro <i>&ldquo;Refactoring: Improving the Design of Existing Code&rdquo;</i>
                                 (Martin Fowler)
                             </a>
                         </div>
@@ -277,10 +331,14 @@
 
                 <section> <!-- Conceitos -->
                     <section data-auto-animate data-auto-animate-restart>
-                        <h1>Conceitos</h1>
+                        <h1 class="title">
+                            <i class="ti ti-list-details"></i><span>Conceitos</span>
+                        </h1>
                     </section>
                     <section data-auto-animate>
-                        <h1 class="title">Conceitos</h1>
+                        <h1 class="title">
+                            <i class="ti ti-list-details"></i><span>Conceitos</span>
+                        </h1>
                         <blockquote>
                             Any fool can write code that a computer can understand. Good programmers write code that
                             humans can understand.
@@ -291,7 +349,9 @@
                     </section>
                     <section>
                         <h1>Conceitos</h1>
-                        <h2>Coesão</h2>
+                        <h2>
+                            <i class="ti ti-viewport-narrow"></i><span>Coesão</span>
+                        </h2>
                         <blockquote>
                             Relacionamento que os membros de um módulo possuem. Códigos coesos são aqueles de relação
                             forte, onde seus membros estão intimamente ligados e estão ali por um objetivo comum.
@@ -305,7 +365,9 @@
                     </section>
                     <section>
                         <h1>Conceitos</h1>
-                        <h2>Acoplamento</h2>
+                        <h2>
+                            <i class="ti ti-circles-relation"></i><span>Acoplamento</span>
+                        </h2>
                         <blockquote>
                             Relacionamento entre os módulos. Indica quanto um módulo depende de outro para funcionar.
                             Códigos desacoplados são aqueles de relação fraca, e não dependem de outros para fazer sua
@@ -318,32 +380,52 @@
                     </section>
                     <section>
                         <h1>Conceitos</h1>
-                        <h2>SOLID</h2>
+                        <h2>
+                            <i class="ti ti-poo"></i><span><i>Code Smells</i></span>
+                        </h2>
+                        <blockquote>
+                            Qualquer característica do código fonte de um programa de computador que indique a
+                            possibilidade de um problema mais profundo no sistema
+                        </blockquote>
+                        <div class="references">
+                            <a href="https://pt.wikipedia.org/wiki/Code_smell" target="_blank" rel="noopener">
+                                Wikipedia
+                            </a>
+                            <a href="https://refactoring.guru/refactoring/smells" target="_blank" rel="noopener">
+                                Refactoring Guru
+                            </a>
+                        </div>
+                    </section>
+                    <section>
+                        <h1>Conceitos</h1>
+                        <h2>
+                            <i class="ti ti-pentagon"></i><span>SOLID</span>
+                        </h2>
                         <p>
                             Princípios que foram apresentados originalmente por Robert Martin em 2000 em seu artigo
                             <a href="https://web.archive.org/web/20150906155800/http://www.objectmentor.com/resources/articles/Principles_and_Patterns.pdf"
                                target="_blank" rel="noopener">Design Principles and Design Patterns</a>, em que
-                            descreve conceitos para evitar que um <em>software</em> <b>apodreça</b>
+                            descreve conceitos para evitar que um <i>software</i> <b>apodreça</b>
                         </p>
                         <ol>
                             <li>
-                                <em>Single Responsibility Principle</em>
+                                <i>Single Responsibility Principle</i>
                             </li>
                             <li>
-                                <em>Open-Closed Principle</em>
+                                <i>Open-Closed Principle</i>
                             </li>
                             <li>
-                                <em>Liskov Substitution Principle</em>
+                                <i>Liskov Substitution Principle</i>
                             </li>
                             <li>
-                                <em>Interface Segregation Principle</em>
+                                <i>Interface Segregation Principle</i>
                             </li>
                             <li>
-                                <em>Dependency Inversion Principle</em>
+                                <i>Dependency Inversion Principle</i>
                             </li>
                         </ol>
                         <div class="alert mt-1">
-                            Curiosidade: no artigo não há o acrônimo <em>SOLID</em>, pois outros princípios são
+                            Curiosidade: no artigo não há o acrônimo <i>SOLID</i>, pois outros princípios são
                             explicados, em outra ordem e até com nomes diferentes. Foi em 2004 que Michael Feathers
                             reordenou alguns desses conceitos e sugeriu o termo.
                         </div>
@@ -360,21 +442,23 @@
                     </section>
                     <section>
                         <h1>Conceitos</h1>
-                        <h2><em>Object Calisthenics</em></h2>
+                        <h2>
+                            <i class="ti ti-barbell"></i><span><i>Object Calisthenics</i></span>
+                        </h2>
                         <p>
-                            Conjunto de 9 regras inventadas por Jeff Bay no livro <em>&ldquo;The ThoughtWorks
-                            Anthology&rdquo;</em> de 2008
+                            Conjunto de 9 regras inventadas por Jeff Bay no livro <i>&ldquo;The ThoughtWorks
+                            Anthology&rdquo;</i> de 2008
                         </p>
                         <ol>
-                            <li><em>Only One Level Of Indentation Per Method</em></li>
-                            <li><em>Don’t Use The ELSE Keyword</em></li>
-                            <li><em>Wrap All Primitives And Strings</em></li>
-                            <li><em>First Class Collections</em></li>
-                            <li><em>One Dot Per Line</em></li>
-                            <li><em>Don't Abbreviate</em></li>
-                            <li><em>Keep All Entities Small</em></li>
-                            <li><em>No Classes With More Than Two Instance Variables</em></li>
-                            <li><em>No Getters/Setters/Properties</em></li>
+                            <li><i>Only One Level Of Indentation Per Method</i></li>
+                            <li><i>Don’t Use The ELSE Keyword</i></li>
+                            <li><i>Wrap All Primitives And Strings</i></li>
+                            <li><i>First Class Collections</i></li>
+                            <li><i>One Dot Per Line</i></li>
+                            <li><i>Don't Abbreviate</i></li>
+                            <li><i>Keep All Entities Small</i></li>
+                            <li><i>No Classes With More Than Two Instance Variables</i></li>
+                            <li><i>No Getters/Setters/Properties</i></li>
                         </ol>
                         <div class="references">
                             <a href="https://viniciuscampitelli.com/slides-boas-praticas/#/3" target="_blank"
@@ -389,20 +473,11 @@
                     </section>
                     <section>
                         <h1>Conceitos</h1>
-                        <h2><em>Code Smells</em></h2>
-                        <blockquote>
-                            Qualquer característica do código fonte de um programa de computador que indique a
-                            possibilidade de um problema mais profundo no sistema
-                        </blockquote>
-                        <a href="https://pt.wikipedia.org/wiki/Code_smell" target="_blank" rel="noopener" class="reference">
-                            Wikipedia: Code Smell
-                        </a>
-                    </section>
-                    <section>
-                        <h1>Conceitos</h1>
-                        <h2><em>Clean Architecture</em></h2>
+                        <h2>
+                            <i class="ti ti-geometry"></i><span><i>Clean Architecture</i></span>
+                        </h2>
                         <p>
-                            Abordagem para produzir sistemas testáveis e independentes de <em>frameworks</em>, UI,
+                            Abordagem para produzir sistemas testáveis e independentes de <i>frameworks</i>, UI,
                             banco de dados, ou qualquer outro agente externo
                         </p>
                         <div class="d-flex cols-2">
@@ -420,33 +495,33 @@
                                 <div class="fragment fade-in-then-out" data-fragment-index="1">
                                     <p class="fw-bold">
                                         <span class="text-block" style="--color: #ffffca"></span>
-                                        <em>Entities</em>
+                                        <i>Entities</i>
                                     </p>
                                     Encapsulam regras de negócios de toda a empresa, que podem ser usadas por diferentes
-                                    sistemas &mdash; geralmente são <em>models</em> e validações de seus atributos
+                                    sistemas &mdash; geralmente são <i>models</i> e validações de seus atributos
                                 </div>
                                 <div class="fragment fade-in-then-out" data-fragment-index="2">
                                     <p class="fw-bold">
                                         <span class="text-block" style="--color: #ffb0ac"></span>
-                                        <em>Use Cases</em>
+                                        <i>Use Cases</i>
                                     </p>
                                     Definem regras de negócios específicas da aplicação, que normalmente são um conjunto
-                                    de <em>Use Cases</em> ou ações executadas sobre as <em>Entities</em>
+                                    de <i>Use Cases</i> ou ações executadas sobre as <i>Entities</i>
                                 </div>
                                 <div class="fragment fade-in-then-out" data-fragment-index="3">
                                     <p class="fw-bold">
                                         <span class="text-block" style="--color: #b3ffcb"></span>
-                                        <em>Interface Adapters</em>
+                                        <i>Interface Adapters</i>
                                     </p>
                                     São um conjunto de adaptadores que convertem dados de agentes externos para os
-                                    <em>Use Cases</em> e <em>Entities</em>
+                                    <i>Use Cases</i> e <i>Entities</i>
                                 </div>
                                 <div class="fragment" data-fragment-index="4">
                                     <p class="fw-bold">
                                         <span class="text-block" style="--color: #b7e7ff"></span>
-                                        <em>Framework e Drivers</em>
+                                        <i>Framework e Drivers</i>
                                     </p>
-                                    São serviços externos aos quais os <em>Interface Adapters</em> se conectam
+                                    São serviços externos aos quais os <i>Interface Adapters</i> se conectam
                                 </div>
                             </div>
                         </div>
@@ -459,14 +534,18 @@
 
                 <section> <!-- Refatoração -->
                     <section>
-                        <h1>Refatoração</h1>
+                        <h1>
+                            <i class="ti ti-recycle"></i><span>Refatoração</span>
+                        </h1>
                     </section>
                     <section>
                         <h1>Refatoração</h1>
-                        <h2><em>Disclaimer</em></h2>
+                        <h2>
+                            <i class="ti ti-alert-triangle"></i><span><i>Disclaimer</i></span>
+                        </h2>
                         <ol>
                             <li class="fragment">
-                                Faremos refatorações incrementais, então códigos nos <em>slides</em> intermediários
+                                Faremos refatorações incrementais, então códigos nos <i>slides</i> intermediários
                                 ainda não estão prontos e apresentam problemas
                             </li>
                             <li class="fragment">
@@ -482,25 +561,29 @@
                     </section>
                     <section>
                         <h1>Refatoração</h1>
-                        <h2><em>Linting</em> e análise estática</h2>
+                        <h2>
+                            <i class="ti ti-paint"></i><span><i>Linting</i> e análise estática</span>
+                        </h2>
                         <p>
-                            Instale ferramentas de análise estática e <em>linting</em>, defina as regras e executa a
-                            ferramenta que corrige automaticamente o estilo do código
+                            Instale ferramentas de análise estática e <i>linting</i>, defina as regras e execute
+                            ferramentas que corrigem automaticamente o estilo
                         </p>
                         <ul>
                             <li>
                                 PHP:
                                 <a href="https://github.com/squizlabs/PHP_CodeSniffer" target="_blank" rel="noopener">
                                     PHPCS</a>,
-                                <a href="https://github.com/larastan/larastan" target="_blank" rel="noopener">
-                                    larastan</a>,
-                                <a href="https://github.com/phan/phan" target="_blank" rel="noopener">
-                                    phan</a>,
-                                <a href="https://psalm.dev" target="_blank" rel="noopener">
-                                    psalm
-                                </a> e
                                 <a href="https://phpmd.org/" target="_blank" rel="noopener">
                                     PHPMD
+                                </a> e um entre:
+                                <a href="https://github.com/phpstan/phpstan" target="_blank" rel="noopener">
+                                    PHPStan</a> (ou
+                                <a href="https://github.com/larastan/larastan" target="_blank" rel="noopener">
+                                    larastan</a>),
+                                <a href="https://github.com/phan/phan" target="_blank" rel="noopener">
+                                    phan</a> ou
+                                <a href="https://psalm.dev" target="_blank" rel="noopener">
+                                    psalm
                                 </a>
                             </li>
                             <li>
@@ -523,13 +606,15 @@
                             </li>
                         </ul>
                         <div class="alert mt-1">
-                            Dica: configure o <em>plugin</em> da ferramenta na sua IDE para garantir que está escrevendo
+                            Dica: configure o <i>plugin</i> da ferramenta na sua IDE para garantir que está escrevendo
                             código de acordo com o formato configurado e adicione uma etapa no CI para rodar a checagem
                         </div>
                     </section>
                     <section>
                         <h1>Refatoração</h1>
-                        <h2>Tipar argumentos e retornos</h2>
+                        <h2>
+                            <i class="ti ti-currency-dollar"></i><span>Tipar argumentos e retornos</span>
+                        </h2>
                         <p>
                             Especifique os tipos dos argumentos e os retornos dos métodos
                         </p>
@@ -571,16 +656,18 @@
                         </div>
                         <div class="alert mt-2">
                             Isso ajudará inclusive ao criar testes de unidade (já que ferramentas como o PHPUnit
-                            conseguem criar <em>mocks</em> automaticamente) e também nas ferramentas de análise estática
+                            conseguem criar <i>mocks</i> automaticamente) e também nas ferramentas de análise estática
                             (como o
                             <a href="https://github.com/larastan/larastan" target="_blank" rel="noopener">larastan</a>)
                         </div>
                     </section>
                     <section data-auto-animate>
                         <h1>Refatoração</h1>
-                        <h2>Testes - Parte 1</h2>
+                        <h2>
+                            <i class="ti ti-test-pipe"></i><span>Testes - Parte 1</span>
+                        </h2>
                         <p>
-                            Crie simples testes de contrato de suas <em>controllers</em> para ter mais confiança que a
+                            Crie simples testes de contrato de suas <i>controllers</i> para ter mais confiança que a
                             refatoração não irá quebrar suas APIs
                         </p>
                         <pre><code class="php" data-trim data-line-numbers>
@@ -596,18 +683,20 @@
                             }
                         </code></pre>
                         <div class="alert mt-1">
-                            Atenção: não é recomendado testar <em>controllers</em>, então depois iremos refatorar esses
+                            Atenção: não é recomendado testar <i>controllers</i>, então depois iremos refatorar esses
                             testes também!
                         </div>
                     </section>
                     <section data-auto-animate>
                         <h1>Refatoração</h1>
-                        <h2>Testes - Parte 1</h2>
+                        <h2>
+                            <i class="ti ti-test-pipe"></i><span>Testes - Parte 1</span>
+                        </h2>
                         <div class="d-flex cols-2">
                             <div>
                                 <p>
                                     Adicione também uma etapa no CI para rodar esses testes e barrar
-                                    <em>Pull Requests</em> que não passem
+                                    <i>Pull Requests</i> que não passem
                                 </p>
                             </div>
                             <div>
@@ -625,9 +714,11 @@
                     </section>
                     <section>
                         <h1>Refatoração</h1>
-                        <h2>Não dependa de <em>strings</em></h2>
+                        <h2>
+                            <i class="ti ti-text-recognition"></i><span>Não dependa de <i>strings</i></span>
+                        </h2>
                         <p>
-                            Use constantes ao invés de <em>strings</em> para identificadores e outros textos
+                            Use constantes ao invés de <i>strings</i> para identificadores e outros textos
                             pré-estabelecidos, diminuindo a possibilidade de errar e facilitando possíveis refatorações
                             no futuro
                         </p>
@@ -668,10 +759,12 @@
                     </section>
                     <section data-auto-animate>
                         <h1>Refatoração</h1>
-                        <h2>Separe informações de sistemas externos</h2>
+                        <h2>
+                            <i class="ti ti-separator-horizontal"></i><span>Separe informações de sistemas externos</span>
+                        </h2>
                         <p>
                             Ao invés de acessar os valores brutos das respostas de sistemas externos, crie abstrações,
-                            como os DTOs <em>(Data Transfer Objects)</em>, diminuindo a quantidade de mudanças
+                            como os DTOs <i>(Data Transfer Objects)</i>, diminuindo a quantidade de mudanças
                             necessárias em seu código quando houver alterações externas
                         </p>
                         <div class="r-stack">
@@ -702,10 +795,12 @@
                     </section>
                     <section data-auto-animate>
                         <h1>Refatoração</h1>
-                        <h2>Separe informações de sistemas externos</h2>
+                        <h2>
+                            <i class="ti ti-separator-horizontal"></i><span>Separe informações de sistemas externos</span>
+                        </h2>
                         <p>
                             Ao invés de acessar os valores brutos das respostas de sistemas externos, crie abstrações,
-                            como os DTOs <em>(Data Transfer Objects)</em>, diminuindo a quantidade de mudanças
+                            como os DTOs <i>(Data Transfer Objects)</i>, diminuindo a quantidade de mudanças
                             necessárias em seu código quando houver alterações externas
                         </p>
                         <div class="r-stack">
@@ -734,10 +829,12 @@
                     </section>
                     <section data-auto-animate>
                         <h1>Refatoração</h1>
-                        <h2>Separe informações de sistemas externos</h2>
+                        <h2>
+                            <i class="ti ti-separator-horizontal"></i><span>Separe informações de sistemas externos</span>
+                        </h2>
                         <p>
                             Ao invés de acessar os valores brutos das respostas de sistemas externos, crie abstrações,
-                            como os DTOs <em>(Data Transfer Objects)</em>, diminuindo a quantidade de mudanças
+                            como os DTOs <i>(Data Transfer Objects)</i>, diminuindo a quantidade de mudanças
                             necessárias em seu código quando houver alterações externas
                         </p>
                         <div class="d-flex cols-2">
@@ -780,10 +877,12 @@
                     </section>
                     <section data-auto-animate>
                         <h1>Refatoração</h1>
-                        <h2>Separe informações de sistemas externos</h2>
+                        <h2>
+                            <i class="ti ti-separator-horizontal"></i><span>Separe informações de sistemas externos</span>
+                        </h2>
                         <p>
                             Ao invés de acessar os valores brutos das respostas de sistemas externos, crie abstrações,
-                            como os DTOs <em>(Data Transfer Objects)</em>, diminuindo a quantidade de mudanças
+                            como os DTOs <i>(Data Transfer Objects)</i>, diminuindo a quantidade de mudanças
                             necessárias em seu código quando houver alterações externas
                         </p>
                         <div class="d-flex cols-2">
@@ -828,10 +927,12 @@
                     </section>
                     <section>
                         <h1>Refatoração</h1>
-                        <h2>Uma ação por <em>controller</em></h2>
+                        <h2>
+                            <i class="ti ti-dice-1"></i><span>Uma ação por <i>controller</i></span>
+                        </h2>
                         <p>
-                            Ao invés de ter grandes <em>controllers</em> com vários <em>endpoints</em>, sugiro
-                            dividi-los para que cada <em>endpoint</em> tenha sua própria classe (ou função, no caso de
+                            Ao invés de ter grandes <i>controllers</i> com vários <i>endpoints</i>, sugiro
+                            dividi-los para que cada <i>endpoint</i> tenha sua própria classe (ou função, no caso de
                             JavaScript)
                         </p>
                         <div class="d-flex cols-2">
@@ -869,29 +970,21 @@
                         </div>
                     </section>
                     <section data-auto-animate>
-                        <header>
-                            <h1>Refatoração</h1>
-                            <h2>Isolamento de responsabilidades</h2>
-                        </header>
-                        <h3>Mantenha suas <em>controllers</em> leves</h3>
+                        <h1>Refatoração</h1>
+                        <h2>
+                            <i class="ti ti-barbell"></i><span>Mantenha suas <i>controllers</i> leves</span>
+                        </h2>
                         <p>
-                            A <em>controller</em> deve ser apenas uma forma de traduzir o protocolo de entrada
+                            A <i>controller</i> deve ser apenas uma forma de traduzir o protocolo de entrada
                             (HTTP) para a execução das regras de negócio do seu sistema
                         </p>
-                        <p>
-                            Afinal, pode haver outros tipos de entrada (como ferramentas CLI ou <em>workers</em>) que
-                            precisem executar as mesmas ações
-                        </p>
-                        <p>
-                            Então, extraia as regras de negócio de suas <em>controllers</em> para novos serviços
-                        </p>
+                        <img src="img/clean-architecture-fluxo.svg" class="insert-svg">
                     </section>
                     <section data-auto-animate>
-                        <header>
-                            <h1>Refatoração</h1>
-                            <h2>Isolamento de responsabilidades</h2>
-                        </header>
-                        <h3>Mantenha suas <em>controllers</em> leves</h3>
+                        <h1>Refatoração</h1>
+                        <h2>
+                            <i class="ti ti-barbell"></i><span>Mantenha suas <i>controllers</i> leves</span>
+                        </h2>
                         <pre data-id="pre"><code class="php" data-trim data-line-numbers>
                             class ProductCreateAction {
                                 public function handle(Request $request) {
@@ -923,11 +1016,10 @@
                         <p class="caption" data-id="p">Código pré-refatoração</p>
                     </section>
                     <section data-auto-animate>
-                        <header>
-                            <h1>Refatoração</h1>
-                            <h2>Isolamento de responsabilidades</h2>
-                        </header>
-                        <h3>Mantenha suas <em>controllers</em> leves</h3>
+                        <h1>Refatoração</h1>
+                        <h2>
+                            <i class="ti ti-barbell"></i><span>Mantenha suas <i>controllers</i> leves</span>
+                        </h2>
                         <pre data-id="pre"><code class="php" data-trim data-line-numbers>
                             class ProductCreateAction {
                                 public function handle(Request $request) {
@@ -971,32 +1063,13 @@
                         </code></pre>
                         <p class="caption" data-id="p">Código pós-refatoração</p>
                     </section>
-                    <section>
-                        <header>
-                            <h1>Refatoração</h1>
-                            <h2>Isolamento de responsabilidades</h2>
-                        </header>
-                        <h3>Regras de negócio</h3>
+                    <section data-auto-animate data-auto-animate-restart>
+                        <h1>Refatoração</h1>
+                        <h2>
+                            <i class="ti ti-database"></i><span><i>Models</i> e banco de dados</span>
+                        </h2>
                         <p>
-                            Levante regras de negócio espalhadas entre <em>controllers</em>, comandos, <em>workers</em>,
-                            <em>models</em> e centralize-as no serviço criado anteriormente
-                        </p>
-                        <p>
-                            Caso encontre discrepâncias, será preciso determinar qual regra é correta (às vezes, até em
-                            reuniões com o cliente)
-                        </p>
-                        <figure>
-                            <img src="img/usecase.svg" alt="Uso de Use Cases" class="insert-svg">
-                        </figure>
-                    </section>
-                    <section data-auto-animate>
-                        <header>
-                            <h1>Refatoração</h1>
-                            <h2>Isolamento de responsabilidades</h2>
-                        </header>
-                        <h3><em>Models</em> e banco de dados</h3>
-                        <p>
-                            Separe essas ações para facilitar a manutenção e criação de <em>mocks</em> para testar
+                            Separe para facilitar a manutenção e criação de <i>mocks</i> para testar:
                         </p>
                         <pre data-id="pre"><code class="php" data-trim data-line-numbers>
                             class Product {
@@ -1019,13 +1092,12 @@
                         <p class="caption">Código pré-refatoração</p>
                     </section>
                     <section data-auto-animate>
-                        <header>
-                            <h1>Refatoração</h1>
-                            <h2>Isolamento de responsabilidades</h2>
-                        </header>
-                        <h3><em>Models</em> e banco de dados</h3>
+                        <h1>Refatoração</h1>
+                        <h2>
+                            <i class="ti ti-database"></i><span><i>Models</i> e banco de dados</span>
+                        </h2>
                         <p>
-                            Separe essas ações para facilitar a manutenção e criação de <em>mocks</em> para testar
+                            Separe para facilitar a manutenção e criação de <i>mocks</i> para testar:
                         </p>
                         <pre data-id="pre"><code class="php" data-trim data-line-numbers>
                             class Product {
@@ -1050,9 +1122,11 @@
                     </section>
                     <section>
                         <h1>Refatoração</h1>
-                        <h2>Princípio <em>Tell, don't ask</em></h2>
+                        <h2>
+                            <i class="ti ti-speakerphone"></i><span>Princípio <i>Tell, don't ask</i></span>
+                        </h2>
                         <p>
-                            <em>Getters</em> e <em>setters</em> acabam espalhando regras de negócio e responsabilidades
+                            <i>Getters</i> e <i>setters</i> acabam espalhando regras de negócio e responsabilidades
                             para outras entidades do sistema
                         </p>
                         <div class="d-flex cols-2">
@@ -1096,9 +1170,11 @@
                     </section>
                     <section>
                         <h1>Refatoração</h1>
-                        <h2><em>Exceptions</em></h2>
+                        <h2>
+                            <i class="ti ti-exclamation-circle"></i><span><i>Exceptions</i></span>
+                        </h2>
                         <p>
-                            Crie <em>exceptions</em> customizadas para seus erros ao invés de usar as padrões da
+                            Crie <i>exceptions</i> customizadas para seus erros ao invés de usar as padrões da
                             linguagem para facilitar o tratamento
                         </p>
                         <div class="d-flex cols-2">
@@ -1137,7 +1213,9 @@
                     </section>
                     <section>
                         <h1>Refatoração</h1>
-                        <h2>Injeção de dependências</h2>
+                        <h2>
+                            <i class="ti ti-arrow-big-down-lines"></i><span>Injeção de dependências</span>
+                        </h2>
                         <p>
                             As dependências de sua classe devem ser injetadas no construtor para deixar explícito seus
                             vínculos
@@ -1181,10 +1259,12 @@
                     </section>
                     <section data-auto-animate data-auto-animate-restart>
                         <h1>Refatoração</h1>
-                        <h2>Dependa de abstrações</h2>
+                        <h2>
+                            <i class="ti ti-circle-dashed"></i><span>Dependa de abstrações</span>
+                        </h2>
                         <p>
                             Seu código não deve depender de implementações concretas, mas sim respeitar contratos
-                            impostos por <em>interfaces</em>
+                            impostos por <i>interfaces</i>
                         </p>
                         <pre data-id="pre"><code class="php" data-trim data-line-numbers>
                             public function __construct(
@@ -1205,10 +1285,12 @@
                     </section>
                     <section data-auto-animate>
                         <h1>Refatoração</h1>
-                        <h2>Dependa de abstrações</h2>
+                        <h2>
+                            <i class="ti ti-circle-dashed"></i><span>Dependa de abstrações</span>
+                        </h2>
                         <p>
                             Seu código não deve depender de implementações concretas, mas sim respeitar contratos
-                            impostos por <em>interfaces</em>
+                            impostos por <i>interfaces</i>
                         </p>
                         <pre data-id="pre"><code class="php" data-trim data-line-numbers>
                             public function __construct(
@@ -1233,10 +1315,12 @@
                     </section>
                     <section>
                         <h1>Refatoração</h1>
-                        <h2>Testes - Parte 2</h2>
+                        <h2>
+                            <i class="ti ti-test-pipe"></i><span>Testes - Parte 2</span>
+                        </h2>
                         <p>
                             Refatore seus testes criados em <b>Testes - Parte 1</b> para começar a testar os
-                            <em>UseCases</em> e <em>models</em> ao invés das <em>controllers</em>
+                            <i>UseCases</i> e <i>models</i> ao invés das <i>controllers</i>
                         </p>
                         <pre><code class="php" data-trim data-line-numbers>
                             public function testListActiveProductsUseCase() {
@@ -1258,25 +1342,21 @@
                     </section>
                     <section>
                         <h1>Refatoração</h1>
-                        <h2>Dicas gerais</h2>
+                        <h2>
+                            <i class="ti ti-bulb"></i><span>Dicas gerais</span>
+                        </h2>
                         <ul>
                             <li class="fragment">
-                                Antes de refatorar algo, certifique-se que você possua bons testes para aquela
+                                Antes de refatorar algo, certifique-se que você possua <b>bons testes</b> para aquela
                                 funcionalidade
                             </li>
                             <li class="fragment">
-                                Utilize as funções das IDEs para refatoração, principalmente
-                                <a href="https://refactoring.guru/extract-method" target="_blank" rel="noopener">
-                                    Extract Method
-                                </a>
+                                Dedique tempo pensando <b>no quê e quando</b> refatorar
                             </li>
-                            <li class="fragment">
-                                Dedique tempo pensando o quê &mdash; e quando &mdash; refatorar
-                            </li>
-                            <li class="fragment">Escolha bons nomes para variáveis e não abrevie</li>
+                            <li class="fragment">Escolha <b>bons nomes</b> para variáveis e não abrevie</li>
                             <li class="fragment">
                                 Não coloque <code>Abstract</code>, <code>Interface</code> ou <code>Type</code> nos nomes
-                                <em>(polêmico)</em>
+                                <i>(polêmico)</i>
                             </li>
                             <li class="fragment">
                                 Evite superclasses <code>Helper</code>, <code>Utils</code> ou afins
@@ -1287,10 +1367,14 @@
 
                 <section> <!-- Mãos na massa -->
                     <section data-auto-animate data-auto-animate-restart>
-                        <h1>Mãos na massa</h1>
+                        <h1>
+                            <i class="ti ti-tool"></i><span>Mãos na massa</span>
+                        </h1>
                     </section>
                     <section data-auto-animate>
-                        <h1 class="title">Mãos na massa</h1>
+                        <h1 class="title">
+                            <i class="ti ti-tool"></i><span>Mãos na massa</span>
+                        </h1>
                         <p>
                             Essas são as requisições que usaremos para validar as principais regras de negócio do
                             sistema:
@@ -1315,15 +1399,17 @@
                                 localhost:8080/products/bulk
                         </code></pre>
                         <div class="alert">
-                            Dica: você também pode executar o <em>script</em> <code>demo/requests</code> via terminal ou
-                            importar a <em>collection</em> do Postman em <code>demo/postman_collection.json</code>
+                            Dica: você também pode executar o <i>script</i> <code>demo/requests</code> via terminal ou
+                            importar a <i>collection</i> do Postman em <code>demo/postman_collection.json</code>
                         </div>
                     </section>
                     <section id="maos-na-massa" data-auto-animate>
-                        <h1 class="title">Mãos na massa</h1>
+                        <h1 class="title">
+                            <i class="ti ti-tool"></i><span>Mãos na massa</span>
+                        </h1>
                         <ul>
                             <li>
-                                Certifique-se que você clonou o repositório e inicializou os <em>containers</em>, como
+                                Certifique-se que você clonou o repositório e inicializou os <i>containers</i>, como
                                 descrito <a href="#/preparacao-maos-na-massa">no slide de preparação</a>
                             </li>
                             <li>
@@ -1345,10 +1431,14 @@
 
                 <section> <!-- Referências -->
                     <section data-auto-animate data-auto-animate-restart>
-                        <h1>Referências</h1>
+                        <h1 class="title">
+                            <i class="ti ti-book"></i><span>Referências</span>
+                        </h1>
                     </section>
                     <section data-auto-animate>
-                        <h1 class="title">Referências</h1>
+                        <h1 class="title">
+                            <i class="ti ti-book"></i><span>Referências</span>
+                        </h1>
                         <ul>
                             <li>
                                 <a href="https://medium.com/backticks-tildes/the-s-o-l-i-d-principles-in-pictures-b34ce2f1e898" target="_blank" rel="noopener">
@@ -1368,7 +1458,7 @@
                             <li>
                                 <a href="https://martinfowler.com/books/refactoring.html" target="_blank"
                                    rel="noopener">
-                                    Livro <em>&ldquo;Refactoring: Improving the Design of Existing Code&rdquo;</em>
+                                    Livro <i>&ldquo;Refactoring: Improving the Design of Existing Code&rdquo;</i>
                                     (Martin Fowler)
                                 </a>
                             </li>
@@ -1386,8 +1476,30 @@
                     </section>
                 </section> <!-- Referências -->
 
+                <section> <!-- Treinamentos in company -->
+                    <h1 class="title">
+                        <i class="ti ti-chalkboard-teacher"></i><span>Treinamentos <i>in company</i></span>
+                    </h1>
+                    <div class="d-flex items-center">
+                        <div style="flex-shrink: 0">
+                            <a href="https://bit.ly/vcampitelli" target="_blank" rel="noopener" class="d-block">
+                                <img src="img/qrcode-workshops.png" alt="Workshops" data-width="350" class="my-0">
+                            </a>
+                        </div>
+                        <div id="qrcode-workshops-text">
+                            Gostou? Então conheça meus treinamentos corporativos e sob demanda sobre Desenvolvimento,
+                            Segurança da Informação, DevOps, Arquitetura de Sistemas e diversos outros assuntos em
+                            <a href="https://bit.ly/vcampitelli" target="_blank" rel="noopener" class="fw-bold">
+                                viniciuscampitelli.com
+                            </a>
+                        </div>
+                    </div>
+                </section> <!-- Treinamentos in company -->
+
                 <section> <!-- Obrigado -->
-                    <h1 class="text-center title">Obrigado!</h1>
+                    <h1 class="text-center title">
+                        <i class="ti ti-heart" style="color:crimson"></i><span>Obrigado!</span>
+                    </h1>
                     <div class="about-me-links">
                         <div>
                             <svg role="img" width="64px" height="64px" viewBox="0 0 24 24"

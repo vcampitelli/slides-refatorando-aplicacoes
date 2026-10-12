@@ -7,6 +7,7 @@
   --r-block-margin: 10px;
 
   --r-heading-color: var(--background-color-variant-1);
+  --heading-color-variant: #4a4c59;
   --r-heading-font-weight: 700;
   --r-heading-font: var(--r-main-font);
   --r-heading1-size: 2em;
@@ -28,7 +29,7 @@
   --border-radius: 5px;
   --color-blue: #5c9ead;
   --color-muted: var(--color-subheading);
-  --color-pink: #ff5370;
+  --color-pink: #E71D36;
   --color-subheading: #56545e;
 }
 
@@ -43,11 +44,14 @@
   --r-heading1-size: 3em;
   --r-heading-margin: 0 0 10px 0;
   --r-heading-color: var(--color-pink);
+  text-decoration: none;
 }
 #first-slide > h2 {
   --r-heading2-size: 1em;
-  --r-heading-font-weight: 600;
+  --r-heading-font-weight: 500;
   --r-heading-color: var(--color-muted);
+  font-style: italic;
+  opacity: 0.8;
 }
 
 /* Sobre mim */
@@ -74,6 +78,7 @@
   flex-direction: row;
   row-gap: 1.25rem;
   justify-content: start;
+  text-align: left;
 }
 .about-me-links > div {
   flex: 33.333% 0 0;
@@ -122,27 +127,18 @@
   right: auto;
   left: 8px;
 }
-header {
-  display: flex;
-  margin: 0 auto;
-  justify-content: center;
-}
-header > h2:before {
-  display: inline-block;
-  margin: 0 5px;
-  content: "🡒";
-  opacity: 0.7;
-}
-header > h2 {
-  --r-heading2-size: var(--r-heading1-size);
-}
-h1:not(:last-child):not(.title),
-header > h2 {
+h1:not(:last-child):not(.title) {
   --r-heading1-size: 0.8em;
   --r-heading-margin: 0;
   --r-heading-font-weight: 500;
   --r-heading-letter-spacing: -1.4px;
   opacity: 0.6;
+}
+h1.title > span,
+h1:last-child > span,
+h2 > span {
+  text-decoration: underline;
+  text-decoration-color: var(--heading-color-variant);
 }
 .reveal .fragment.semi-fade-out.visible {
   opacity: 0.4;
@@ -206,6 +202,18 @@ td.hljs-ln-line.hljs-ln-numbers {
 }
 
 /* Tipografia */
+h1 > .ti,
+h2 > .ti {
+  margin-left: -1.5em;
+  margin-right: 0.25em;
+  color: var(--heading-color-variant);
+}
+.reveal h1 > span > b {
+  font-weight: 900;
+}
+.reveal em, .reveal i:not(.ti) {
+  font-style: italic;
+}
 .reveal strong, .reveal b {
   font-weight: 600;
 }
@@ -336,4 +344,28 @@ a.reference:before {
 a.reference:after {
   opacity: 0.5;
   content: " ]";
+}
+
+/* @link https://codefronts.com/motion/css-typewriter-effect/css-typewriter-variable-font-weight-morph/ */
+.title-word {
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+}
+.title-word > span {
+  display: inline-block;
+  font-variation-settings: 'wght' 100;
+  animation: stamp 0.6s cubic-bezier(0.2, 0, 0, 1) calc(var(--i) * 0.12s + 0.5s) both;
+}
+
+@keyframes stamp {
+  0% {
+    font-variation-settings: 'wght' 100;
+  }
+  60% {
+    font-variation-settings: 'wght' 900;
+  }
+  100% {
+    font-variation-settings: 'wght' 600;
+  }
 }
