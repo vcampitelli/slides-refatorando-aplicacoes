@@ -114,18 +114,32 @@
   background-image: linear-gradient(120deg, var(--r-background-color) 0%, var(--background-color-variant-2) 100%);
 }
 .reveal .slides {
-  /*text-align: left;*/
   letter-spacing: var(--main-letter-spacing);
+  font-optical-sizing: auto;
 }
 .reveal .slide-number {
   border-radius: var(--border-radius);
   right: auto;
   left: 8px;
 }
-h1:not(:last-child):not(.title) {
+header {
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+}
+header > h2:before {
+  display: inline-block;
+  margin: 0 5px;
+  content: "🡒";
+  opacity: 0.7;
+}
+header > h2 {
+  --r-heading2-size: var(--r-heading1-size);
+}
+h1:not(:last-child):not(.title),
+header > h2 {
   --r-heading1-size: 0.8em;
   --r-heading-margin: 0;
-  /*--r-heading-color: var(--color-subheading);*/
   --r-heading-font-weight: 500;
   --r-heading-letter-spacing: -1.4px;
   opacity: 0.6;
@@ -154,7 +168,7 @@ code:not(.hljs) {
   color: var(--color-pink);
 }
 code.hljs {
-  background-color: var(--background-color-variant-1);
+  /*background-color: var(--background-color-variant-1);*/
   border-radius: var(--border-radius);
   scrollbar-color: var(--background-color-variant-3) var(--background-color-variant-1);
   scrollbar-width: thin;
