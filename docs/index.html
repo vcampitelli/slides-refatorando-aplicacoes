@@ -9,7 +9,7 @@
 
         <link rel="stylesheet" href="reveal.js/dist/reset.css">
         <link rel="stylesheet" href="reveal.js/dist/reveal.css">
-        <link rel="stylesheet" href="reveal.js/dist/theme/black.css">
+        <link rel="stylesheet" href="reveal.js/dist/theme/white.css">
 
         <link rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/material-palenight.min.css"
@@ -17,25 +17,27 @@
               crossorigin="anonymous" referrerpolicy="no-referrer">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet"
-              href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=JetBrains+Mono&display=swap">
+        <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
         <div class="reveal">
             <div class="slides">
                 <section id="first-slide">
-                    <h1 class="title">Refatorando Aplicações<br>na Prática</h1>
+                    <h1 class="title">
+                        Refatorando<br>
+                        Aplicações<br>
+                        na Prática
+                    </h1>
                     <h2>Vinícius Campitelli</h2>
                 </section>
 
                 <section> <!-- Sobre -->
                     <section data-auto-animate data-auto-animate-restart>
-                        <h1>Sobre</h1>
+                        <h1>Sobre mim</h1>
                     </section>
                     <section data-auto-animate>
-                        <h1>Sobre</h1>
-                        <h2>Sobre mim</h2>
+                        <h1 class="title">Sobre mim</h1>
                         <div id="about-me">
                             <div class="text-center">
                                 <figure id="profile-pic">
@@ -134,7 +136,7 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="fragment fade-out">
+                                <div>
                                     <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"
                                               class="fill"></path>
@@ -178,11 +180,11 @@
                         <h2>Mãos na massa</h2>
                         <ol>
                             <li>
-                                Certifique-se que você tenha o
+                                Certifique-se que você tenha
                                 <a href="https://docs.docker.com/get-docker" target="_blank" rel="noopener">
                                     Docker
                                 </a>
-                                e o
+                                e
                                 <a href="https://docs.docker.com/compose" target="_blank" rel="noopener">
                                     Docker Compose
                                 </a>
@@ -191,13 +193,13 @@
                             <li>
                                 Clone o repositório
                                 <a href="https://github.com/vcampitelli/slides-refatorando-aplicacoes" target="_blank"
-                                   rel="noopener">vcampitelli/slides-refatorando-aplicacoes</a> do GitHub
+                                   rel="noopener">vcampitelli/slides-refatorando-aplicacoes</a>:
                                 <pre><code class="shell" data-trim>
                                     $ git clone git@github.com/vcampitelli/slides-refatorando-aplicacoes.git
                                 </code></pre>
                             </li>
                             <li>
-                                Inicialize os <em>containers</em> da aplicação
+                                Inicialize os <em>containers</em> da aplicação:
                                 <pre><code class="shell" data-trim>
                                     $ cd demo/app-antiga
                                     $ docker compose up -d
@@ -416,7 +418,7 @@
                             <div class="r-stack">
                                 <div class="fragment fade-in-then-out" data-fragment-index="1">
                                     <p class="fw-bold">
-                                        <span class="text-block" style="color: #ffffca">■</span>
+                                        <span class="text-block" style="--color: #ffffca"></span>
                                         <em>Entities</em>
                                     </p>
                                     Encapsulam regras de negócios de toda a empresa, que podem ser usadas por diferentes
@@ -424,7 +426,7 @@
                                 </div>
                                 <div class="fragment fade-in-then-out" data-fragment-index="2">
                                     <p class="fw-bold">
-                                        <span class="text-block" style="color: #ffb0ac">■</span>
+                                        <span class="text-block" style="--color: #ffb0ac"></span>
                                         <em>Use Cases</em>
                                     </p>
                                     Definem regras de negócios específicas da aplicação, que normalmente são um conjunto
@@ -432,7 +434,7 @@
                                 </div>
                                 <div class="fragment fade-in-then-out" data-fragment-index="3">
                                     <p class="fw-bold">
-                                        <span class="text-block" style="color: #b3ffcb">■</span>
+                                        <span class="text-block" style="--color: #b3ffcb"></span>
                                         <em>Interface Adapters</em>
                                     </p>
                                     São um conjunto de adaptadores que convertem dados de agentes externos para os
@@ -440,7 +442,7 @@
                                 </div>
                                 <div class="fragment" data-fragment-index="4">
                                     <p class="fw-bold">
-                                        <span class="text-block" style="color: #b7e7ff">■</span>
+                                        <span class="text-block" style="--color: #b7e7ff"></span>
                                         <em>Framework e Drivers</em>
                                     </p>
                                     São serviços externos aos quais os <em>Interface Adapters</em> se conectam
@@ -1403,7 +1405,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="fragment fade-out">
+                        <div>
                             <svg role="img" width="64px" height="64px" viewBox="0 0 24 24"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"
@@ -1422,8 +1424,8 @@
         </div>
 
         <script src="reveal.js/dist/reveal.js"></script>
-        <script src="reveal.js/plugin/notes/notes.js"></script>
-        <script src="reveal.js/plugin/highlight/highlight.js"></script>
+        <script src="reveal.js/dist/plugin/notes.js"></script>
+        <script src="reveal.js/dist/plugin/highlight.js"></script>
         <script>
             document.querySelectorAll('img.insert-svg').forEach(($img) => {
                 fetch($img.src).then(response => {
