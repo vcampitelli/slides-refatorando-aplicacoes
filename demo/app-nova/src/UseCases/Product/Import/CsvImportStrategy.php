@@ -16,10 +16,11 @@ readonly class CsvImportStrategy implements ImportStrategy
     }
 
     /**
-     * @param ImportProductUseCaseInput $input
+     * @template T
+     * @param ImportProductUseCaseInput<T> $input
      * @return ImportProductUseCaseOutput
      */
-    public function handle(ImportProductUseCaseInput $input = null): ImportProductUseCaseOutput
+    public function handle(ImportProductUseCaseInput $input): ImportProductUseCaseOutput
     {
         $handler = fopen($input->file, 'r');
         if ($handler === false) {
@@ -35,7 +36,7 @@ readonly class CsvImportStrategy implements ImportStrategy
 
         $total = 0;
         $success = 0;
-        while (($row = fgetcsv($handler, 1000, ";")) !== false) {
+        while (($row = fgetcsv($handler, 1000, ';', '"', '\\')) !== false) {
             $during($before);
             $total++;
 
@@ -66,7 +67,7 @@ readonly class CsvImportStrategy implements ImportStrategy
     }
 
     /**
-     * @param array $row
+     * @param list<string|null> $row
      * @param \Closure $error
      * @param int $linha
      * @return Product|false

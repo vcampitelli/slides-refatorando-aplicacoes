@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Persistence\DatabaseAdapterInterface;
 use InvalidArgumentException;
 use stdClass;
+use UnexpectedValueException;
 
 /**
  * @extends AbstractDatabaseRepository<ProductCollection, Product>
@@ -42,6 +43,7 @@ class DatabaseProductRepository extends AbstractDatabaseRepository implements Pr
         return 'products';
     }
 
+    /** @param ModelInterface $model */
     protected function serialize(ModelInterface $model): stdClass
     {
         if (!$model instanceof Product) {
@@ -59,8 +61,17 @@ class DatabaseProductRepository extends AbstractDatabaseRepository implements Pr
 
     protected function unserialize(stdClass $row): Product
     {
+        if (
+            !isset($row->id_category, $row->name, $row->sku, $row->price, $row->active)
+            || (isset($row->id) && !is_scalar($row->id))
+            || !is_scalar($row->id_category) || !is_string($row->name)
+            || !is_string($row->sku) || !is_scalar($row->price)
+        ) {
+            throw new UnexpectedValueException('Dados do produto inválidos no banco de dados');
+        }
+
         return new Product(
-            id: (isset($row->id)) ? (int) $row->id : null,
+            id: (isset($row->id) && is_scalar($row->id)) ? (int) $row->id : null,
             idCategory: (int) $row->id_category,
             name: $row->name,
             sku: $row->sku,

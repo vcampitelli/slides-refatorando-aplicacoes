@@ -9,6 +9,7 @@ use App\UseCases\Product\BulkCreate\BulkCreateProductUseCase;
 use App\UseCases\Product\BulkCreate\BulkCreateProductUseCaseInput;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Exception\HttpBadRequestException;
 
 readonly class BulkCreateProductAction extends AbstractAction
 {
@@ -28,6 +29,13 @@ readonly class BulkCreateProductAction extends AbstractAction
         $errors = [];
         $body = $request->getParsedBody();
 
+        if (
+            !is_array($body) || !isset($body['products']) || !is_array($body['products'])
+            || !array_is_list($body['products'])
+        ) {
+            throw new HttpBadRequestException($request, 'Lista de produtos inválida');
+        }
+
         $addError = function (int $index, string $message) use (&$errors) {
             if (!isset($errors[$index])) {
                 $errors[$index] = [
@@ -40,6 +48,10 @@ readonly class BulkCreateProductAction extends AbstractAction
 
         $input = new BulkCreateProductUseCaseInput();
         foreach ($body['products'] as $i => $row) {
+            if (!is_array($row)) {
+                $addError($i, 'Dados do produto inválidos');
+                continue;
+            }
             if (empty($row['id_category'])) {
                 $addError($i, 'ID da categoria não informado');
                 continue;
@@ -57,6 +69,14 @@ readonly class BulkCreateProductAction extends AbstractAction
 
             if (empty($row['price'])) {
                 $addError($i, 'Preço não informado');
+                continue;
+            }
+
+            if (
+                !is_scalar($row['id_category']) || !is_string($row['name'])
+                || !is_string($row['sku']) || !is_scalar($row['price'])
+            ) {
+                $addError($i, 'Dados do produto inválidos');
                 continue;
             }
 

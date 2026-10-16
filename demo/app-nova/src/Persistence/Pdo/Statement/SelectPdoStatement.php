@@ -15,7 +15,7 @@ class SelectPdoStatement extends AbstractPdoStatement
 
     /**
      * @param string     $table
-     * @param array|null $criteria
+     * @param array<string, mixed>|null $criteria
      * @param int        $limit
      * @param int        $page
      *
@@ -23,7 +23,7 @@ class SelectPdoStatement extends AbstractPdoStatement
      */
     public function __invoke(
         string $table,
-        array $criteria = null,
+        ?array $criteria = null,
         int $limit = 0,
         int $page = 1
     ): Generator {
@@ -42,13 +42,14 @@ class SelectPdoStatement extends AbstractPdoStatement
                 : " LIMIT {$limit}";
         }
 
+        $statement = null;
         try {
             $statement = $this->pdo->prepare($sql);
             $statement->execute($placeholders);
         } catch (PDOException $e) {
             throw new PdoStatementException(
                 'Erro ao executar SELECT',
-                $statement,
+                $statement ?: null,
                 $e
             );
         }

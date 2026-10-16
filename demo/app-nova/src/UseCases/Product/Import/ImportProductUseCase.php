@@ -21,10 +21,11 @@ readonly class ImportProductUseCase implements UseCaseInterface
     }
 
     /**
-     * @param ImportProductUseCaseInput|null $input
+     * @template T
+     * @param ImportProductUseCaseInput<T>|null $input
      * @return ImportProductUseCaseOutput
      */
-    public function handle(ImportProductUseCaseInput $input = null): ImportProductUseCaseOutput
+    public function handle(?ImportProductUseCaseInput $input = null): ImportProductUseCaseOutput
     {
         if (!$input) {
             throw new InvalidArgumentException();

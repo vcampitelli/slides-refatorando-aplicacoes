@@ -7,8 +7,8 @@ namespace App\Persistence\Pdo\Statement;
 trait WhereStatementTrait
 {
     /**
-     * @param array $criteria
-     * @return array
+     * @param array<string, mixed> $criteria
+     * @return array{string|null, list<mixed>|null}
      */
     protected function buildWhere(array $criteria): array
     {

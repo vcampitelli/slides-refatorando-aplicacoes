@@ -8,6 +8,7 @@ use ArrayIterator;
 use IteratorAggregate;
 use Traversable;
 
+/** @implements IteratorAggregate<int, string> */
 class BulkCreateProductUseCaseOutputErrors implements IteratorAggregate
 {
     /**

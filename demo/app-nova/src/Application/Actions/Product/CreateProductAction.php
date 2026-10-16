@@ -29,6 +29,10 @@ readonly class CreateProductAction extends AbstractAction
     {
         $body = $request->getParsedBody();
 
+        if (!is_array($body)) {
+            throw new HttpBadRequestException($request, 'Corpo da requisição inválido');
+        }
+
         if (!isset($body['id_category'])) {
             throw new HttpBadRequestException($request, 'Categoria não informada');
         }
@@ -40,6 +44,13 @@ readonly class CreateProductAction extends AbstractAction
         }
         if (!isset($body['price'])) {
             throw new HttpBadRequestException($request, 'Preço não informado');
+        }
+
+        if (
+            !is_scalar($body['id_category']) || !is_string($body['name'])
+            || !is_string($body['sku']) || !is_scalar($body['price'])
+        ) {
+            throw new HttpBadRequestException($request, 'Dados do produto inválidos');
         }
 
         $output = $this->useCase->handle(

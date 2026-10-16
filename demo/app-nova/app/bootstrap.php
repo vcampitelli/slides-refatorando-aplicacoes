@@ -14,14 +14,17 @@ if (($_ENV['ENVIRONMENT'] ?? '') === 'production') {
 }
 
 // Set up settings
+/** @var callable(ContainerBuilder<\DI\Container>): void $settings */
 $settings = require __DIR__ . '/settings.php';
 $settings($containerBuilder);
 
 // Set up dependencies
+/** @var callable(ContainerBuilder<\DI\Container>): void $dependencies */
 $dependencies = require __DIR__ . '/dependencies.php';
 $dependencies($containerBuilder);
 
 // Set up repositories
+/** @var callable(ContainerBuilder<\DI\Container>): void $repositories */
 $repositories = require __DIR__ . '/repositories.php';
 $repositories($containerBuilder);
 

@@ -9,5 +9,6 @@ use JsonSerializable;
 interface ModelInterface extends JsonSerializable
 {
     public function getId(): ?int;
+    /** @return static */
     public function withId(?int $id): ModelInterface;
 }

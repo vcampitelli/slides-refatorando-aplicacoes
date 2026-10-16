@@ -16,6 +16,7 @@ interface DatabaseAdapterInterface
      */
     public function findAll(string $tableName): Generator;
 
+    /** @param array<string, mixed> $where */
     public function findOneBy(
         string $tableName,
         array $where,
@@ -34,7 +35,7 @@ interface DatabaseAdapterInterface
     /**
      * @param string $tableName
      * @param stdClass $values
-     * @param array $where
+     * @param array<string, mixed> $where
      * @return int Linhas afetadas
      */
     public function update(

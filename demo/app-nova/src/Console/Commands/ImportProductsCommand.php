@@ -7,6 +7,7 @@ namespace App\Console\Commands;
 use App\UseCases\Product\Import\ImportProductUseCase;
 use App\UseCases\Product\Import\ImportProductUseCaseInput;
 use App\UseCases\Product\Import\ImportProductUseCaseOutput;
+use InvalidArgumentException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -40,6 +41,9 @@ class ImportProductsCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $file = $input->getArgument('file');
+        if (!is_string($file)) {
+            throw new InvalidArgumentException('Caminho do arquivo inválido');
+        }
         $io = new SymfonyStyle($input, $output);
 
         $io->title('Importador de produtos');

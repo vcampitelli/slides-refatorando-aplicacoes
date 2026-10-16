@@ -10,7 +10,7 @@ use App\Persistence\DatabaseAdapterInterface;
 use stdClass;
 
 /**
- * @template TCollection of CollectionInterface
+ * @template TCollection of CollectionInterface<ModelInterface>
  * @template TModel of ModelInterface
  */
 abstract class AbstractDatabaseRepository
@@ -41,7 +41,7 @@ abstract class AbstractDatabaseRepository
     }
 
     /**
-     * @param array $where
+     * @param array<string, mixed> $where
      * @return TModel|null
      */
     protected function doFindBy(array $where): ?ModelInterface

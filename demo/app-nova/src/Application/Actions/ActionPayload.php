@@ -5,21 +5,23 @@ declare(strict_types=1);
 namespace App\Application\Actions;
 
 use JsonSerializable;
+use ReturnTypeWillChange;
 
 class ActionPayload implements JsonSerializable
 {
     private int $statusCode;
 
     /**
-     * @var array|object|null
+     * @var array<array-key, mixed>|object|null
      */
     private $data;
 
     private ?ActionError $error;
 
+    /** @param array<array-key, mixed>|object|null $data */
     public function __construct(
         int $statusCode = 200,
-        $data = null,
+        object|array|null $data = null,
         ?ActionError $error = null
     ) {
         $this->statusCode = $statusCode;
@@ -33,9 +35,9 @@ class ActionPayload implements JsonSerializable
     }
 
     /**
-     * @return array|null|object
+     * @return array<array-key, mixed>|null|object
      */
-    public function getData()
+    public function getData(): object|array|null
     {
         return $this->data;
     }
@@ -45,7 +47,8 @@ class ActionPayload implements JsonSerializable
         return $this->error;
     }
 
-    #[\ReturnTypeWillChange]
+    /** @return array<string, mixed> */
+    #[ReturnTypeWillChange]
     public function jsonSerialize(): array
     {
         $payload = [

@@ -7,7 +7,8 @@ namespace App\UseCases\Product\Import;
 interface ImportStrategy
 {
     /**
-     * @param ImportProductUseCaseInput $input
+     * @template T
+     * @param ImportProductUseCaseInput<T> $input
      * @return ImportProductUseCaseOutput
      */
     public function handle(ImportProductUseCaseInput $input): ImportProductUseCaseOutput;

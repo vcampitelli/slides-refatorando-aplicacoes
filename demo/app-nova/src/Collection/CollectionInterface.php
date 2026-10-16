@@ -8,12 +8,13 @@ use IteratorAggregate;
 use JsonSerializable;
 
 /**
- * @template T of object
+ * @template-covariant T of object
+ * @extends IteratorAggregate<int, T>
  */
 interface CollectionInterface extends IteratorAggregate, JsonSerializable
 {
     /**
-     * @param T $object
+     * @param object $object
      * @return void
      */
     public function add(object $object): void;

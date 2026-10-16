@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use JsonSerializable;
+use ReturnTypeWillChange;
 
 class User implements JsonSerializable
 {
@@ -44,7 +45,8 @@ class User implements JsonSerializable
         return $this->lastName;
     }
 
-    #[\ReturnTypeWillChange]
+    /** @return array<string, mixed> */
+    #[ReturnTypeWillChange]
     public function jsonSerialize(): array
     {
         return [

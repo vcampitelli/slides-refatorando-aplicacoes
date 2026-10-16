@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Application\Actions;
 
 use JsonSerializable;
+use ReturnTypeWillChange;
 
 class ActionError implements JsonSerializable
 {
@@ -22,6 +23,7 @@ class ActionError implements JsonSerializable
 
     private ?string $description;
 
+    /** @var list<array<string, mixed>>|null */
     private ?array $trace = null;
 
     public function __construct(string $type, ?string $description = null)
@@ -52,13 +54,15 @@ class ActionError implements JsonSerializable
         return $this;
     }
 
+    /** @param list<array<string, mixed>> $trace */
     public function setTrace(array $trace): self
     {
         $this->trace = $trace;
         return $this;
     }
 
-    #[\ReturnTypeWillChange]
+    /** @return array<string, mixed> */
+    #[ReturnTypeWillChange]
     public function jsonSerialize(): array
     {
         $return = [

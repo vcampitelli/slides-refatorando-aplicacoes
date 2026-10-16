@@ -9,6 +9,7 @@ use App\Models\Product;
 use IteratorAggregate;
 use Traversable;
 
+/** @implements IteratorAggregate<int, Product> */
 readonly class ListProductUseCaseOutput implements IteratorAggregate
 {
     public function __construct(public ProductCollection $collection)

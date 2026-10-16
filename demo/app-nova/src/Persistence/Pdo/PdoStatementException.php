@@ -9,11 +9,11 @@ class PdoStatementException extends \RuntimeException
     public readonly ?string $errorCode;
 
     /**
-     * @var string[]
+     * @var array<array-key, mixed>
      */
     public readonly array $errorInfo;
 
-    public function __construct(string $message, \PDOStatement $statement = null, \PDOException $previous = null)
+    public function __construct(string $message, ?\PDOStatement $statement = null, ?\PDOException $previous = null)
     {
         parent::__construct($message, 0, $previous);
         $this->errorCode = ($statement) ? $statement->errorCode() : null;

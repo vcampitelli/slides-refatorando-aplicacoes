@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\UseCases\Product\BulkCreate;
 
 use ArrayIterator;
-use stdClass;
+use App\UseCases\Product\CreateProductUseCaseInput;
 use Traversable;
 
+/** @implements \IteratorAggregate<int, CreateProductUseCaseInput> */
 class BulkCreateProductUseCaseInput implements \IteratorAggregate
 {
+    /** @var ArrayIterator<int, CreateProductUseCaseInput> */
     private ArrayIterator $iterator;
 
     public function __construct()
@@ -24,18 +26,12 @@ class BulkCreateProductUseCaseInput implements \IteratorAggregate
         float $price,
         bool $active
     ): self {
-        $object = new stdClass();
-        $object->idCategory = $idCategory;
-        $object->name = $name;
-        $object->sku = $sku;
-        $object->price = $price;
-        $object->active = $active;
-        $this->iterator[] = $object;
+        $this->iterator[] = new CreateProductUseCaseInput($idCategory, $name, $sku, $price, $active);
         return $this;
     }
 
     /**
-     * @return Traversable<stdClass>
+     * @return Traversable<int, CreateProductUseCaseInput>
      */
     public function getIterator(): Traversable
     {

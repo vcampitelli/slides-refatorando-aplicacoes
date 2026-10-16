@@ -26,7 +26,7 @@ readonly class Product implements ModelInterface
      * @param float $price
      * @param bool $active
      */
-    public function __construct(
+    final public function __construct(
         ?int $id,
         int $idCategory,
         string $name,
@@ -57,6 +57,7 @@ readonly class Product implements ModelInterface
         $this->active = $active;
     }
 
+    /** @return array<string, mixed> */
     public function jsonSerialize(): array
     {
         return [
@@ -74,7 +75,7 @@ readonly class Product implements ModelInterface
         return $this->id;
     }
 
-    public function withId(?int $id): ModelInterface
+    public function withId(?int $id): static
     {
         return $this->build(id: $id);
     }
@@ -110,8 +111,8 @@ readonly class Product implements ModelInterface
         ?string $sku = null,
         ?float $price = null,
         ?bool $active = null
-    ): Product {
-        return new Product(
+    ): static {
+        return new static(
             id: $id ?? $this->id,
             idCategory: $idCategory ?? $this->idCategory,
             name: $name ?? $this->name,

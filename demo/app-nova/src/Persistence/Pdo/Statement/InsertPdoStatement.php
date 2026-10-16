@@ -10,7 +10,7 @@ class InsertPdoStatement extends AbstractPdoStatement
 {
     /**
      * @param string $table
-     * @param array  $values
+     * @param array<array-key, mixed>  $values
      *
      * @return string
      */
@@ -21,7 +21,10 @@ class InsertPdoStatement extends AbstractPdoStatement
         $query = \sprintf(
             'INSERT INTO %s (%s) VALUES (%s)',
             $this->pdo->quoteIdentifier($table),
-            implode(', ', \array_map([$this->pdo, 'quoteIdentifier'], \array_keys($values))),
+            implode(', ', \array_map(
+                fn(int|string $column): string => $this->pdo->quoteIdentifier((string) $column),
+                \array_keys($values)
+            )),
             \rtrim(\str_repeat('?,', count($values)), ',')
         );
 

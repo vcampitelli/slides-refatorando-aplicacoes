@@ -14,15 +14,15 @@ readonly abstract class AbstractAction
 {
     /**
      * @param Response $response
-     * @param object|array|null $data
+     * @param object|array<array-key, mixed>|null $data
      * @param int $statusCode
      * @return Response
      */
-    protected function response(Response $response, object|array $data = null, int $statusCode = 200): Response
+    protected function response(Response $response, object|array|null $data = null, int $statusCode = 200): Response
     {
         $payload = new ActionPayload($statusCode, $data);
 
-        $json = json_encode($payload, JSON_PRETTY_PRINT);
+        $json = json_encode($payload, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
         $response->getBody()->write($json);
 
         return $response

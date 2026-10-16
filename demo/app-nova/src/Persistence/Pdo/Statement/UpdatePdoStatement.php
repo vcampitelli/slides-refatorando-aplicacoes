@@ -13,8 +13,8 @@ class UpdatePdoStatement extends AbstractPdoStatement
 
     /**
      * @param string $table
-     * @param array  $values
-     * @param array  $where
+     * @param array<array-key, mixed>  $values
+     * @param array<string, mixed>  $where
      *
      * @return int
      */
@@ -25,7 +25,7 @@ class UpdatePdoStatement extends AbstractPdoStatement
         $sql = 'UPDATE ' . $this->pdo->quoteIdentifier($table) . ' SET ';
         $columns = [];
         foreach (\array_keys($values) as $column) {
-            $columns[] = $this->pdo->quoteIdentifier($column) . ' = ?';
+            $columns[] = $this->pdo->quoteIdentifier((string) $column) . ' = ?';
         }
         $sql .= \implode(', ', $columns);
 

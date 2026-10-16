@@ -18,7 +18,7 @@ readonly class ViewProductUseCase implements UseCaseInterface
      * @param ViewProductUseCaseInput|null $input
      * @return ViewProductUseCaseOutput
      */
-    public function handle(ViewProductUseCaseInput $input = null): ViewProductUseCaseOutput
+    public function handle(?ViewProductUseCaseInput $input = null): ViewProductUseCaseOutput
     {
         if (!$input) {
             throw new InvalidArgumentException();

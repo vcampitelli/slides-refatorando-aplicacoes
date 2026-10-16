@@ -22,7 +22,7 @@ readonly class ListProductAction extends AbstractAction
      * @param Response $response
      * @return Response
      *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function __invoke(Request $request, Response $response): Response
     {

@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use Slim\ResponseEmitter as SlimResponseEmitter;
 
 /**
- * @SuppressWarnings(PHPMD.Superglobals)
+ * @SuppressWarnings("PHPMD.Superglobals")
  */
 class ResponseEmitter extends SlimResponseEmitter
 {
@@ -19,6 +19,9 @@ class ResponseEmitter extends SlimResponseEmitter
     {
         // This variable should be set to the allowed host from which your API can be accessed with
         $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+        if (!is_string($origin)) {
+            $origin = '';
+        }
 
         $response = $response
             ->withHeader('Access-Control-Allow-Credentials', 'true')

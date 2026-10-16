@@ -13,7 +13,7 @@ class DeletePdoStatement extends AbstractPdoStatement
 
     /**
      * @param string $table
-     * @param array  $criteria
+     * @param array<string, mixed>  $criteria
      *
      * @return void
      */

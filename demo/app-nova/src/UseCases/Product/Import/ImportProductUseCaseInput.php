@@ -6,13 +6,14 @@ namespace App\UseCases\Product\Import;
 
 use Closure;
 
+/** @template T */
 readonly class ImportProductUseCaseInput
 {
     /**
      * @param string $file
-     * @param Closure():mixed $before
-     * @param Closure(mixed):void $during
-     * @param Closure(mixed):mixed $after
+     * @param Closure():T $before
+     * @param Closure(T):void $during
+     * @param Closure(T):mixed $after
      * @param Closure(string):void $error
      */
     public function __construct(

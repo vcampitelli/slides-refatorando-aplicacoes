@@ -28,6 +28,7 @@ readonly class PdoDatabaseAdapter implements DatabaseAdapterInterface
         return $select($tableName);
     }
 
+    /** @param array<string, mixed> $where */
     public function findOneBy(
         string $tableName,
         array $where,
@@ -42,12 +43,13 @@ readonly class PdoDatabaseAdapter implements DatabaseAdapterInterface
     public function insert(string $tableName, stdClass $values): string
     {
         $statement = new Pdo\Statement\InsertPdoStatement($this->pdo);
-        return $statement($tableName, (array) $values);
+        return $statement($tableName, get_object_vars($values));
     }
 
+    /** @param array<string, mixed> $where */
     public function update(string $tableName, stdClass $values, array $where): int
     {
         $statement = new Pdo\Statement\UpdatePdoStatement($this->pdo);
-        return $statement($tableName, (array) $values, $where);
+        return $statement($tableName, get_object_vars($values), $where);
     }
 }

@@ -21,10 +21,10 @@ readonly class ViewProductAction extends AbstractAction
      *
      * @param Request $request
      * @param Response $response
-     * @param array $args
+     * @param array<string, string> $args
      * @return Response
      *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function __invoke(Request $request, Response $response, array $args): Response
     {

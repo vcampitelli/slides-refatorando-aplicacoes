@@ -19,7 +19,7 @@ readonly class BulkCreateProductUseCase implements UseCaseInterface
      * @param BulkCreateProductUseCaseInput|null $input
      * @return BulkCreateProductUseCaseOutput
      */
-    public function handle(BulkCreateProductUseCaseInput $input = null): BulkCreateProductUseCaseOutput
+    public function handle(?BulkCreateProductUseCaseInput $input = null): BulkCreateProductUseCaseOutput
     {
         if (!$input) {
             throw new InvalidArgumentException();
@@ -44,7 +44,7 @@ readonly class BulkCreateProductUseCase implements UseCaseInterface
         );
     }
 
-    protected function findOrCreateProductByRow(\stdClass $row): Product
+    protected function findOrCreateProductByRow(\App\UseCases\Product\CreateProductUseCaseInput $row): Product
     {
         $product = $this->productRepository->findBySku($row->sku);
         if (!$product) {

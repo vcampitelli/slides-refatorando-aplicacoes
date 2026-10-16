@@ -19,7 +19,7 @@ readonly class CreateProductUseCase implements UseCaseInterface
      * @param CreateProductUseCaseInput|null $input
      * @return CreateProductUseCaseOutput
      */
-    public function handle(CreateProductUseCaseInput $input = null): CreateProductUseCaseOutput
+    public function handle(?CreateProductUseCaseInput $input = null): CreateProductUseCaseOutput
     {
         if (!$input) {
             throw new InvalidArgumentException();
