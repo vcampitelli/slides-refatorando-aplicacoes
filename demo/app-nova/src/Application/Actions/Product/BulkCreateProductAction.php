@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Application\Controllers\Product;
+namespace App\Application\Actions\Product;
 
-use App\Application\Controllers\AbstractController;
+use App\Application\Actions\AbstractAction;
 use App\UseCases\Product\BulkCreate\BulkCreateProductUseCase;
 use App\UseCases\Product\BulkCreate\BulkCreateProductUseCaseInput;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-readonly class BulkCreateProductController extends AbstractController
+readonly class BulkCreateProductAction extends AbstractAction
 {
     public function __construct(private BulkCreateProductUseCase $useCase)
     {

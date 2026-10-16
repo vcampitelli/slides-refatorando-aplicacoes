@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Application\Controllers\Product;
+namespace App\Application\Actions\Product;
 
-use App\Application\Controllers\AbstractController;
+use App\Application\Actions\AbstractAction;
 use App\UseCases\Product\ViewProductUseCase;
 use App\UseCases\Product\ViewProductUseCaseInput;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-readonly class ViewProductController extends AbstractController
+readonly class ViewProductAction extends AbstractAction
 {
     public function __construct(private ViewProductUseCase $useCase)
     {

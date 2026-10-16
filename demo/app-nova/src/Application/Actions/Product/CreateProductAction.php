@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Application\Controllers\Product;
+namespace App\Application\Actions\Product;
 
-use App\Application\Controllers\AbstractController;
+use App\Application\Actions\AbstractAction;
 use App\UseCases\Product\CreateProductUseCase;
 use App\UseCases\Product\CreateProductUseCaseInput;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpBadRequestException;
 
-readonly class CreateProductController extends AbstractController
+readonly class CreateProductAction extends AbstractAction
 {
     public function __construct(private CreateProductUseCase $useCase)
     {

@@ -251,6 +251,9 @@ h2 > .ti {
 .opacity-50 {
   opacity: 0.5;
 }
+.font-mono {
+  font-family: var(--r-code-font);
+}
 
 /* SVG */
 .svg-wrapper > svg {

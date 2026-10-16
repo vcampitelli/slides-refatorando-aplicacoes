@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Controllers\Product;
+use App\Application\Actions\Product;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
@@ -20,9 +20,9 @@ return function (App $app) {
     });
 
     $app->group('/products', function (Group $group) {
-        $group->get('', Product\ListProductController::class);
-        $group->get('/{id}', Product\ViewProductController::class);
-        $group->post('', Product\CreateProductController::class);
-        $group->post('/bulk', Product\BulkCreateProductController::class);
+        $group->get('', Product\ListProductAction::class);
+        $group->get('/{id}', Product\ViewProductAction::class);
+        $group->post('', Product\CreateProductAction::class);
+        $group->post('/bulk', Product\BulkCreateProductAction::class);
     });
 };

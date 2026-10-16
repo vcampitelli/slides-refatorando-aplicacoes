@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Application\Controllers;
+namespace App\Application\Actions;
 
 use Psr\Http\Message\ResponseInterface as Response;
 
@@ -10,7 +10,7 @@ use function json_encode;
 
 use const JSON_PRETTY_PRINT;
 
-readonly abstract class AbstractController
+readonly abstract class AbstractAction
 {
     /**
      * @param Response $response
