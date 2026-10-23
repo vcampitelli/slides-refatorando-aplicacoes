@@ -1,6 +1,6 @@
-<svg version="1.1" baseProfile="full" width="965.0" height="497.5" viewBox="0 0 965 497.53439153439155" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events">
-	<desc >#direction: right
-	#font: Fira Sans
+<svg version="1.1" width="835" height="458" viewBox="45 32 835 458" xmlns="http://www.w3.org/2000/svg">
+<desc >#direction: down
+	#font: Chivo Mono
 	#fill: #b3ffcb
 	#stroke: #53524e
 	#.driver: fill=#b7e7ff
@@ -14,263 +14,100 @@
 	#gravity: 3
 
 	[&lt;input&gt; Linha de Comando] &lt;-- lê [Command|ConsoleOutput]
-	[Command] invoca -&gt; [&lt;usecase id=usecase1&gt; UseCase]
-	[&lt;usecase id=usecase1&gt; UseCase] retorna --&gt; [Command]
+	[Command] invoca -&gt; [&lt;usecase id=usecase&gt; UseCase]
+	[&lt;usecase id=usecase&gt; UseCase] retorna --&gt; [Command]
 	[Command] --&gt; imprime [&lt;output id=o-linha&gt; Linha de Comando]
 
 	[&lt;input&gt; HTTP] &lt;-- lê [Controller|Response]
-	[Controller] invoca -&gt; [&lt;usecase id=usecase2&gt; UseCase]
-	[&lt;usecase id=usecase2&gt; UseCase] retorna --&gt; [Controller]
+	[Controller] invoca -&gt; [&lt;usecase id=usecase&gt; UseCase]
+	[&lt;usecase id=usecase&gt; UseCase] retorna --&gt; [Controller]
 	[Controller] --&gt; renderiza [&lt;output&gt; JSON]
 
 	[&lt;input&gt; Fila] &lt;-- lê [QueueWorker|Job]
-	[QueueWorker] invoca -&gt; [&lt;usecase id=usecase3&gt; UseCase]
-	[&lt;usecase id=usecase3&gt; UseCase] retorna --&gt; [QueueWorker]
+	[QueueWorker] invoca -&gt; [&lt;usecase id=usecase&gt; UseCase]
+	[&lt;usecase id=usecase&gt; UseCase] retorna --&gt; [QueueWorker]
 	[QueueWorker]--&gt; posta [&lt;output id=o-fila&gt; Fila]
 	</desc>
-	<g stroke-width="1.0" text-align="left" font="12pt Helvetica, Arial, sans-serif" font-size="12pt" font-family="Fira Sans" font-weight="bold" font-style="normal">
-		<g font-family="Fira Sans" font-size="12pt" font-weight="bold" font-style="normal" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round" stroke="#53524e">
-			<g stroke="transparent" fill="transparent">
-				<rect x="0.0" y="0.0" height="497.5" width="781.0" stroke="none"></rect>
-			</g>
-			<g transform="translate(8, 19.534391534391535)" fill="#53524e">
-				<g transform="translate(20, 20)" fill="#53524e" font-family="Fira Sans" font-size="12pt" font-weight="normal" font-style="normal">
-					<g class="fragment" data-fragment-index="1">
-						<text x="265.2" y="32.0" stroke="none">lê</text>
-						<g stroke-dasharray="6 6">
-							<path d="M174.7 40.0 L188 40 L208 40 L208 40 L228 40 L228 40 L248 40 L248 40 L268 40 L268 40 L288 40 L288.0 40.0 " fill="none"></path>
-						</g>
-						<path d="M181.3 34.7 L174.7 40.0 L181.3 45.3 L168.0 40.0 Z"></path>
-					</g>
-					<g class="fragment" data-fragment-index="2">
-						<text x="475.0" y="-6" stroke="none">invoca</text>
-						<path d="M437.0 8.5 L457 0 L477 0 L477 0 L497 0 L497 0 L517 0 L517 0 L537 0 L537 0 L583.2032903534623 8.885248144896607 L583.2 8.9 " fill="none"></path>
-						<path d="M575.6 12.9 L583.2 8.9 L577.7 2.4 L589.8 10.1 Z"></path>
-					</g>
-					<g class="fragment" data-fragment-index="3">
-						<text x="477.8" y="55.9" stroke="none">retorna</text>
-						<g stroke-dasharray="6 6">
-							<path d="M589.8 29.9 L537 40 L517 40 L517 40 L497 40 L497 40 L477 40 L477 40 L457 40 L457 40 L443.6666666666667 40 L443.7 40.0 " fill="none"></path>
-						</g>
-						<path d="M450.3 34.7 L443.7 40.0 L450.3 45.3 L437.0 40.0 Z"></path>
-					</g>
-					<g class="fragment" data-fragment-index="4">
-						<text x="578.3" y="118.0" stroke="none">imprime</text>
-						<g stroke-dasharray="6 6">
-							<path d="M414.6 72.0 L457 98 L477 98 L477 98 L697 98 L697 98 L717 98 L717 98 L737 98 L737 98 L750.3333333333334 98 L750.3 98.0 " fill="none"></path>
-						</g>
-						<path d="M738.7 103.3 L745.3 98.0 L738.7 92.7 L752.0 98.0 Z"></path>
-					</g>
-					<g class="fragment" data-fragment-index="1">
-						<text x="275.7" y="188.0" stroke="none">lê</text>
-						<g stroke-dasharray="6 6">
-							<path d="M174.7 196.0 L188 196 L208 196 L208 196 L228 196 L228 196 L248 196 L248 196 L268 196 L268 196 L298.5 196 L298.5 196.0 " fill="none"></path>
-						</g>
-						<path d="M181.3 190.7 L174.7 196.0 L181.3 201.3 L168.0 196.0 Z"></path>
-					</g>
-					<g class="fragment" data-fragment-index="2">
-						<text x="475.0" y="150.0" stroke="none">invoca</text>
-						<path d="M426.5 168.9 L457 156 L477 156 L477 156 L497 156 L497 156 L517 156 L517 156 L537 156 L537 156 L583.2032903534623 164.88524814489662 L583.2 164.9 " fill="none"></path>
-						<path d="M575.6 168.9 L583.2 164.9 L577.7 158.4 L589.8 166.1 Z"></path>
-					</g>
-					<g class="fragment" data-fragment-index="3">
-						<text x="477.8" y="211.9" stroke="none">retorna</text>
-						<g stroke-dasharray="6 6">
-							<path d="M589.8 185.9 L537 196 L517 196 L517 196 L497 196 L497 196 L477 196 L477 196 L457 196 L457 196 L433.1666666666667 196 L433.2 196.0 " fill="none"></path>
-						</g>
-						<path d="M439.8 190.7 L433.2 196.0 L439.8 201.3 L426.5 196.0 Z"></path>
-					</g>
-					<g class="fragment" data-fragment-index="4">
-						<text x="574.8" y="274.0" stroke="none">renderiza</text>
-						<g stroke-dasharray="6 6">
-							<path d="M414.6 228.0 L457 254 L667 254 L667 254 L687 254 L687 254 L707 254 L707 254 L727 254 L727 254 L750.8333333333334 254 L750.8 254.0 " fill="none"></path>
-						</g>
-						<path d="M739.2 259.3 L745.8 254.0 L739.2 248.7 L752.5 254.0 Z"></path>
-					</g>
-					<g class="fragment" data-fragment-index="1">
-						<text x="270.2" y="344.0" stroke="none">lê</text>
-						<g stroke-dasharray="6 6">
-							<path d="M174.7 352.0 L188 352 L208 352 L208 352 L228 352 L228 352 L248 352 L248 352 L268 352 L268 352 L293 352 L293.0 352.0 " fill="none"></path>
-						</g>
-						<path d="M181.3 346.7 L174.7 352.0 L181.8 357.3 L168.0 352.0 Z"></path>
-					</g>
-					<g class="fragment" data-fragment-index="2">
-						<text x="475.0" y="306.0" stroke="none">invoca</text>
-						<path d="M432.0 322.6 L457 312 L477 312 L477 312 L497 312 L497 312 L517 312 L517 312 L537 312 L537 312 L583.2032903534623 320.8852481448966 L583.2 320.9 " fill="none"></path>
-						<path d="M575.6 324.9 L583.2 320.9 L577.7 314.4 L589.8 322.1 Z"></path>
-					</g>
-					<g class="fragment" data-fragment-index="3">
-						<text x="477.8" y="367.9" stroke="none">retorna</text>
-						<g stroke-dasharray="6 6">
-							<path d="M589.8 341.9 L537 352 L517 352 L517 352 L497 352 L497 352 L477 352 L477 352 L457 352 L457 352 L438.6666666666667 352 L438.7 352.0 " fill="none"></path>
-						</g>
-						<path d="M445.3 346.7 L438.7 352.0 L445.3 357.3 L432.0 352.0 Z"></path>
-					</g>
-					<g class="fragment" data-fragment-index="4">
-						<text x="580.5" y="430.0" stroke="none">posta</text>
-						<g stroke-dasharray="6 6">
-							<path d="M414.6 384.0 L457 410 L667 410 L667 410 L687 410 L687 410 L707 410 L707 410 L727 410 L727 410 L750.8333333333334 410 L750.8 410.0 " fill="none"></path>
-						</g>
-						<path d="M739.2 415.3 L745.8 410.0 L739.2 404.7 L752.5 410.0 Z"></path>
-					</g>
-					<g data-name="Linha de Comando" class="fragment" data-fragment-index="1">
-						<g fill="#b7e7ff" stroke="#53524e" data-name="Linha de Comando">
-							<path d="M0.0 24.0 L158.0 24.0 L166.0 40.0 L158.0 56.0 L0.0 56.0 Z" data-name="Linha de Comando"></path>
-						</g>
-						<g transform="translate(0, 24)" font-family="Fira Sans" font-size="12pt" font-weight="normal" font-style="normal" data-name="Linha de Comando">
-							<g transform="translate(8, 8)" fill="#53524e" text-align="center" data-name="Linha de Comando">
-								<text x="76.0" y="14.1" stroke="none" text-anchor="middle" data-name="Linha de Comando">Linha de Comando</text>
-
-							</g>
-						</g>
-					</g>
-					<g data-name="Command">
-						<g fill="#b3ffcb" stroke="#53524e" data-name="Command">
-							<rect x="288.0" y="8.0" height="32.0" width="149.0" data-name="Command"></rect>
-							<rect x="288.0" y="8.0" height="64.0" width="149.0" data-name="Command" class="fragment" data-fragment-index="4"></rect>
-							<path d="M288.0 40.0 L437.0 40.0" fill="none" data-name="Command"></path>
-						</g>
-						<g transform="translate(288, 8)" font-family="Fira Sans" font-size="12pt" font-weight="bold" font-style="normal" data-name="Command">
-							<g transform="translate(8, 8)" fill="#53524e" text-align="center" data-name="Command">
-								<text x="66.5" y="14.1" stroke="none" text-anchor="middle" data-name="Command">Command</text>
-
-							</g>
-						</g>
-						<g transform="translate(304, 40)" font-family="Fira Sans" font-size="12pt" font-weight="normal" font-style="normal" data-name="Command" class="fragment" data-fragment-index="4">
-							<g transform="translate(8, 8)" fill="#53524e" text-align="left" data-name="Command">
-								<text x="0.0" y="14.1" stroke="none" data-name="Command">ConsoleOutput</text>
-
-							</g>
-						</g>
-					</g>
-					<g data-name="usecase1" class="fragment" data-fragment-index="2">
-						<g fill="#ffb0ac" stroke="#53524e" data-name="usecase1">
-							<ellipse cx="641.0" cy="20.0" rx="51.3" ry="20.0" data-name="usecase1"></ellipse>
-						</g>
-						<g transform="translate(600, 4)" font-family="Fira Sans" font-size="12pt" font-weight="normal" font-style="normal" data-name="usecase1">
-							<g transform="translate(8, 8)" fill="#53524e" text-align="center" data-name="usecase1">
-								<text x="33.0" y="14.1" stroke="none" text-anchor="middle" data-name="usecase1">UseCase</text>
-
-							</g>
-						</g>
-					</g>
-					<g data-name="o-linha" class="fragment" data-fragment-index="4">
-						<g fill="#b7e7ff" stroke="#53524e" data-name="o-linha">
-							<path d="M749.0 82.0 L925.0 82.0 L925.0 114.0 L749.0 114.0 L757.0 98.0 Z" data-name="o-linha"></path>
-						</g>
-						<g transform="translate(757, 82)" font-family="Fira Sans" font-size="12pt" font-weight="normal" font-style="normal" data-name="o-linha">
-							<g transform="translate(8, 8)" fill="#53524e" text-align="center" data-name="o-linha">
-								<text x="76.0" y="14.1" stroke="none" text-anchor="middle" data-name="o-linha">Linha de Comando</text>
-
-							</g>
-						</g>
-					</g>
-					<g data-name="HTTP" class="fragment" data-fragment-index="1">
-						<g fill="#b7e7ff" stroke="#53524e" data-name="HTTP">
-							<path d="M106.0 180.0 L158.0 180.0 L166.0 196.0 L158.0 212.0 L106.0 212.0 Z" data-name="HTTP"></path>
-						</g>
-						<g transform="translate(104, 180)" font-family="Fira Sans" font-size="12pt" font-weight="normal" font-style="normal" data-name="HTTP">
-							<g transform="translate(8, 8)" fill="#53524e" text-align="center" data-name="HTTP">
-								<text x="22.0" y="14.1" stroke="none" text-anchor="middle" data-name="HTTP">HTTP</text>
-
-							</g>
-						</g>
-					</g>
-					<g data-name="Controller">
-						<g fill="#b3ffcb" stroke="#53524e" data-name="Controller">
-							<rect x="298.5" y="164.0" height="32.0" width="128.0" data-name="Controller"></rect>
-							<rect x="298.5" y="164.0" height="64.0" width="128.0" data-name="Controller" class="fragment" data-fragment-index="4"></rect>
-							<path d="M298.5 196.0 L426.5 196.0" fill="none" data-name="Controller"></path>
-						</g>
-						<g transform="translate(298.5, 164)" font-family="Fira Sans" font-size="12pt" font-weight="bold" font-style="normal" data-name="Controller">
-							<g transform="translate(8, 8)" fill="#53524e" text-align="center" data-name="Controller">
-								<text x="56.0" y="14.1" stroke="none" text-anchor="middle" data-name="Controller">Controller</text>
-
-							</g>
-						</g>
-						<g transform="translate(321.5, 196)" font-family="Fira Sans" font-size="12pt" font-weight="normal" font-style="normal" data-name="Controller" class="fragment" data-fragment-index="4">
-							<g transform="translate(8, 8)" fill="#53524e" text-align="left" data-name="Controller">
-								<text x="0.0" y="14.1" stroke="none" data-name="Controller">Response</text>
-
-							</g>
-						</g>
-					</g>
-					<g data-name="usecase2" class="fragment" data-fragment-index="2">
-						<g fill="#ffb0ac" stroke="#53524e" data-name="usecase2">
-							<ellipse cx="641.0" cy="176.0" rx="51.3" ry="20.0" data-name="usecase2"></ellipse>
-						</g>
-						<g transform="translate(600, 160)" font-family="Fira Sans" font-size="12pt" font-weight="normal" font-style="normal" data-name="usecase2">
-							<g transform="translate(8, 8)" fill="#53524e" text-align="center" data-name="usecase2">
-								<text x="33.0" y="14.1" stroke="none" text-anchor="middle" data-name="usecase2">UseCase</text>
-
-							</g>
-						</g>
-					</g>
-					<g data-name="JSON" class="fragment" data-fragment-index="4">
-						<g fill="#b7e7ff" stroke="#53524e" data-name="JSON">
-							<path d="M749.0 238.0 L825.0 238.0 L825.0 270.0 L749.0 270.0 L757.0 254.0 Z" data-name="JSON"></path>
-						</g>
-						<g transform="translate(762.5, 238)" font-family="Fira Sans" font-size="12pt" font-weight="normal" font-style="normal" data-name="JSON">
-							<g transform="translate(8, 8)" fill="#53524e" text-align="center" data-name="JSON">
-								<text x="20.5" y="14.1" stroke="none" text-anchor="middle" data-name="JSON">JSON</text>
-
-							</g>
-						</g>
-					</g>
-					<g data-name="Fila" class="fragment" data-fragment-index="1">
-						<g fill="#b7e7ff" stroke="#53524e" data-name="Fila">
-							<path d="M118.5 336.0 L157.5 336.0 L165.5 352.0 L157.5 368.0 L118.5 368.0 Z" data-name="Fila"></path>
-						</g>
-						<g transform="translate(116.5, 336)" font-family="Fira Sans" font-size="12pt" font-weight="normal" font-style="normal" data-name="Fila">
-							<g transform="translate(8, 8)" fill="#53524e" text-align="center" data-name="Fila">
-								<text x="15.5" y="14.1" stroke="none" text-anchor="middle" data-name="Fila">Fila</text>
-
-							</g>
-						</g>
-					</g>
-					<g data-name="QueueWorker">
-						<g fill="#b3ffcb" stroke="#53524e" data-name="QueueWorker">
-							<rect x="293.0" y="320.0" height="32.0" width="139.0" data-name="QueueWorker"></rect>
-							<rect x="293.0" y="320.0" height="64.0" width="139.0" data-name="QueueWorker" class="fragment" data-fragment-index="4"></rect>
-							<path d="M293.0 352.0 L432.0 352.0" fill="none" data-name="QueueWorker"></path>
-						</g>
-						<g transform="translate(293, 320)" font-family="Fira Sans" font-size="12pt" font-weight="bold" font-style="normal" data-name="QueueWorker">
-							<g transform="translate(8, 8)" fill="#53524e" text-align="center" data-name="QueueWorker">
-								<text x="61.5" y="14.1" stroke="none" text-anchor="middle" data-name="QueueWorker">QueueWorker</text>
-
-							</g>
-						</g>
-						<g transform="translate(343, 352)" font-family="Fira Sans" font-size="12pt" font-weight="normal" font-style="normal" data-name="QueueWorker" class="fragment" data-fragment-index="4">
-							<g transform="translate(8, 8)" fill="#53524e" text-align="left" data-name="QueueWorker">
-								<text x="0.0" y="14.1" stroke="none" data-name="QueueWorker">Job</text>
-
-							</g>
-						</g>
-					</g>
-					<g data-name="usecase3" class="fragment" data-fragment-index="2">
-						<g fill="#ffb0ac" stroke="#53524e" data-name="usecase3">
-							<ellipse cx="641.0" cy="332.0" rx="51.3" ry="20.0" data-name="usecase3"></ellipse>
-						</g>
-						<g transform="translate(600, 316)" font-family="Fira Sans" font-size="12pt" font-weight="normal" font-style="normal" data-name="usecase3">
-							<g transform="translate(8, 8)" fill="#53524e" text-align="center" data-name="usecase3">
-								<text x="33.0" y="14.1" stroke="none" text-anchor="middle" data-name="usecase3">UseCase</text>
-
-							</g>
-						</g>
-					</g>
-					<g data-name="o-fila" class="fragment" data-fragment-index="4">
-						<g fill="#b7e7ff" stroke="#53524e" data-name="o-fila">
-							<path d="M749.5 394.0 L804.5 394.0 L804.5 426.0 L749.5 426.0 L757.5 410.0 Z" data-name="o-fila"></path>
-						</g>
-						<g transform="translate(757.5, 394)" font-family="Fira Sans" font-size="12pt" font-weight="normal" font-style="normal" data-name="o-fila">
-							<g transform="translate(8, 8)" fill="#53524e" text-align="center" data-name="o-fila">
-								<text x="15.5" y="14.1" stroke="none" text-anchor="middle" data-name="o-fila">Fila</text>
-
-							</g>
-						</g>
-					</g>
-				</g>
-			</g>
-		</g>
-	</g>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse" markerUnits="userSpaceOnUse">
+      <path d="M1 1 L9 5 L1 9" fill="none" stroke="#53524e" stroke-width="2" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <g font-family="Chivo Mono, Helvetica, Arial, sans-serif" font-size="16" fill="#53524e" stroke="#53524e" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <g class="fragment" data-fragment-index="1">
+      <path d="M180 158 L180 84" fill="none" marker-end="url(#arrow)" stroke-dasharray="6 6"/><text x="199" y="124" text-anchor="middle" stroke="none">lê</text>
+    </g>
+    <g class="fragment" data-fragment-index="1">
+      <path d="M480 158 L480 84" fill="none" marker-end="url(#arrow)" stroke-dasharray="6 6"/><text x="499" y="124" text-anchor="middle" stroke="none">lê</text>
+    </g>
+    <g class="fragment" data-fragment-index="1">
+      <path d="M780 158 L780 84" fill="none" marker-end="url(#arrow)" stroke-dasharray="6 6"/><text x="799" y="124" text-anchor="middle" stroke="none">lê</text>
+    </g>
+    <g class="fragment" data-fragment-index="2">
+      <path d="M200 222 C200 290 355 280 414 346" fill="none" marker-end="url(#arrow)"/><text x="280" y="270" text-anchor="middle" stroke="none">invoca</text>
+    </g>
+    <g class="fragment" data-fragment-index="3">
+      <path d="M405 366 C335 318 160 322 160 222" fill="none" marker-end="url(#arrow)" stroke-dasharray="6 6"/><text x="260" y="340" text-anchor="middle" stroke="none">retorna</text>
+    </g>
+    <g class="fragment" data-fragment-index="2">
+      <path d="M461 222 L461 339" fill="none" marker-end="url(#arrow)"/><text x="433" y="280" text-anchor="middle" stroke="none">invoca</text>
+    </g>
+    <g class="fragment" data-fragment-index="3">
+      <path d="M499 339 L499 222" fill="none" marker-end="url(#arrow)" stroke-dasharray="6 6"/><text x="532" y="310" text-anchor="middle" stroke="none">retorna</text>
+    </g>
+    <g class="fragment" data-fragment-index="2">
+      <path d="M760 222 C760 290 605 280 546 346" fill="none" marker-end="url(#arrow)"/><text x="625" y="280" text-anchor="middle" stroke="none">invoca</text>
+    </g>
+    <g class="fragment" data-fragment-index="3">
+      <path d="M555 366 C625 318 800 322 800 222" fill="none" marker-end="url(#arrow)" stroke-dasharray="6 6"/><text x="720" y="333" text-anchor="middle" stroke="none">retorna</text>
+    </g>
+    <g class="fragment" data-fragment-index="4">
+      <path d="M90 190 L55 190 L55 460 L100 460" fill="none" marker-end="url(#arrow)" stroke-dasharray="6 6"/><text x="100" y="425" text-anchor="middle" stroke="none">imprime</text>
+    </g>
+    <g class="fragment" data-fragment-index="4">
+      <path d="M390 190 L355 190 L355 460 L400 460" fill="none" marker-end="url(#arrow)" stroke-dasharray="6 6"/><text x="408" y="425" text-anchor="middle" stroke="none">renderiza</text>
+    </g>
+    <g class="fragment" data-fragment-index="4">
+      <path d="M690 190 L655 190 L655 460 L700 460" fill="none" marker-end="url(#arrow)" stroke-dasharray="6 6"/><text x="690" y="425" text-anchor="middle" stroke="none">posta</text>
+    </g>
+    <g class="fragment" data-fragment-index="1" data-name="Linha de Comando">
+      <path d="M90 42 H260 L270 62 L260 82 H90 Z" fill="#b7e7ff"/><text x="180" y="68" text-anchor="middle" stroke="none">Linha de Comando</text>
+    </g>
+    <g class="fragment" data-fragment-index="1" data-name="HTTP">
+      <path d="M390 42 H560 L570 62 L560 82 H390 Z" fill="#b7e7ff"/><text x="480" y="68" text-anchor="middle" stroke="none">HTTP</text>
+    </g>
+    <g class="fragment" data-fragment-index="1" data-name="Fila">
+      <path d="M690 42 H860 L870 62 L860 82 H690 Z" fill="#b7e7ff"/><text x="780" y="68" text-anchor="middle" stroke="none">Fila</text>
+    </g>
+    <g data-name="Command">
+      <rect x="90" y="158" width="180" height="64" fill="#b3ffcb"/><text x="180" y="180" text-anchor="middle" stroke="none" font-weight="bold">Command</text>
+    </g>
+    <g class="fragment" data-fragment-index="4" data-name="Command">
+      <rect x="90" y="190" width="180" height="32" fill="#b3ffcb"/><text x="180" y="212" text-anchor="middle" stroke="none">ConsoleOutput</text>
+    </g>
+    <g data-name="Controller">
+      <rect x="390" y="158" width="180" height="64" fill="#b3ffcb"/><text x="480" y="180" text-anchor="middle" stroke="none" font-weight="bold">Controller</text>
+    </g>
+    <g class="fragment" data-fragment-index="4" data-name="Controller">
+      <rect x="390" y="190" width="180" height="32" fill="#b3ffcb"/><text x="480" y="212" text-anchor="middle" stroke="none">Response</text>
+    </g>
+    <g data-name="QueueWorker">
+      <rect x="690" y="158" width="180" height="64" fill="#b3ffcb"/><text x="780" y="180" text-anchor="middle" stroke="none" font-weight="bold">QueueWorker</text>
+    </g>
+    <g class="fragment" data-fragment-index="4" data-name="QueueWorker">
+      <rect x="690" y="190" width="180" height="32" fill="#b3ffcb"/><text x="780" y="212" text-anchor="middle" stroke="none">Job</text>
+    </g>
+    <g class="fragment" data-fragment-index="2" data-name="usecase">
+      <ellipse cx="480" cy="370" rx="82" ry="32" fill="#ffb0ac"/><text x="480" y="376" text-anchor="middle" stroke="none">UseCase</text>
+    </g>
+    <g class="fragment" data-fragment-index="4" data-name="o-linha">
+      <path d="M90 440 H270 V480 H90 L100 460 Z" fill="#b7e7ff"/><text x="180" y="467" text-anchor="middle" stroke="none">Linha de Comando</text>
+    </g>
+    <g class="fragment" data-fragment-index="4" data-name="JSON">
+      <path d="M390 440 H570 V480 H390 L400 460 Z" fill="#b7e7ff"/><text x="480" y="467" text-anchor="middle" stroke="none">JSON</text>
+    </g>
+    <g class="fragment" data-fragment-index="4" data-name="o-fila">
+      <path d="M690 440 H870 V480 H690 L700 460 Z" fill="#b7e7ff"/><text x="780" y="467" text-anchor="middle" stroke="none">Fila</text>
+    </g>
+  </g>
 </svg>

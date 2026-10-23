@@ -183,7 +183,7 @@
                                               class="fill"></path>
                                     </svg>
                                     <div>
-                                        <p><span class="text-muted">X</span> Twitter</p>
+                                        <p>X</p>
                                         <a href="https://twitter.com/vcampitelli" target="_blank" rel="noopener">
                                             vcampitelli
                                         </a>
@@ -193,22 +193,19 @@
                         </div>
                     </section>
                 </section> <!-- Sobre -->
+
                 <section> <!-- Preparação -->
-                    <section>
-                        <h1>
-                            <i class="ti ti-map"></i><span>Preparação</span>
-                        </h1>
+                    <section data-auto-animate data-auto-animate-restart>
+                        <h1 class="title"><i class="ti ti-presentation"></i><span>Slides</span></h1>
                     </section>
-                    <section>
-                        <h1>Preparação</h1>
-                        <h2>
-                            <i class="ti ti-presentation"></i><span>Slides</span>
-                        </h2>
+                    <section data-auto-animate>
+                        <h1 class="title"><i class="ti ti-presentation"></i><span>Slides</span></h1>
                         <div class="d-flex justify-start items-center">
                             <div style="flex-shrink: 0">
                                 <a href="https://github.com/vcampitelli/slides-refatorando-aplicacoes" target="_blank"
                                    rel="noopener" class="d-block">
-                                    <img src="img/qrcode-slides.png" alt="Workshops" class="my-0">
+                                    <img src="img/qrcode-slides.png" alt="Workshops" class="my-0"
+                                        style="max-width: 400px">
                                 </a>
                             </div>
                             <div class="qrcode-featured-text">
@@ -218,47 +215,6 @@
                                     github.com/vcampitelli/slides-refatorando-aplicacoes
                                 </a>
                             </div>
-                        </div>
-                    </section>
-                    <section id="preparacao-maos-na-massa">
-                        <h1>Preparação</h1>
-                        <h2>
-                            <i class="ti ti-tool"></i><span>Mãos na massa</span>
-                        </h2>
-                        <ol>
-                            <li>
-                                Certifique-se que você tenha
-                                <a href="https://docs.docker.com/get-docker" target="_blank" rel="noopener">
-                                    Docker
-                                </a>
-                                e
-                                <a href="https://docs.docker.com/compose" target="_blank" rel="noopener">
-                                    Docker Compose
-                                </a>
-                                instalados
-                            </li>
-                            <li>
-                                Clone o repositório
-                                <a href="https://github.com/vcampitelli/slides-refatorando-aplicacoes" target="_blank"
-                                   rel="noopener">vcampitelli/slides-refatorando-aplicacoes</a>:
-                                <pre><code class="shell" data-trim>
-                                    $ git clone git@github.com/vcampitelli/slides-refatorando-aplicacoes.git
-                                </code></pre>
-                            </li>
-                            <li>
-                                Inicialize os <i>containers</i> da aplicação:
-                                <pre><code class="shell" data-trim>
-                                    $ cd demo/app-antiga
-                                    $ docker compose up -d
-                                </code></pre>
-                            </li>
-                            <li>
-                                Acesse <a href="http://localhost:8080" target="_blank" rel="noopener">localhost:8080</a>
-                                em seu navegador
-                            </li>
-                        </ol>
-                        <div class="mt-1 text-right fs-small opacity-50">
-                            <a href="#/maos-na-massa">Ir para o slide <i>"Mãos na massa"</i> &#8594;</a>
                         </div>
                     </section>
                 </section> <!-- Preparação -->
@@ -1370,70 +1326,6 @@
                     </section>
                 </section> <!-- Refatoração -->
 
-                <section> <!-- Mãos na massa -->
-                    <section data-auto-animate data-auto-animate-restart>
-                        <h1>
-                            <i class="ti ti-tool"></i><span>Mãos na massa</span>
-                        </h1>
-                    </section>
-                    <section data-auto-animate>
-                        <h1 class="title">
-                            <i class="ti ti-tool"></i><span>Mãos na massa</span>
-                        </h1>
-                        <p>
-                            Essas são as requisições que usaremos para validar as principais regras de negócio do
-                            sistema:
-                        </p>
-                        <pre><code class="shell" data-trim data-line-numbers>
-                            $ curl localhost:8080/products
-                            $ curl localhost:8080/products/1
-                            $ curl localhost:8080/products/10
-                            $ curl -X POST localhost:8080/products
-                            $ curl -X POST -d 'id_category=erro' localhost:8080/products
-                            $ curl -X POST -d 'id_category=1' localhost:8080/products
-                            $ curl -X POST -d 'id_category=1&name=A' localhost:8080/products
-                            $ curl -X POST -d 'id_category=1&name=Meu+nome+de+produto+muito+grande' localhost:8080/products
-                            $ curl -X POST -d 'id_category=1&name=Produto' localhost:8080/products
-                            $ curl -X POST -d 'id_category=1&name=Produto&sku=TESTE' localhost:8080/products
-                            $ curl -X POST -d 'id_category=1&name=Produto&sku=TESTE00000' localhost:8080/products
-                            $ curl -X POST -d 'id_category=1&name=Produto&sku=TESTE00000&price=0' localhost:8080/products
-                            $ curl -X POST -d 'id_category=1&name=Produto&sku=TESTE00000&price=10' localhost:8080/products
-                            $ curl -X POST \
-                                -d 'products[0][id_category]=1&products[0][name]=Produto+1&products[0][sku]=BULK000001&products[0][price]=10' \
-                                -d 'products[1][id_category]=2&products[1][name]=Produto+2&products[1][sku]=BULK000002&products[1][price]=20' \
-                                localhost:8080/products/bulk
-                        </code></pre>
-                        <div class="alert">
-                            Dica: você também pode executar o <i>script</i> <code>demo/requests</code> via terminal ou
-                            importar a <i>collection</i> do Postman em <code>demo/postman_collection.json</code>
-                        </div>
-                    </section>
-                    <section id="maos-na-massa" data-auto-animate>
-                        <h1 class="title">
-                            <i class="ti ti-tool"></i><span>Mãos na massa</span>
-                        </h1>
-                        <ul>
-                            <li>
-                                Certifique-se que você clonou o repositório e inicializou os <i>containers</i>, como
-                                descrito <a href="#/preparacao-maos-na-massa">no slide de preparação</a>
-                            </li>
-                            <li>
-                                Abra a pasta <code>demo/app-antiga</code> em sua IDE e comece a refatorar juntos
-                            </li>
-                            <li>
-                                Dica: copie arquivos e pastas de <code>demo/app-nova</code> para ganhar tempo:
-                                <ul>
-                                    <li><code>app/</code></li>
-                                    <li><code>src/Collection/</code></li>
-                                    <li><code>src/Persistence/</code></li>
-                                    <li><code>src/Repository/</code></li>
-                                    <li><code>public/index.php</code></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </section>
-                </section> <!-- Mãos na massa -->
-
                 <section> <!-- Referências -->
                     <section data-auto-animate data-auto-animate-restart>
                         <h1 class="title">
@@ -1543,7 +1435,7 @@
                                       class="fill"></path>
                             </svg>
                             <div>
-                                <p><span class="text-muted">X</span> Twitter</p>
+                                <p>X</p>
                                 <a href="https://twitter.com/vcampitelli" target="_blank" rel="noopener">
                                     vcampitelli
                                 </a>
@@ -1582,6 +1474,12 @@
                 history: true,
                 plugins: [RevealHighlight, RevealNotes],
                 slideNumber: 'c/t',
+            });
+            Reveal.configure({
+                keyboard: {
+                    38: 'prev',
+                    40: 'next'
+                }
             });
         </script>
     </body>

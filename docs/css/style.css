@@ -1,13 +1,13 @@
 :root {
   --r-background-color: #fdfbfb;
   --background-color-variant-1: #292d3e;
-  --background-color-variant-2: #ebedee;
+  --background-color-variant-2: #dbddde;
   --background-color-variant-3: #696d7e;
 
   --r-block-margin: 10px;
 
   --r-heading-color: var(--background-color-variant-1);
-  --heading-color-variant: #4a4c59;
+  --heading-color-variant: #90919a;
   --r-heading-font-weight: 700;
   --r-heading-font: var(--r-main-font);
   --r-heading1-size: 2em;
@@ -31,6 +31,7 @@
   --color-muted: var(--color-subheading);
   --color-pink: #E71D36;
   --color-subheading: #56545e;
+  --opacity-pink-modifier: 0.8;
 }
 
 /* Primeiro slide */
@@ -132,13 +133,7 @@ h1:not(:last-child):not(.title) {
   --r-heading-margin: 0;
   --r-heading-font-weight: 500;
   --r-heading-letter-spacing: -1.4px;
-  opacity: 0.6;
-}
-h1.title > span,
-h1:last-child > span,
-h2 > span {
-  text-decoration: underline;
-  text-decoration-color: var(--heading-color-variant);
+  opacity: var(--opacity-pink-modifier);
 }
 .reveal .fragment.semi-fade-out.visible {
   opacity: 0.4;
@@ -206,7 +201,10 @@ h1 > .ti,
 h2 > .ti {
   margin-left: -1.5em;
   margin-right: 0.25em;
-  color: var(--heading-color-variant);
+  color: var(--color-pink);
+  opacity: var(--opacity-pink-modifier);
+  line-height: 1.2;
+  vertical-align: text-top;
 }
 .reveal h1 > span > b {
   font-weight: 900;
@@ -227,10 +225,6 @@ h2 > .ti {
 }
 .fw-bold {
   font-weight: bold;
-}
-.text-muted {
-  color: var(--color-muted);
-  opacity: 0.4;
 }
 .caption {
   font-size: 0.6em;
@@ -304,7 +298,7 @@ img {
   border-radius: var(--border-radius);
   box-sizing: border-box;
   box-shadow: none;
-  border: 1px rgba(0, 0, 0, 0.1) solid;
+  border-bottom: 5px rgba(0, 0, 0, 0.1) solid;
   background-color: rgba(0, 0, 0, 0.03);
 }
 blockquote > cite {
@@ -369,6 +363,6 @@ a.reference:after {
     font-variation-settings: 'wght' 900;
   }
   100% {
-    font-variation-settings: 'wght' 600;
+    font-variation-settings: 'wght' 700;
   }
 }
